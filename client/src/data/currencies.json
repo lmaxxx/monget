@@ -1,0 +1,752 @@
+[
+  {
+    "label": "United Arab Emirates dirham",
+    "value": "AED",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/aed.png"
+  },
+  {
+    "label": "Afghan afghani",
+    "value": "AFN",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/afn.png"
+  },
+  {
+    "label": "Albanian lek",
+    "value": "ALL",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/all.png"
+  },
+  {
+    "label": "Armenian dram",
+    "value": "AMD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/amd.png"
+  },
+  {
+    "label": "Netherlands Antillean guilder",
+    "value": "ANG",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/ang.png"
+  },
+  {
+    "label": "Angolan kwanza",
+    "value": "AOA",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/aoa.png"
+  },
+  {
+    "label": "Argentine peso",
+    "value": "ARS",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/ars.png"
+  },
+  {
+    "label": "Australian dollar",
+    "value": "AUD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/aud.png"
+  },
+  {
+    "label": "Aruban florin",
+    "value": "AWG",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/awg.png"
+  },
+  {
+    "label": "Azerbaijani manat",
+    "value": "AZN",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/azn.png"
+  },
+  {
+    "label": "Bosnia and Herzegovina convertible mark",
+    "value": "BAM",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/bam.png"
+  },
+  {
+    "label": "Barbadian dollar",
+    "value": "BBD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/bbd.png"
+  },
+  {
+    "label": "Bangladeshi taka",
+    "value": "BDT",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/bdt.png"
+  },
+  {
+    "label": "Bulgarian lev",
+    "value": "BGN",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/bgn.png"
+  },
+  {
+    "label": "Bahraini dinar",
+    "value": "BHD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/bhd.png"
+  },
+  {
+    "label": "Burundian franc",
+    "value": "BIF",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/bif.png"
+  },
+  {
+    "label": "Brunei dollar",
+    "value": "BND",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/bnd.png"
+  },
+  {
+    "label": "Bolivian boliviano",
+    "value": "BOB",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/bob.png"
+  },
+  {
+    "label": "Brazilian real",
+    "value": "BRL",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/brl.png"
+  },
+  {
+    "label": "Bahamian dollar",
+    "value": "BSD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/bsd.png"
+  },
+  {
+    "label": "Botswana pula",
+    "value": "BWP",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/bwp.png"
+  },
+  {
+    "label": "Belarusian ruble",
+    "value": "BYN",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/byn.png"
+  },
+  {
+    "label": "Belize dollar",
+    "value": "BZD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/bzd.png"
+  },
+  {
+    "label": "Canadian dollar",
+    "value": "CAD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/cad.png"
+  },
+  {
+    "label": "Congolese franc",
+    "value": "CDF",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/cdf.png"
+  },
+  {
+    "label": "Swiss franc",
+    "value": "CHF",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/chf.png"
+  },
+  {
+    "label": "Chilean peso",
+    "value": "CLP",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/clp.png"
+  },
+  {
+    "label": "Renminbi",
+    "value": "CNY",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/cny.png"
+  },
+  {
+    "label": "Colombian peso",
+    "value": "COP",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/cop.png"
+  },
+  {
+    "label": "Costa Rican colón",
+    "value": "CRC",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/crc.png"
+  },
+  {
+    "label": "Cuban peso",
+    "value": "CUP",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/cup.png"
+  },
+  {
+    "label": "Cape Verdean escudo",
+    "value": "CVE",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/cve.png"
+  },
+  {
+    "label": "Czech koruna",
+    "value": "CZK",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/czk.png"
+  },
+  {
+    "label": "Djiboutian franc",
+    "value": "DJF",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/djf.png"
+  },
+  {
+    "label": "Danish krone",
+    "value": "DKK",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/dkk.png"
+  },
+  {
+    "label": "Dominican peso",
+    "value": "DOP",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/dop.png"
+  },
+  {
+    "label": "Algerian dinar",
+    "value": "DZD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/dzd.png"
+  },
+  {
+    "label": "Egyptian pound",
+    "value": "EGP",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/egp.png"
+  },
+  {
+    "label": "Eritrean nakfa",
+    "value": "ERN",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/ern.png"
+  },
+  {
+    "label": "Ethiopian birr",
+    "value": "ETB",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/etb.png"
+  },
+  {
+    "label": "Euro",
+    "value": "EUR",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/eur.png"
+  },
+  {
+    "label": "Fijian dollar",
+    "value": "FJD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/fjd.png"
+  },
+  {
+    "label": "Pound sterling",
+    "value": "GBP",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/gbp.png"
+  },
+  {
+    "label": "Georgian lari",
+    "value": "GEL",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/gel.png"
+  },
+  {
+    "label": "Ghanaian cedi",
+    "value": "GHS",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/ghs.png"
+  },
+  {
+    "label": "Gibraltar pound",
+    "value": "GIP",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/gip.png"
+  },
+  {
+    "label": "Gambian dalasi",
+    "value": "GMD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/gmd.png"
+  },
+  {
+    "label": "Guinean franc",
+    "value": "GNF",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/gnf.png"
+  },
+  {
+    "label": "Guatemalan quetzal",
+    "value": "GTQ",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/gtq.png"
+  },
+  {
+    "label": "Guyanese dollar",
+    "value": "GYD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/gyd.png"
+  },
+  {
+    "label": "Hong Kong dollar",
+    "value": "HKD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/hkd.png"
+  },
+  {
+    "label": "Honduran lempira",
+    "value": "HNL",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/hnl.png"
+  },
+  {
+    "label": "Croatian kuna",
+    "value": "HRK",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/hrk.png"
+  },
+  {
+    "label": "Haitian gourde",
+    "value": "HTG",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/htg.png"
+  },
+  {
+    "label": "Hungarian forint",
+    "value": "HUF",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/huf.png"
+  },
+  {
+    "label": "Indonesian rupiah",
+    "value": "IDR",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/idr.png"
+  },
+  {
+    "label": "Israeli new shekel",
+    "value": "ILS",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/ils.png"
+  },
+  {
+    "label": "Indian rupee",
+    "value": "INR",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/inr.png"
+  },
+  {
+    "label": "Iraqi dinar",
+    "value": "IQD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/iqd.png"
+  },
+  {
+    "label": "Iranian rial",
+    "value": "IRR",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/irr.png"
+  },
+  {
+    "label": "Icelandic króna",
+    "value": "ISK",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/isk.png"
+  },
+  {
+    "label": "Jamaican dollar",
+    "value": "JMD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/jmd.png"
+  },
+  {
+    "label": "Jordanian dinar",
+    "value": "JOD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/jod.png"
+  },
+  {
+    "label": "Japanese yen",
+    "value": "JPY",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/jpy.png"
+  },
+  {
+    "label": "Kenyan shilling",
+    "value": "KES",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/kes.png"
+  },
+  {
+    "label": "Kyrgyzstani som",
+    "value": "KGS",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/kgs.png"
+  },
+  {
+    "label": "Cambodian riel",
+    "value": "KHR",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/khr.png"
+  },
+  {
+    "label": "Comorian franc",
+    "value": "KMF",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/kmf.png"
+  },
+  {
+    "label": "South Korean won",
+    "value": "KRW",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/krw.png"
+  },
+  {
+    "label": "Kuwaiti dinar",
+    "value": "KWD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/kwd.png"
+  },
+  {
+    "label": "Kazakhstani tenge",
+    "value": "KZT",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/kzt.png"
+  },
+  {
+    "label": "Lao kip",
+    "value": "LAK",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/lak.png"
+  },
+  {
+    "label": "Lebanese pound",
+    "value": "LBP",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/lbp.png"
+  },
+  {
+    "label": "Sri Lankan rupee",
+    "value": "LKR",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/lkr.png"
+  },
+  {
+    "label": "Liberian dollar",
+    "value": "LRD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/lrd.png"
+  },
+  {
+    "label": "Lesotho loti",
+    "value": "LSL",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/lsl.png"
+  },
+  {
+    "label": "Libyan dinar",
+    "value": "LYD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/lyd.png"
+  },
+  {
+    "label": "Moroccan dirham",
+    "value": "MAD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/mad.png"
+  },
+  {
+    "label": "Moldovan leu",
+    "value": "MDL",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/mdl.png"
+  },
+  {
+    "label": "Malagasy ariary",
+    "value": "MGA",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/mga.png"
+  },
+  {
+    "label": "Macedonian denar",
+    "value": "MKD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/mkd.png"
+  },
+  {
+    "label": "Burmese kyat",
+    "value": "MMK",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/mmk.png"
+  },
+  {
+    "label": "Mongolian tögrög",
+    "value": "MNT",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/mnt.png"
+  },
+  {
+    "label": "Macanese pataca",
+    "value": "MOP",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/mop.png"
+  },
+  {
+    "label": "Mauritanian ouguiya",
+    "value": "MRU",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/International_Flag_of_Planet_Earth.svg/1280px-International_Flag_of_Planet_Earth.svg.png"
+  },
+  {
+    "label": "Mauritian rupee",
+    "value": "MUR",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/mur.png"
+  },
+  {
+    "label": "Maldivian rufiyaa",
+    "value": "MVR",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/mvr.png"
+  },
+  {
+    "label": "Malawian kwacha",
+    "value": "MWK",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/mwk.png"
+  },
+  {
+    "label": "Mexican peso",
+    "value": "MXN",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/mxn.png"
+  },
+  {
+    "label": "Malaysian ringgit",
+    "value": "MYR",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/myr.png"
+  },
+  {
+    "label": "Mozambican metical",
+    "value": "MZN",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/mzn.png"
+  },
+  {
+    "label": "Namibian dollar",
+    "value": "NAD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/nad.png"
+  },
+  {
+    "label": "Nigerian naira",
+    "value": "NGN",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/ngn.png"
+  },
+  {
+    "label": "Nicaraguan córdoba",
+    "value": "NIO",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/nio.png"
+  },
+  {
+    "label": "Norwegian krone",
+    "value": "NOK",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/nok.png"
+  },
+  {
+    "label": "Nepalese rupee",
+    "value": "NPR",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/npr.png"
+  },
+  {
+    "label": "New Zealand dollar",
+    "value": "NZD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/nzd.png"
+  },
+  {
+    "label": "Omani rial",
+    "value": "OMR",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/omr.png"
+  },
+  {
+    "label": "Panamanian balboa",
+    "value": "PAB",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/pab.png"
+  },
+  {
+    "label": "Peruvian sol",
+    "value": "PEN",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/pen.png"
+  },
+  {
+    "label": "Papua New Guinean kina",
+    "value": "PGK",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/pgk.png"
+  },
+  {
+    "label": "Philippine peso",
+    "value": "PHP",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/php.png"
+  },
+  {
+    "label": "Pakistani rupee",
+    "value": "PKR",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/pkr.png"
+  },
+  {
+    "label": "Polish złoty",
+    "value": "PLN",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/pln.png"
+  },
+  {
+    "label": "Paraguayan guaraní",
+    "value": "PYG",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/pyg.png"
+  },
+  {
+    "label": "Qatari riyal",
+    "value": "QAR",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/qar.png"
+  },
+  {
+    "label": "Romanian leu",
+    "value": "RON",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/ron.png"
+  },
+  {
+    "label": "Serbian dinar",
+    "value": "RSD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/rsd.png"
+  },
+  {
+    "label": "Russian ruble",
+    "value": "RUB",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/rub.png"
+  },
+  {
+    "label": "Rwandan franc",
+    "value": "RWF",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/rwf.png"
+  },
+  {
+    "label": "Saudi riyal",
+    "value": "SAR",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/sar.png"
+  },
+  {
+    "label": "Solomon Islands dollar",
+    "value": "SBD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/sbd.png"
+  },
+  {
+    "label": "Seychellois rupee",
+    "value": "SCR",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/scr.png"
+  },
+  {
+    "label": "Sudanese pound",
+    "value": "SDG",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/International_Flag_of_Planet_Earth.svg/1280px-International_Flag_of_Planet_Earth.svg.png"
+  },
+  {
+    "label": "Swedish krona",
+    "value": "SEK",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/sek.png"
+  },
+  {
+    "label": "Singapore dollar",
+    "value": "SGD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/sgd.png"
+  },
+  {
+    "label": "Sierra Leonean leone",
+    "value": "SLL",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/sll.png"
+  },
+  {
+    "label": "Somali shilling",
+    "value": "SOS",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/sos.png"
+  },
+  {
+    "label": "Surinamese dollar",
+    "value": "SRD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/srd.png"
+  },
+  {
+    "label": "South Sudanese pound",
+    "value": "SSP",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/International_Flag_of_Planet_Earth.svg/1280px-International_Flag_of_Planet_Earth.svg.png"
+  },
+  {
+    "label": "São Tomé and Príncipe dobra",
+    "value": "STN",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/International_Flag_of_Planet_Earth.svg/1280px-International_Flag_of_Planet_Earth.svg.png"
+  },
+  {
+    "label": "Salvadoran colón",
+    "value": "SVC",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/svc.png"
+  },
+  {
+    "label": "Syrian pound",
+    "value": "SYP",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/syp.png"
+  },
+  {
+    "label": "Swazi lilangeni",
+    "value": "SZL",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/szl.png"
+  },
+  {
+    "label": "Thai baht",
+    "value": "THB",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/thb.png"
+  },
+  {
+    "label": "Tajikistani somoni",
+    "value": "TJS",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/tjs.png"
+  },
+  {
+    "label": "Turkmenistan manat",
+    "value": "TMT",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/tmt.png"
+  },
+  {
+    "label": "Tunisian dinar",
+    "value": "TND",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/tnd.png"
+  },
+  {
+    "label": "Tongan paʻanga",
+    "value": "TOP",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/top.png"
+  },
+  {
+    "label": "Turkish lira",
+    "value": "TRY",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/try.png"
+  },
+  {
+    "label": "Trinidad and Tobago dollar",
+    "value": "TTD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/ttd.png"
+  },
+  {
+    "label": "New Taiwan dollar",
+    "value": "TWD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/twd.png"
+  },
+  {
+    "label": "Tanzanian shilling",
+    "value": "TZS",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/tzs.png"
+  },
+  {
+    "label": "Ukrainian hryvnia",
+    "value": "UAH",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/uah.png"
+  },
+  {
+    "label": "Ugandan shilling",
+    "value": "UGX",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/ugx.png"
+  },
+  {
+    "label": "United States dollar",
+    "value": "USD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/usd.png"
+  },
+  {
+    "label": "Uruguayan peso",
+    "value": "UYU",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/uyu.png"
+  },
+  {
+    "label": "Uzbekistani soʻm",
+    "value": "UZS",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/uzs.png"
+  },
+  {
+    "label": "Venezuelan bolívar",
+    "value": "VES",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/International_Flag_of_Planet_Earth.svg/1280px-International_Flag_of_Planet_Earth.svg.png"
+  },
+  {
+    "label": "Vietnamese đồng",
+    "value": "VND",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/vnd.png"
+  },
+  {
+    "label": "Vanuatu vatu",
+    "value": "VUV",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/vuv.png"
+  },
+  {
+    "label": "Samoan tālā",
+    "value": "WST",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/wst.png"
+  },
+  {
+    "label": "Central African CFA franc",
+    "value": "XAF",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/xaf.png"
+  },
+  {
+    "label": "Eastern Caribbean dollar",
+    "value": "XCD",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/xcd.png"
+  },
+  {
+    "label": "West African CFA franc",
+    "value": "XOF",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/xof.png"
+  },
+  {
+    "label": "CFP franc",
+    "value": "XPF",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/xpf.png"
+  },
+  {
+    "label": "Yemeni rial",
+    "value": "YER",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/yer.png"
+  },
+  {
+    "label": "South African rand",
+    "value": "ZAR",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/zar.png"
+  },
+  {
+    "label": "Zambian kwacha",
+    "value": "ZMW",
+    "image": "https://wise.com/public-resources/assets/flags/rectangle/zmw.png"
+  },
+  {
+    "label": "Zimbabwean dollar",
+    "value": "ZWL",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/International_Flag_of_Planet_Earth.svg/1280px-International_Flag_of_Planet_Earth.svg.png"
+  }
+]
