@@ -38,7 +38,7 @@ const AccountCreateForm = () => {
 
   return (
     <div style={{position: "relative"}}>
-      <LoadingOverlay visible={true} overlayBlur={2}/>
+      <LoadingOverlay visible={isLoading} overlayBlur={2}/>
       <Box sx={{
         overflow: "auto",
         height: 450,
