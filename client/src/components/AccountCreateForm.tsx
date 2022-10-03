@@ -37,53 +37,55 @@ const AccountCreateForm = () => {
   }
 
   return (
-    <Box sx={{
-      overflow: "auto",
-      height: 450,
-      position: "relative",
-      padding: ".1rem"
-    }}>
-      <LoadingOverlay visible={isLoading} overlayBlur={2}/>
-      <form onSubmit={form.onSubmit(submit)}>
-        <TextInput
-          mb={"sm"}
-          label="Name"
-          placeholder="My credit card"
-          {...form.getInputProps("accountName")}
-        />
-        <CurrencySelect label={"Currency"} form={form}/>
-        <NumberInput
-          mt={"sm"}
-          placeholder="1251"
-          label="Amount"
-          {...form.getInputProps("amount")}
-        />
-        <Stack align={"center"}>
-          <ColorPicker
+    <div style={{position: "relative"}}>
+      <LoadingOverlay visible={true} overlayBlur={2}/>
+      <Box sx={{
+        overflow: "auto",
+        height: 450,
+        position: "relative",
+        padding: ".1rem"
+      }}>
+        <form onSubmit={form.onSubmit(submit)}>
+          <TextInput
+            mb={"sm"}
+            label="Name"
+            placeholder="My credit card"
+            {...form.getInputProps("accountName")}
+          />
+          <CurrencySelect label={"Currency"} form={form}/>
+          <NumberInput
             mt={"sm"}
-            swatchesPerRow={6}
-            format="hex"
-            value={iconBackgroundColor}
-            onChange={setIconBackgroundColor}
-            swatches={colorsForPicker}
+            placeholder="1251"
+            label="Amount"
+            {...form.getInputProps("amount")}
           />
-          <AccountIconList
-            activeIconName={activeIconName}
-            setActiveIconName={setActiveIconName}
-            backgroundColor={iconBackgroundColor}
-          />
-          <Button fullWidth size={"md"} type="submit">Create</Button>
-          <Button
-            size={"md"}
-            fullWidth
-            component={Link}
-            to={"/accounts"}
-            color={"red"}
-            variant={"outline"}
-          >Go back</Button>
-        </Stack>
-      </form>
-    </Box>
+          <Stack align={"center"}>
+            <ColorPicker
+              mt={"sm"}
+              swatchesPerRow={6}
+              format="hex"
+              value={iconBackgroundColor}
+              onChange={setIconBackgroundColor}
+              swatches={colorsForPicker}
+            />
+            <AccountIconList
+              activeIconName={activeIconName}
+              setActiveIconName={setActiveIconName}
+              backgroundColor={iconBackgroundColor}
+            />
+            <Button fullWidth size={"md"} type="submit">Create</Button>
+            <Button
+              size={"md"}
+              fullWidth
+              component={Link}
+              to={"/accounts"}
+              color={"red"}
+              variant={"outline"}
+            >Go back</Button>
+          </Stack>
+        </form>
+      </Box>
+    </div>
   )
 }
 
