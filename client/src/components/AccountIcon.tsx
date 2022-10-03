@@ -13,6 +13,7 @@ interface PropsType {
 
 const AccountIcon: FC<PropsType> = ({iconName, backgroundColor, size, isActive, ...other}) => {
   return <Group
+    position={"center"}
     p={".2rem"}
     sx={{
       backgroundColor,
