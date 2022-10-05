@@ -13,4 +13,6 @@ router.post("/account",
   body("amount").isNumeric().withMessage("Amount must be a number"),
   isAuthorized, AccountController.createAccount)
 
+router.patch("/account/:id", isAuthorized, AccountController.editAccount)
+
 module.exports = router

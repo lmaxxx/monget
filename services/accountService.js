@@ -1,5 +1,6 @@
 const Account = require("../models/Account");
 const DataService = require("../services/dataService")
+const ApiError = require("../exceptions/apiError");
 
 class AccountService {
   async createAccount(userData, data) {
@@ -35,6 +36,18 @@ class AccountService {
     return accounts
   }
 
+  async editAccount(id, data) {
+    const accountDoc = await Account.findById(id)
+
+    if(!accountDoc) throw new ApiError(400, "Account with this id doesn't exist")
+
+    Object.entries(data).forEach(([property, value]) => {
+      accountDoc[property] = value
+    })
+
+    await accountDoc.save()
+    return DataService.getAccountFormDoc(accountDoc)
+  }
 }
 
 module.exports = new AccountService()
