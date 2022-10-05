@@ -18,12 +18,20 @@ import {useAppSelector} from "../hooks/storeHooks";
 
 const AccountEditForm = () => {
   const {id: currentAccountId} = useParams()
-  const currentAccount = useAppSelector(state => (
-    state.accountSlice.accounts.find(account => account.id === currentAccountId)
-  ))!
-  const [iconBackgroundColor, setIconBackgroundColor] = useState<string>(currentAccount.iconBackgroundColor)
-  const [activeIconName, setActiveIconName] = useState<AccountIconName>(currentAccount.iconName)
-  const form = useForm(AccountService.getAccountCreatingFormConfig())
+  const accounts = useAppSelector(state => state.accountSlice.accounts)
+  const currentAccount = accounts.find(account => account.id === currentAccountId)
+  const form = useForm(AccountService.getAccountEditingFormConfig({
+    accountName: currentAccount?.accountName,
+    amount: currentAccount?.amount,
+    currency: currentAccount?.currency
+  }))
+
+  const [iconBackgroundColor, setIconBackgroundColor] = useState<string>(currentAccount?.iconBackgroundColor || "#ccc")
+  const [activeIconName, setActiveIconName] = useState<AccountIconName>(currentAccount?.iconName || "cash")
+
+  if(!currentAccount && !accounts) return <div style={{position: "relative", height: "400px"}}>
+    <LoadingOverlay visible={true} overlayBlur={2}/>
+  </div>
 
   return (
     <div style={{position: "relative"}}>
@@ -39,12 +47,14 @@ const AccountEditForm = () => {
             mb={"sm"}
             label="Name"
             placeholder="My credit card"
+            {...form.getInputProps("accountName")}
           />
           <CurrencySelect label={"Currency"} form={form}/>
           <NumberInput
             mt={"sm"}
             placeholder="1251"
             label="Amount"
+            {...form.getInputProps("amount")}
           />
           <Stack align={"center"}>
             <ColorPicker

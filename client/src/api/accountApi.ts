@@ -31,4 +31,4 @@ export const accountApi = createApi({
   })
 })
 
-export const {useGetAccountsQuery, useCreateAccountMutation} = accountApi
+export const {useGetAccountsQuery, useCreateAccountMutation, useLazyGetAccountsQuery} = accountApi

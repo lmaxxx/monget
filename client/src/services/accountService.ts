@@ -21,6 +21,17 @@ class AccountService {
     }
   }
 
+  getAccountEditingFormConfig(initialValues: any) {
+    return {
+      initialValues,
+      validate: {
+        currency: (value: string) => value.trim().length === 3 ? null : "You need to choose currency",
+        amount: (value: string) => typeof value === "number" ? null: "You need to type amount",
+        accountName:  (value: string) => value.trim().length ? null : "You need to type account name"
+      }
+    }
+  }
+
   async setAccounts({dispatch, data}: {
     dispatch: ThunkDispatch<any, any, AnyAction>,
     data: any,
