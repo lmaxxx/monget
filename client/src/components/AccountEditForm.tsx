@@ -9,28 +9,42 @@ import {
 import CurrencySelect from "./CurrencySelect";
 import colorsForPicker from "../data/colorsForPicker.json";
 import AccountIconList from "./AccountIconList";
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
 import {AccountIconName} from "../types/ui.type";
 import {useForm} from "@mantine/form";
 import AccountService from "../services/accountService";
 import {useAppSelector} from "../hooks/storeHooks";
+import {useEditAccountMutation} from "../api/accountApi";
 
 const AccountEditForm = () => {
   const {id: currentAccountId} = useParams()
+  const [editAccount, {isLoading}] = useEditAccountMutation()
   const accounts = useAppSelector(state => state.accountSlice.accounts)
   const currentAccount = accounts.find(account => account.id === currentAccountId)
+  const [iconBackgroundColor, setIconBackgroundColor] = useState<string>(currentAccount?.iconBackgroundColor || "#ccc")
+  const [activeIconName, setActiveIconName] = useState<AccountIconName>(currentAccount?.iconName || "cash")
+  const navigate = useNavigate()
   const form = useForm(AccountService.getAccountEditingFormConfig({
     accountName: currentAccount?.accountName,
     amount: currentAccount?.amount,
     currency: currentAccount?.currency
   }))
 
-  const [iconBackgroundColor, setIconBackgroundColor] = useState<string>(currentAccount?.iconBackgroundColor || "#ccc")
-  const [activeIconName, setActiveIconName] = useState<AccountIconName>(currentAccount?.iconName || "cash")
+  const submit = async (values: {[key: number]: string}) => {
+    const data = {
+      ...values,
+      iconBackgroundColor,
+      iconName: activeIconName,
+      id: currentAccount?.id
+    }
+
+    await editAccount(data)
+    navigate("/accounts")
+  }
 
   if(!currentAccount && !accounts) return <div style={{position: "relative", height: "400px"}}>
-    <LoadingOverlay visible={true} overlayBlur={2}/>
+    <LoadingOverlay visible={isLoading} overlayBlur={2}/>
   </div>
 
   return (
@@ -42,7 +56,7 @@ const AccountEditForm = () => {
         position: "relative",
         padding: ".1rem"
       }}>
-        <form>
+        <form onSubmit={form.onSubmit(submit)}>
           <TextInput
             mb={"sm"}
             label="Name"

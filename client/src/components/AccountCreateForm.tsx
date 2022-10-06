@@ -33,7 +33,7 @@ const AccountCreateForm = () => {
     } as AccountCreatingFormValues
 
     await createAccount(data)
-    navigate(-1)
+    navigate("/accounts")
   }
 
   return (
