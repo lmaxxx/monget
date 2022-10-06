@@ -1,3 +1,5 @@
+const {Schema} = require("mongoose");
+
 class DataService {
   getUserFromDoc(userDoc) {
     return {
@@ -25,7 +27,21 @@ class DataService {
   }
 
   getAccountsFromDocs(accountsDocs) {
-    return accountsDocs.map((accountDoc) => this.getAccountFormDoc(accountDoc))
+    return accountsDocs.map(accountDoc => this.getAccountFormDoc(accountDoc))
+  }
+
+  getTransferFromDoc(transferDoc) {
+    return {
+      userId: transferDoc.userId,
+      from: transferDoc.from,
+      to: transferDoc.to,
+      amount: transferDoc.amount,
+      id: transferDoc._id
+    }
+  }
+
+  getTransfersFromDocs(transfersDocs) {
+    return transfersDocs.map(transfersDoc => this.getTransferFromFoc(transfersDoc))
   }
 }
 

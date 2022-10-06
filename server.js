@@ -6,8 +6,8 @@ const connectDB = require("./db/connectDB")
 const cors = require("cors")
 const cookieParser = require("cookie-parser")
 const accountRouter = require("./routes/accountRouter")
-
 const authRouter = require("./routes/authRouter")
+const transferRouter = require("./routes/transferRouter")
 
 app.use(cors({credentials: true, origin: 'http://localhost:3000'}))
 app.use(express.json())
@@ -15,7 +15,7 @@ app.use(express.urlencoded({extended: false}))
 app.use(cookieParser())
 
 app.use("/api/auth", authRouter)
-app.use("/api", accountRouter)
+app.use("/api", accountRouter, transferRouter)
 
 try {
   connectDB()
