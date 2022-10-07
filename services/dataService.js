@@ -41,7 +41,7 @@ class DataService {
   }
 
   getTransfersFromDocs(transfersDocs) {
-    return transfersDocs.map(transfersDoc => this.getTransferFromFoc(transfersDoc))
+    return transfersDocs.map(transfersDoc => this.getTransferFromDoc(transfersDoc))
   }
 }
 
