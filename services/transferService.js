@@ -3,7 +3,7 @@ const DataService = require("../services/dataService")
 
 class TransferService {
   async getTransfers(userId) {
-    const transfersDocs = await Transfer.find({userId})
+    const transfersDocs = await Transfer.find({userId}).populate(["from", "to"])
 
     return DataService.getTransfersFromDocs(transfersDocs)
   }

@@ -5,6 +5,7 @@ const transferScheme = new Schema({
   from: {type: Schema.Types.ObjectId, required: true, ref: "Account"},
   to: {type: Schema.Types.ObjectId, required: true, ref: "Account"},
   amount: {type: Number, required: true},
+  createdAt: {type: Date, default: Date.now()}
 })
 
 const Transfer = model("Transfer", transferScheme)

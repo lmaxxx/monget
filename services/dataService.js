@@ -36,6 +36,7 @@ class DataService {
       from: transferDoc.from,
       to: transferDoc.to,
       amount: transferDoc.amount,
+      createdAt: transferDoc.createdAt,
       id: transferDoc._id
     }
   }
