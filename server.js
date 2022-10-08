@@ -6,9 +6,8 @@ const connectDB = require("./db/connectDB")
 const cors = require("cors")
 const cookieParser = require("cookie-parser")
 const accountRouter = require("./routes/accountRouter")
-const ConverterService = require("./services/converterService")
-
 const authRouter = require("./routes/authRouter")
+const transferRouter = require("./routes/transferRouter")
 
 app.use(cors({credentials: true, origin: 'http://localhost:3000'}))
 app.use(express.json())
@@ -16,13 +15,7 @@ app.use(express.urlencoded({extended: false}))
 app.use(cookieParser())
 
 app.use("/api/auth", authRouter)
-app.use("/api", accountRouter)
-
-const a = async () => {
-  console.log(await ConverterService.convert({have: "USD", want: "PLN", amount: 1}))
-}
-
-a()
+app.use("/api", accountRouter, transferRouter)
 
 try {
   connectDB()
