@@ -1,6 +1,7 @@
 const Transfer = require("../models/Transfer")
 const DataService = require("../services/dataService")
 const Account = require("../models/Account")
+const ConverterService = require("../services/converterService")
 
 class TransferService {
   async getTransfers(userId) {
@@ -14,8 +15,10 @@ class TransferService {
       userId, from, to, amount
     })
 
+    await transferDoc.populate(["from", "to"])
+
     const transfer = DataService.getTransferFromDoc(transferDoc)
-    this.processTransfer(transfer)
+    await this.processTransfer(transfer)
 
     return transfer
   }
@@ -23,7 +26,7 @@ class TransferService {
   async processTransfer(transfer) {
     const {from, to, amount: transferAmount} = transfer
     const {currency: fromCurrency, id: fromId, amount: fromAmount} = from
-    const {currency: toCurrency, id: toId, toAmount} = to
+    const {currency: toCurrency, id: toId, amount: toAmount} = to
 
     if(fromCurrency === toCurrency) {
       await Account.findByIdAndUpdate(fromId, {amount: fromAmount - transferAmount})
@@ -31,6 +34,15 @@ class TransferService {
 
       return
     }
+
+    const amountWithRightCurrency = await ConverterService.convert({
+      want: toCurrency,
+      have: fromCurrency,
+      amount: transferAmount
+    })
+
+    await Account.findByIdAndUpdate(fromId, {amount: fromAmount - transferAmount})
+    await Account.findByIdAndUpdate(toId, {amount: toAmount + amountWithRightCurrency})
   }
 }
 
