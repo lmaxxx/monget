@@ -14,6 +14,10 @@ export interface AccountSelectItemProps extends ComponentPropsWithoutRef<"div"> 
   disabled?: boolean
 }
 
+export interface AccountSelectItemOptions {
+  disabled: [string | null]
+}
+
 export interface ILink {
   label: string
   icon: ReactNode

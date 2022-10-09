@@ -8,11 +8,20 @@ interface PropsType {
   activeAccountId: string | null
   width?: string
   data: AccountSelectItemProps[]
+  placeholder?: string
+  [x: string]: any
 }
 
-const AccountSelect: FC<PropsType> = ({setActiveAccountId, activeAccountId, width, data}) => {
+const AccountSelect: FC<PropsType> = ({
+  setActiveAccountId,
+  activeAccountId,
+  width,
+  data,
+  ...others
+}) => {
   return (
     <Select
+      {...others}
       sx={{width}}
       data={data}
       onChange={setActiveAccountId}

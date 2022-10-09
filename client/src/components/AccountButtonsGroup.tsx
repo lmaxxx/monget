@@ -6,7 +6,7 @@ const AccountButtonsGroup = () => {
   return (
     <Group position={"apart"}>
       <Button component={Link} to={"/account/create"} color="green" leftIcon={<IconPlus/>}>Create account</Button>
-      <Button color="orange" leftIcon={<IconArrowsTransferUp/>}>New transfer</Button>
+      <Button component={Link} to={"/transfer"} color="orange" leftIcon={<IconArrowsTransferUp/>}>New transfer</Button>
     </Group>
   )
 }

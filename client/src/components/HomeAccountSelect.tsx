@@ -2,16 +2,12 @@ import {useEffect, useMemo, useState} from "react"
 import {useAppDispatch, useAppSelector} from "../hooks/storeHooks"
 import {setActiveAccount} from "../store/accountSlice"
 import AccountSelect from "./AccountSelect";
+import AccountService from "../services/accountService";
 
 const HomeAccountSelect = () => {
   const dispatch = useAppDispatch()
   const accounts = useAppSelector(state => state.accountSlice.accounts)
-  const dataForSelect = useMemo(() => accounts?.map(account => ({
-    label: account.accountName,
-    value: account.id,
-    iconName: account.iconName,
-    iconBackgroundColor: account.iconBackgroundColor,
-  })) as any, [accounts])
+  const dataForSelect = useMemo(() => AccountService.getAccountSelectItems(accounts), [accounts])
   const [activeAccountId, setActiveAccountId] = useState<string | null>(null)
 
   useEffect(() => {
