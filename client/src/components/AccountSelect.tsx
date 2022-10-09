@@ -1,33 +1,20 @@
 import {Select} from "@mantine/core"
 import AccountSelectItem from "./AccountSelectItem"
-import {useEffect, useMemo, useState} from "react"
-import {useAppDispatch, useAppSelector} from "../hooks/storeHooks"
-import {setActiveAccount} from "../store/accountSlice"
+import {FC} from "react"
+import {AccountSelectItemProps} from "../types/ui.type";
 
-const AccountSelect = () => {
-  const dispatch = useAppDispatch()
-  const accounts = useAppSelector(state => state.accountSlice.accounts)
-  const dataForSelect = useMemo(() => accounts?.map(account => ({
-    label: account.accountName,
-    value: account.id,
-    iconName: account.iconName,
-    iconBackgroundColor: account.iconBackgroundColor
-  })) as any, [accounts])
-  const [activeAccountId, setActiveAccountId] = useState<string | null>(null)
+interface PropsType {
+  setActiveAccountId: (newValue: any) => void
+  activeAccountId: string | null
+  width?: string
+  data: AccountSelectItemProps[]
+}
 
-  useEffect(() => {
-    dispatch(setActiveAccount(accounts[0].id))
-    setActiveAccountId(accounts[0].id)
-  }, [])
-
-  useEffect(() => {
-    if(activeAccountId) dispatch(setActiveAccount(activeAccountId))
-  }, [activeAccountId])
-
+const AccountSelect: FC<PropsType> = ({setActiveAccountId, activeAccountId, width, data}) => {
   return (
     <Select
-      sx={{width: "230px"}}
-      data={dataForSelect}
+      sx={{width}}
+      data={data}
       onChange={setActiveAccountId}
       value={activeAccountId}
       placeholder={"Pick one"}

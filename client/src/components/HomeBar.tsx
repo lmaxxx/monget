@@ -1,5 +1,5 @@
 import {Group} from "@mantine/core";
-import AccountSelect from "./AccountSelect";
+import HomeAccountSelect from "./HomeAccountSelect";
 import {useAppSelector} from "../hooks/storeHooks";
 import AccountIcon from "./AccountIcon";
 
@@ -14,7 +14,7 @@ const HomeBar = () => {
         backgroundColor={activeAccount.iconBackgroundColor}
         size={"2rem"}
       />
-      <AccountSelect/>
+      <HomeAccountSelect/>
     </Group>
   )
 }

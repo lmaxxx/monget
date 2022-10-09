@@ -11,6 +11,7 @@ export interface AccountSelectItemProps extends ComponentPropsWithoutRef<"div"> 
   value: string
   iconName: AccountIconName
   iconBackgroundColor: string
+  disabled?: boolean
 }
 
 export interface ILink {
