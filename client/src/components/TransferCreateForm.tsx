@@ -39,7 +39,7 @@ const TransferCreateForm = () => {
       }}>
         <form onSubmit={form.onSubmit(submit)}>
           <AccountSelect
-            width={"90%"}
+            width={"78%"}
             data={AccountService.getAccountSelectItems(accounts, {disabled: [transferToId]})}
             activeAccountId={transferFromId}
             setActiveAccountId={onFromAccountChange}
@@ -47,7 +47,7 @@ const TransferCreateForm = () => {
             {...fromInputProps}
           />
           <AccountSelect
-            width={"90%"}
+            width={"78%"}
             data={AccountService.getAccountSelectItems(accounts, {disabled: [transferFromId]})}
             activeAccountId={transferToId}
             setActiveAccountId={onToAccountChange}
