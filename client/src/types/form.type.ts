@@ -21,3 +21,9 @@ export interface AccountCreatingFormValues {
   iconName: string
   iconBackgroundColor: string
 }
+
+export interface TransferCreatingFormValues {
+  from: string
+  to: string
+  amount: number
+}

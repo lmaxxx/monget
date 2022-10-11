@@ -8,6 +8,7 @@ import {useForm} from "@mantine/form";
 import TransferService from "../services/transferService";
 import {useCreateTransferMutation} from "../api/transferApi";
 import {useLazyGetAccountsQuery} from "../api/accountApi";
+import {TransferCreatingFormValues} from "../types/form.type";
 
 const TransferCreateForm = () => {
   const navigate = useNavigate()
@@ -30,8 +31,8 @@ const TransferCreateForm = () => {
     setTransferToId(value)
   }
 
-  const submit = async (values: {[key: number]: string}) => {
-    await createTransfer(values)
+  const submit = async (values: any) => {
+    await createTransfer(values as TransferCreatingFormValues)
     navigate("/accounts")
 
     await getAccounts()
