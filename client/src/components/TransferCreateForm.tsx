@@ -1,19 +1,24 @@
 import {Box, Button, LoadingOverlay, NumberInput, Stack} from "@mantine/core";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useAppSelector} from "../hooks/storeHooks";
 import {useState} from "react";
 import AccountSelect from "./AccountSelect";
 import AccountService from "../services/accountService";
 import {useForm} from "@mantine/form";
 import TransferService from "../services/transferService";
+import {useCreateTransferMutation} from "../api/transferApi";
+import {useLazyGetAccountsQuery} from "../api/accountApi";
 
 const TransferCreateForm = () => {
+  const navigate = useNavigate()
   const accounts = useAppSelector(state => state.accountSlice.accounts)
   const [transferFromId, setTransferFromId] = useState<string | null>(null)
   const [transferToId, setTransferToId] = useState<string | null>(null)
   const form = useForm(TransferService.getTransferCreatingFormConfig())
   const fromInputProps = form.getInputProps("from")
   const toInputProps = form.getInputProps("to")
+  const [createTransfer, {isLoading}] = useCreateTransferMutation()
+  const [getAccounts] = useLazyGetAccountsQuery()
 
   const onFromAccountChange = (value: string) => {
     fromInputProps.onChange(value)
@@ -26,18 +31,21 @@ const TransferCreateForm = () => {
   }
 
   const submit = async (values: {[key: number]: string}) => {
-    console.log(values)
+    await createTransfer(values)
+    navigate("/accounts")
+
+    await getAccounts()
   }
 
   return (
     <div style={{position: "relative"}}>
-      <LoadingOverlay visible={false} overlayBlur={2}/>
+      <LoadingOverlay visible={isLoading} overlayBlur={2}/>
       <Box sx={{
         overflow: "auto",
         position: "relative",
         padding: ".1rem"
       }}>
-        <form onSubmit={form.onSubmit(submit)}>
+        <form onSubmit={form.onSubmit(submit)} style={{overflowX: "hidden"}}>
           <AccountSelect
             width={"78%"}
             data={AccountService.getAccountSelectItems(accounts, {disabled: [transferToId]})}
