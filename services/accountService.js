@@ -10,7 +10,8 @@ class AccountService {
         ownerId: userData.id,
         accountName: "Main",
         iconName: "cash",
-        iconBackgroundColor: "#20c997"
+        iconBackgroundColor: "#20c997",
+        createdAt: new Date().getTime()
       })
 
       return DataService.getAccountFormDoc(accountDoc)
@@ -23,7 +24,8 @@ class AccountService {
       accountName,
       iconName,
       iconBackgroundColor,
-      amount
+      amount,
+      createdAt: new Date().getTime()
     })
 
     return DataService.getAccountFormDoc(accountDoc)

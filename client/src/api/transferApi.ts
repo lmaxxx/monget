@@ -6,16 +6,22 @@ import {TransferCreatingFormValues} from "../types/form.type";
 export const transferApi = createApi({
   reducerPath: "transferApi",
   baseQuery: baseQueryWithReauth,
+  tagTypes: ["Transfer"],
   endpoints: (builder) => ({
     getTransfers: builder.query<ITransfer[], void>({
-      query: () => "/api/transfers"
+      query: () => "/api/transfers",
+      providesTags: (result, error, arg) =>
+        result
+          ? [...result.map(({ id }) => ({ type: 'Transfer' as const, id })), 'Transfer']
+          : ['Transfer'],
     }),
     createTransfer: builder.mutation<ITransfer, TransferCreatingFormValues>({
       query: (formData) => ({
         url: "/api/transfer",
         method: "POST",
         body: formData
-      })
+      }),
+      invalidatesTags: ["Transfer"]
     })
   })
 })

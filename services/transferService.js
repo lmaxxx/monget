@@ -5,14 +5,14 @@ const ConverterService = require("../services/converterService")
 
 class TransferService {
   async getTransfers(userId) {
-    const transfersDocs = await Transfer.find({userId}).populate(["from", "to"])
+    const transfersDocs = await Transfer.find({userId}).sort({createdAt: 'desc'}).populate(["from", "to"])
 
     return DataService.getTransfersFromDocs(transfersDocs)
   }
 
   async createTransfer(userId, from, to, amount) {
     const transferDoc = await Transfer.create({
-      userId, from, to, amount
+      userId, from, to, amount, createdAt: new Date().getTime()
     })
 
     await transferDoc.populate(["from", "to"])

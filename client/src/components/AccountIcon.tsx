@@ -6,12 +6,12 @@ import accountIcons from "../data/accountIcons";
 interface PropsType {
   iconName?: AccountIconName
   backgroundColor?: string
-  size: string
+  size?: string
   isActive?: boolean
   [other: string]: any
 }
 
-const AccountIcon: FC<PropsType> = ({iconName, backgroundColor, size, isActive, ...other}) => {
+const AccountIcon: FC<PropsType> = ({iconName, backgroundColor, size = "2rem", isActive, ...other}) => {
   if(!iconName || !backgroundColor) {
     return (
       <Box

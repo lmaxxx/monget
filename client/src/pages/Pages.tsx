@@ -12,6 +12,7 @@ import Charts from "./Charts";
 import AccountCreate from './AccountCreate'
 import AccountEdit from "./AccountEdit";
 import TransferCreate from "./TransferCreate";
+import Transfers from "./Transfers";
 
 const Pages = () => {
   return (
@@ -28,6 +29,7 @@ const Pages = () => {
       <Route path={"/categories"} element={<Categories/>}/>
       <Route path={"/currency"} element={<Currency/>}/>
       <Route path={"/transfer"} element={<TransferCreate/>}/>
+      <Route path={"/transfers"} element={<Transfers/>}/>
     </Routes>
   )
 }

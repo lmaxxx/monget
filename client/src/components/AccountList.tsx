@@ -1,4 +1,4 @@
-import {Container, useMantineTheme} from "@mantine/core";
+import {Container} from "@mantine/core";
 import {useGetAccountsQuery} from "../api/accountApi";
 import AccountListItem from "./AccountListItem";
 import AccountsSkeleton from "./AccountsSkeleton";
