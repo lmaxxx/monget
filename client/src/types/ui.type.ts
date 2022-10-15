@@ -1,4 +1,5 @@
 import {ComponentPropsWithoutRef, ReactNode} from "react";
+import {AccountIconType} from "../data/accountIcons";
 
 export interface CurrencySelectItemProps extends ComponentPropsWithoutRef<'div'> {
   image: string;
@@ -9,7 +10,7 @@ export interface CurrencySelectItemProps extends ComponentPropsWithoutRef<'div'>
 export interface AccountSelectItemProps extends ComponentPropsWithoutRef<"div"> {
   label: string
   value: string
-  iconName: AccountIconName
+  iconName: AccountIconType
   iconBackgroundColor: string
   disabled?: boolean
 }
@@ -23,9 +24,6 @@ export interface ILink {
   icon: ReactNode
   path: string
 }
-
-export type AccountIconName = "cash" | "card" | "bank" | "shield"
-  | "percent" | "dollar" | "euro" | "pound" | "payPal" | "pig" | "wallet"
 
 export enum HomeSwitchValue {
   Expenses = "expenses", Income = "income"

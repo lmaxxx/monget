@@ -1,11 +1,11 @@
-import {AccountIconName} from "../ui.type";
+import {AccountIconType} from "../../data/accountIcons";
 
 export interface IAccount {
   currency: string
   createdAt: number,
   ownerId: string,
   accountName: string,
-  iconName: AccountIconName,
+  iconName: AccountIconType,
   iconBackgroundColor: string
   amount: number
   id: string

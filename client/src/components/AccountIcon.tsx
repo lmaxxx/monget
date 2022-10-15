@@ -1,17 +1,24 @@
-import {FC} from 'react'
+import {cloneElement, FC} from 'react'
 import {Box, Group} from '@mantine/core'
-import {AccountIconName} from "../types/ui.type";
-import accountIcons from "../data/accountIcons";
+import accountIcons, {AccountIconType} from "../data/accountIcons";
 
 interface PropsType {
-  iconName?: AccountIconName
+  iconName: AccountIconType
   backgroundColor?: string
   size?: string
   isActive?: boolean
+  color?: string
   [other: string]: any
 }
 
-const AccountIcon: FC<PropsType> = ({iconName, backgroundColor, size = "2rem", isActive, ...other}) => {
+const AccountIcon: FC<PropsType> = ({
+                                      iconName ,
+                                      backgroundColor,
+                                      size = "2rem",
+                                      isActive,
+                                      color= "#fff",
+                                      ...other
+}) => {
   if(!iconName || !backgroundColor) {
     return (
       <Box
@@ -26,6 +33,8 @@ const AccountIcon: FC<PropsType> = ({iconName, backgroundColor, size = "2rem", i
     )
   }
 
+  const Icon = () => cloneElement(accountIcons[iconName], {color})
+
   return (
     <Group
       position={"center"}
@@ -39,7 +48,7 @@ const AccountIcon: FC<PropsType> = ({iconName, backgroundColor, size = "2rem", i
       }}
       {...other}
     >
-      {accountIcons[iconName]}
+      <Icon/>
     </Group>
   )
 }

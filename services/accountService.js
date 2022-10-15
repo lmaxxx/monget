@@ -9,7 +9,7 @@ class AccountService {
         currency: userData.currency,
         ownerId: userData.id,
         accountName: "Main",
-        iconName: "cash",
+        iconName: "IconCash",
         iconBackgroundColor: "#20c997",
         createdAt: new Date().getTime()
       })

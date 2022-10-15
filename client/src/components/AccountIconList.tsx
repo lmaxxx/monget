@@ -1,7 +1,6 @@
 import {FC, useMemo} from 'react'
 import AccountIcon from "./AccountIcon";
-import accountIcons from "../data/accountIcons";
-import {AccountIconName} from "../types/ui.type";
+import accountIcons, {AccountIconType} from "../data/accountIcons";
 import {Group} from "@mantine/core";
 
 interface PropsType {
@@ -11,7 +10,7 @@ interface PropsType {
 }
 
 const AccountIconList: FC<PropsType> = ({activeIconName, setActiveIconName, backgroundColor}) => {
-  const iconNames = useMemo(() => Object.keys(accountIcons), []) as AccountIconName[]
+  const iconNames = useMemo(() => Object.keys(accountIcons), []) as AccountIconType[]
 
   return (
     <Group position={"center"}>

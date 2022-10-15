@@ -12,16 +12,19 @@ import {
   IconShieldLock
 } from "@tabler/icons"
 
-export default {
-  cash: <IconCash color={"white"}/>,
-  card: <IconCreditCard color={"white"}/>,
-  bank: <IconBuildingBank color={"white"}/>,
-  shield: <IconShieldLock color={"white"}/>,
-  percent: <IconReceiptTax color={"white"}/>,
-  dollar: <IconCurrencyDollar color={"white"}/>,
-  euro: <IconCurrencyEuro color={"white"}/>,
-  pound: <IconCurrencyPound color={"white"}/>,
-  payPal: <IconBrandPaypal color={"white"}/>,
-  pig: <IconPig color={"white"}/>,
-  wallet: <IconWallet color={"white"}/>
+const accountIcons = {
+  IconCash: <IconCash/>,
+  IconCreditCard: <IconCreditCard/>,
+  IconBuildingBank: <IconBuildingBank/>,
+  IconShieldLock: <IconShieldLock/>,
+  IconReceiptTax: <IconReceiptTax/>,
+  IconCurrencyDollar: <IconCurrencyDollar/>,
+  IconCurrencyEuro: <IconCurrencyEuro/>,
+  IconCurrencyPound: <IconCurrencyPound/>,
+  IconBrandPaypal: <IconBrandPaypal/>,
+  IconPig: <IconPig/>,
+  IconWallet: <IconWallet/>,
 }
+
+export default accountIcons
+export type AccountIconType = keyof typeof accountIcons

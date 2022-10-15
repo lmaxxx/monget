@@ -12,15 +12,15 @@ import CurrencySelect from "./CurrencySelect";
 import {useForm} from "@mantine/form";
 import colorsForPicker from "../data/colorsForPicker.json"
 import {useState} from "react";
-import {AccountIconName} from "../types/ui.type";
 import AccountService from "../services/accountService";
 import {useCreateAccountMutation} from "../api/accountApi";
 import {AccountCreatingFormValues} from "../types/form.type";
 import AccountIconList from "./AccountIconList";
+import {AccountIconType} from "../data/accountIcons";
 
 const AccountCreateForm = () => {
   const [iconBackgroundColor, setIconBackgroundColor] = useState<string>(colorsForPicker[1])
-  const [activeIconName, setActiveIconName] = useState<AccountIconName>("cash")
+  const [activeIconName, setActiveIconName] = useState<AccountIconType>("IconCash")
   const form = useForm(AccountService.getAccountCreatingFormConfig())
   const [createAccount, {isLoading}] = useCreateAccountMutation()
   const navigate = useNavigate()

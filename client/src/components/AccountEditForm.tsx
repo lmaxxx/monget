@@ -11,11 +11,11 @@ import colorsForPicker from "../data/colorsForPicker.json";
 import AccountIconList from "./AccountIconList";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
-import {AccountIconName} from "../types/ui.type";
 import {useForm} from "@mantine/form";
 import AccountService from "../services/accountService";
 import {useAppSelector} from "../hooks/storeHooks";
 import {useEditAccountMutation} from "../api/accountApi";
+import {AccountIconType} from "../data/accountIcons";
 
 const AccountEditForm = () => {
   const {id: currentAccountId} = useParams()
@@ -23,7 +23,7 @@ const AccountEditForm = () => {
   const accounts = useAppSelector(state => state.accountSlice.accounts)
   const currentAccount = accounts.find(account => account.id === currentAccountId)
   const [iconBackgroundColor, setIconBackgroundColor] = useState<string>(currentAccount?.iconBackgroundColor || "#ccc")
-  const [activeIconName, setActiveIconName] = useState<AccountIconName>(currentAccount?.iconName || "cash")
+  const [activeIconName, setActiveIconName] = useState<AccountIconType>(currentAccount?.iconName || "IconCash")
   const navigate = useNavigate()
   const form = useForm(AccountService.getAccountEditingFormConfig({
     accountName: currentAccount?.accountName,

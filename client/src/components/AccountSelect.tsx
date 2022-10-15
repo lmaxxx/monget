@@ -27,7 +27,7 @@ const AccountSelect: FC<PropsType> = ({
   return (
     <Group position={"center"}>
       <AccountIcon
-        iconName={activeAccount?.iconName}
+        iconName={activeAccount?.iconName || "IconCash"}
         backgroundColor={activeAccount?.iconBackgroundColor}
         size={"2rem"}
       />
