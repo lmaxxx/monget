@@ -1,9 +1,10 @@
 import DefaultPageWrapper from "../hoc/DefaultPageWrapper";
+import AllCategories from "../components/AllCategories";
 
 const Categories = () => {
   return (
     <DefaultPageWrapper>
-      Categories
+      <AllCategories/>
     </DefaultPageWrapper>
   )
 }
