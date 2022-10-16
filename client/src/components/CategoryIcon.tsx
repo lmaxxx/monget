@@ -1,10 +1,10 @@
 import {cloneElement, FC} from 'react'
 import {Box} from "@mantine/core"
-import {transactionIconsObject, TransferIconType} from "../data/transactionIcons";
+import {transactionIconsObject, TransactionIconType} from "../data/transactionIcons";
 
 interface PropsType {
   backgroundColor: string
-  iconName: TransferIconType
+  iconName: TransactionIconType
   size?: string
   color?: string
 }

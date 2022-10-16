@@ -308,4 +308,4 @@ export const transactionIconsObject = {
 }
 
 export default Object.entries(transactionIcons)
-export type TransferIconType = keyof typeof transactionIconsObject
+export type TransactionIconType = keyof typeof transactionIconsObject
