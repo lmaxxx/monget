@@ -5,7 +5,8 @@ import accountIcons, {AccountIconType} from "../data/accountIcons";
 interface PropsType {
   iconName: AccountIconType
   backgroundColor?: string
-  size?: string
+  backgroundSize?: string
+  iconSize?: string
   isActive?: boolean
   color?: string
   [other: string]: any
@@ -14,7 +15,8 @@ interface PropsType {
 const AccountIcon: FC<PropsType> = ({
                                       iconName ,
                                       backgroundColor,
-                                      size = "2rem",
+                                      backgroundSize = "2rem",
+                                      iconSize,
                                       isActive,
                                       color= "#fff",
                                       ...other
@@ -26,14 +28,14 @@ const AccountIcon: FC<PropsType> = ({
         sx={{
           backgroundColor: "#ccc",
           borderRadius: ".5rem",
-          height: size,
-          width: size,
+          height: backgroundSize,
+          width: backgroundSize,
         }}
       />
     )
   }
 
-  const Icon = () => cloneElement(accountIcons[iconName], {color})
+  const Icon = () => cloneElement(accountIcons[iconName], {color, size: iconSize})
 
   return (
     <Group
@@ -42,8 +44,8 @@ const AccountIcon: FC<PropsType> = ({
       sx={{
         backgroundColor,
         borderRadius: ".5rem",
-        height: size,
-        width: size,
+        height: backgroundSize,
+        width: backgroundSize,
         border: isActive ? "3px solid #238BE6": ""
       }}
       {...other}
