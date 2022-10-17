@@ -44,6 +44,23 @@ class DataService {
   getTransfersFromDocs(transfersDocs) {
     return transfersDocs.map(transfersDoc => this.getTransferFromDoc(transfersDoc))
   }
+
+  getCategoryFromDoc(categoryDoc) {
+    return {
+      name: categoryDoc.name,
+      iconName: categoryDoc.iconName,
+      iconBackgroundColor: categoryDoc.iconBackgroundColor,
+      ownerId: categoryDoc.ownerId,
+      createdAt: categoryDoc.createdAt,
+      transactionType: categoryDoc.transactionType,
+      order: categoryDoc.order,
+      id: categoryDoc._id
+    }
+  }
+
+  getCategoriesFromDocs(categoriesFocs) {
+    return categoriesFocs.map(categoryDoc => this.getCategoryFromDoc(categoryDoc))
+  }
 }
 
 module.exports = new DataService()
