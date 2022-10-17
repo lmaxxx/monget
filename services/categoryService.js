@@ -1,3 +1,5 @@
+const Category = require("../models/Category")
+
 class CategoryService {
   getDefaultCategoriesData(userId) {
     return [
@@ -146,6 +148,10 @@ class CategoryService {
         order: 4
       },
     ]
+  }
+
+  async createBaseCategories(userId) {
+    await Category.create(...this.getDefaultCategoriesData(userId))
   }
 }
 

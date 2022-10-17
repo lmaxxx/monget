@@ -6,6 +6,7 @@ const MailService = require("../services/mailService")
 const DataService = require("../services/dataService")
 const ApiError = require("../exceptions/apiError");
 const AccountService = require("../services/accountService")
+const CategoryService = require("../services/categoryService")
 
 class AuthService {
   async registration(email, password, name) {
@@ -28,6 +29,8 @@ class AuthService {
 
     await TokenService.saveToken(userData.id, tokens.refreshToken)
     // await MailService.sendActivationMail(userData.email, `${process.env.API_URL}/api/auth/activate/${activationLink}`, userData.name)
+    await CategoryService.createBaseCategories(userData.id)
+
     return {...tokens, user: userData}
   }
 
