@@ -1,4 +1,5 @@
 const Category = require("../models/Category")
+const DataService = require("../services/dataService")
 
 class CategoryService {
   getDefaultCategoriesData(userId) {
@@ -152,6 +153,13 @@ class CategoryService {
 
   async createBaseCategories(userId) {
     await Category.create(...this.getDefaultCategoriesData(userId))
+  }
+
+  async getCategories(transactionType, userId) {
+    const categoriesDocs = await Category.find({ownerId: userId, transactionType}).sort({order: "asc"})
+    const categories = DataService.getCategoriesFromDocs(categoriesDocs)
+
+    return categories
   }
 }
 

@@ -7,7 +7,7 @@ const categorySchema = new Schema({
   ownerId: {type: Schema.Types.ObjectId, ref: "User", required: true},
   createdAt: {type: Date, default: new Date().getTime()},
   transactionType: {type: String, required: true},
-  order: {type: String, required: true}
+  order: {type: Number, required: true}
 })
 
 const Category = model("Category", categorySchema)
