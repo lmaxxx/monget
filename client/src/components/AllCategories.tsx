@@ -1,32 +1,22 @@
 import {FC} from 'react'
-import {Box, Text} from "@mantine/core";
-import transactionIcons, {TransactionIconType} from "../data/transactionIcons";
-import CategoryIcon from "./CategoryIcon";
+import {Title} from "@mantine/core";
+import transactionIcons from "../data/transactionIcons";
+import CategorySection from "./CategorySection";
 
 interface PropsType {
-
+  iconsProps?: any
 }
 
-const AllCategories: FC<PropsType> = () => {
-
-
+const AllCategories: FC<PropsType> = ({iconsProps}) => {
   return (
-    <Box>
+    <>
+      <Title align={"center"}>All icons</Title>
       {
-        transactionIcons.map(([section, icons]) => {
-          const iconNames = Object.keys(icons)
-
-          return (
-            <div>
-              <Text>{section}</Text>
-              {
-                iconNames.map((iconName) => <CategoryIcon mt={"2rem"} iconName={iconName as TransactionIconType}/>)
-              }
-            </div>
-          )
-        })
+        transactionIcons.map(([section, icons]) => (
+          <CategorySection key={section} iconProps={iconsProps} section={section} icons={icons}/>
+        ))
       }
-    </Box>
+    </>
   )
 }
 
