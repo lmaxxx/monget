@@ -5,5 +5,6 @@ const CategoryController = require("../controllers/categoryController")
 
 router.get("/categories/expenses", isAuthorized, CategoryController.getCategories)
 router.get("/categories/income", isAuthorized, CategoryController.getCategories)
+router.get("/category/:id", isAuthorized, CategoryController.getCategory)
 
 module.exports = router

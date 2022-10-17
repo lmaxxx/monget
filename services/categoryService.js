@@ -1,5 +1,6 @@
 const Category = require("../models/Category")
 const DataService = require("../services/dataService")
+const ApiError = require("../exceptions/apiError");
 
 class CategoryService {
   getDefaultCategoriesData(userId) {
@@ -160,6 +161,15 @@ class CategoryService {
     const categories = DataService.getCategoriesFromDocs(categoriesDocs)
 
     return categories
+  }
+
+  async getCategory(id) {
+    const categoryDoc = await Category.findOne({_id: id})
+      .catch(err => {
+        throw new ApiError(400, "There isn't find any category with current id")
+      })
+
+    return DataService.getCategoryFromDoc(categoryDoc)
   }
 }
 
