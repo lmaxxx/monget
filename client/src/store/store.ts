@@ -1,10 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit'
 import userReducer from './userSlice'
-import {authApi} from '../api/authApi'
-import {accountApi} from "../api/accountApi";
 import accountReducer from "./accountSlice";
 import financeHistoryReducer from "./financeHistorySlice";
+import {authApi} from '../api/authApi'
+import {accountApi} from "../api/accountApi";
 import {transferApi} from "../api/transferApi";
+import {categoryApi} from "../api/categoryApi";
 
 export const store = configureStore({
   reducer: {
@@ -13,10 +14,16 @@ export const store = configureStore({
     financeHistory: financeHistoryReducer,
     [authApi.reducerPath]: authApi.reducer,
     [accountApi.reducerPath]: accountApi.reducer,
-    [transferApi.reducerPath]: transferApi.reducer
+    [transferApi.reducerPath]: transferApi.reducer,
+    [categoryApi.reducerPath]: categoryApi.reducer
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApi.middleware, accountApi.middleware, transferApi.middleware),
+    getDefaultMiddleware().concat(
+      authApi.middleware,
+      accountApi.middleware,
+      transferApi.middleware,
+      categoryApi.middleware
+    ),
 })
 
 export type RootState = ReturnType<typeof store.getState>

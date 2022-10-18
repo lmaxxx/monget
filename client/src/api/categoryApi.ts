@@ -7,14 +7,14 @@ export const categoryApi = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ["Category"],
   endpoints: (builder) => ({
-    getIncomeCategories: builder.query<ICategory[], any>({
+    getIncomeCategories: builder.query<ICategory[], void>({
       query: () => "/api/categories/income",
       providesTags: (result, error, arg) =>
         result
           ? [...result.map(({id}) => ({type: 'Category' as const, id})), 'Category']
           : ['Category']
     }),
-    getExpensesCategories: builder.query<ICategory[], any>({
+    getExpensesCategories: builder.query<ICategory[], void>({
       query: () => "/api/categories/expenses",
       providesTags: (result, error, arg) =>
         result
@@ -24,4 +24,4 @@ export const categoryApi = createApi({
   })
 })
 
-export const {} = categoryApi
+export const {useGetExpensesCategoriesQuery, useGetIncomeCategoriesQuery} = categoryApi
