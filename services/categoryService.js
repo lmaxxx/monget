@@ -164,12 +164,26 @@ class CategoryService {
   }
 
   async getCategory(id) {
-    const categoryDoc = await Category.findOne({_id: id})
+    const categoryDoc = await Category.findById(id)
       .catch(err => {
         throw new ApiError(400, "There isn't find any category with current id")
       })
 
     return DataService.getCategoryFromDoc(categoryDoc)
+  }
+
+  async updateCategoriesOrder(newOrder) {
+    const operations = this.createOperationsForCategoriesReordering(newOrder)
+    await Category.bulkWrite(operations)
+  }
+
+  createOperationsForCategoriesReordering(newOrder) {
+    return newOrder.map((newOrderId, index) => ({
+      updateOne: {
+        filter: {_id: newOrderId},
+        update: {order: index + 1}
+      }
+    }))
   }
 }
 

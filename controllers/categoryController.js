@@ -1,4 +1,5 @@
 const CategoryService = require("../services/categoryService")
+const ApiError = require("../exceptions/apiError");
 
 class CategoryController {
   async getCategories(req, res) {
@@ -19,6 +20,19 @@ class CategoryController {
       const category = await CategoryService.getCategory(id)
 
       res.json(category)
+    } catch (err) {
+      res.status(err.status).json({status: err.status, message: err.message})
+    }
+  }
+
+  async updateCategoriesOrder(req, res) {
+    try {
+      ApiError.validationRequest(req)
+
+      const {newOrder} = req.body
+      await CategoryService.updateCategoriesOrder(newOrder)
+
+      res.json({message: "Success"})
     } catch (err) {
       res.status(err.status).json({status: err.status, message: err.message})
     }
