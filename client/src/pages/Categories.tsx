@@ -1,9 +1,10 @@
 import DefaultPageWrapper from "../hoc/DefaultPageWrapper";
-import AllCategories from "../components/AllCategories";
-import {useGetExpensesCategoriesQuery} from "../api/categoryApi";
+import AllCategoryIcons from "../components/AllCategoryIcons";
+import {useGetCategoriesQuery} from "../api/categoryApi";
+import {TransactionType} from "../types/sliceTypes/category.type";
 
 const Categories = () => {
-  const {data, isLoading} = useGetExpensesCategoriesQuery()
+  const {data, isLoading} = useGetCategoriesQuery(TransactionType.Expenses)
 
   if(!isLoading) console.log(data)
 
@@ -15,7 +16,7 @@ const Categories = () => {
 
   return (
     <DefaultPageWrapper>
-      <AllCategories iconsProps={iconProps}/>
+      <AllCategoryIcons iconsProps={iconProps}/>
     </DefaultPageWrapper>
   )
 }
