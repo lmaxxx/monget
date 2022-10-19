@@ -7,7 +7,7 @@ interface PropsType {
   iconsProps?: any
 }
 
-const AllCategories: FC<PropsType> = ({iconsProps}) => {
+const AllCategoryIcons: FC<PropsType> = ({iconsProps}) => {
   return (
     <>
       <Title align={"center"}>All icons</Title>
@@ -20,4 +20,4 @@ const AllCategories: FC<PropsType> = ({iconsProps}) => {
   )
 }
 
-export default AllCategories
+export default AllCategoryIcons

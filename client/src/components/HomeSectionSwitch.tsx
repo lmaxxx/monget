@@ -10,7 +10,7 @@ const segmentData = [
 
 const HomeSectionSwitch = () => {
   const dispatch = useAppDispatch()
-  const activeSection = useAppSelector(state => state.financeHistory.activeSection)
+  const activeSection = useAppSelector(state => state.financeHistorySlice.activeSection)
 
   const setNewActiveSection = (section: HomeSwitchValue) => {
     dispatch(setActiveSection(section))

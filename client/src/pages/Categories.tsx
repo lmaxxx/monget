@@ -1,22 +1,38 @@
 import DefaultPageWrapper from "../hoc/DefaultPageWrapper";
-import AllCategoryIcons from "../components/AllCategoryIcons";
-import {useGetCategoriesQuery} from "../api/categoryApi";
-import {TransactionType} from "../types/sliceTypes/category.type";
+import {useAppSelector} from "../hooks/storeHooks";
+import CategoryList from "../components/CategoryList";
+import CategorySegmentControl from "../components/CategorySegmentControl";
+import {Group, Switch, Text} from "@mantine/core";
+import {ChangeEvent, useState} from "react";
 
 const Categories = () => {
-  const {data, isLoading} = useGetCategoriesQuery(TransactionType.Expenses)
+  const activeTransactionType = useAppSelector(state => state.categorySlice.activeTransactionType)
+  const [isReorderingMode, setIsReorderingMode] = useState<any>(false)
+  const CategoryIconProps = {
+    iconSize: "3rem",
+    backgroundSize: "5rem"
+  }
 
-  if(!isLoading) console.log(data)
-
-  const iconProps = {
-    onClick(iconName: string) {
-      console.log("Hello " + iconName)
-    }
+  const onSwitchClickHandle = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsReorderingMode(e.currentTarget.checked)
   }
 
   return (
     <DefaultPageWrapper>
-      <AllCategoryIcons iconsProps={iconProps}/>
+      <Group position={"apart"}>
+        <CategorySegmentControl disabled={isReorderingMode}/>
+        <Group>
+          <Text>Reordering mode: </Text>
+          <Switch
+            value={isReorderingMode}
+            onChange={onSwitchClickHandle}
+            onLabel={"ON"}
+            offLabel={"OFF"}
+            size={"md"}
+          />
+        </Group>
+      </Group>
+      <CategoryList iconProps={CategoryIconProps} transactionType={activeTransactionType}/>
     </DefaultPageWrapper>
   )
 }

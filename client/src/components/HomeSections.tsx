@@ -7,7 +7,7 @@ import {HomeSwitchValue} from "../types/ui.type";
 
 const HomeSections = () => {
   const isTablet = useMediaQuery('(max-width: 900px)');
-  const activeSection = useAppSelector(state => state.financeHistory.activeSection)
+  const activeSection = useAppSelector(state => state.financeHistorySlice.activeSection)
 
   if(isTablet) {
     return (
