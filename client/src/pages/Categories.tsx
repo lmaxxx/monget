@@ -4,6 +4,7 @@ import CategoryList from "../components/CategoryList";
 import CategorySegmentControl from "../components/CategorySegmentControl";
 import {Group, Switch, Text} from "@mantine/core";
 import {ChangeEvent, useState} from "react";
+import CategoryReorder from "../components/CategoryReorder";
 
 const Categories = () => {
   const activeTransactionType = useAppSelector(state => state.categorySlice.activeTransactionType)
@@ -32,7 +33,12 @@ const Categories = () => {
           />
         </Group>
       </Group>
-      <CategoryList iconProps={CategoryIconProps} transactionType={activeTransactionType}/>
+      {
+        isReorderingMode ?
+          <CategoryReorder transactionType={activeTransactionType}/>
+          :
+          <CategoryList iconProps={CategoryIconProps} transactionType={activeTransactionType}/>
+      }
     </DefaultPageWrapper>
   )
 }

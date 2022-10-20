@@ -26,6 +26,7 @@ const CategoryList: FC<PropsType> = ({transactionType, iconProps}) => {
             backgroundColor={category.iconBackgroundColor}
             iconName={category.iconName}
             style={{cursor: "pointer"}}
+            backgroundSize={"100%"}
             {...iconProps}
           />
         ))

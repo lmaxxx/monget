@@ -1,6 +1,6 @@
 import {AnyAction, ThunkDispatch} from "@reduxjs/toolkit";
 import {setExpensesCategories, setIncomeCategories} from "../store/categorySlice";
-import {TransactionType} from "../types/sliceTypes/category.type";
+import {ICategory, TransactionType} from "../types/sliceTypes/category.type";
 
 class CategoryService {
   setCategories({dispatch, data}: {
@@ -14,6 +14,10 @@ class CategoryService {
     } else {
       dispatch(setIncomeCategories(data))
     }
+  }
+
+  getCategoryById(categories: ICategory[], id: string) {
+    return categories.find(category => category.id === id)
   }
 }
 
