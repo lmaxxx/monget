@@ -15,7 +15,7 @@ const CategoryList: FC<PropsType> = ({transactionType, iconProps}) => {
   const {isLoading} = useGetCategoriesQuery(transactionType)
   const categories = useAppSelector(state => state.categorySlice[`${transactionType}Categories`])
 
-  if(isLoading) return <Loader height={"100%"}/>
+  if(isLoading) return <Loader height={"80vh"}/>
 
   return (
     <Group mt={"md"}>

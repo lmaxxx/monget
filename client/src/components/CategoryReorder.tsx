@@ -1,25 +1,26 @@
 import {Group} from "@mantine/core";
 import CategoryIcon from "./CategoryIcon";
 import {useAppSelector} from "../hooks/storeHooks";
-import {ICategory, TransactionType} from "../types/sliceTypes/category.type";
+import {TransactionType} from "../types/sliceTypes/category.type";
 import CategoryService from "../services/categoryService";
-import {FC, useState} from "react";
+import {FC} from "react";
 import {
   GridContextProvider,
   GridDropZone,
-  GridItem, move,
+  GridItem,
   swap
 } from "react-grid-dnd";
 
 interface PropsType {
   transactionType: TransactionType
+  categoriesNewOrder: any
+  setCategoiesNewOrder: (newValue: any) => void
 }
 
-const CategoryReorder: FC<PropsType> = ({transactionType}) => {
+const CategoryReorder: FC<PropsType> = ({transactionType, categoriesNewOrder, setCategoiesNewOrder}) => {
   const categories = useAppSelector(state => state.categorySlice[`${transactionType}Categories`])
-  const [categoriesNewOrder, setCategoiesNewOrder] = useState<any>(categories.map(category  => category.id))
 
-  function changeOrder(sourceId: string, sourceIndex: number, targetIndex: number) {
+  const changeOrder = (sourceId: string, sourceIndex: number, targetIndex: number) => {
     const nextState = swap(categoriesNewOrder, sourceIndex, targetIndex);
     setCategoiesNewOrder(nextState);
   }
@@ -41,7 +42,7 @@ const CategoryReorder: FC<PropsType> = ({transactionType}) => {
                   <CategoryIcon
                     backgroundColor={category?.iconBackgroundColor}
                     iconName={category?.iconName || "IconApple"}
-                    style={{cursor: "pointer"}}
+                    style={{cursor: "grab"}}
                     backgroundSize={"100%"}
                     iconSize={"3rem"}
                   />

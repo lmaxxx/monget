@@ -19,7 +19,15 @@ export const categoryApi = createApi({
         CategoryService.setCategories({dispatch, data})
       }
     }),
+    updateOrder: builder.mutation<any, any>({
+      query: (newOrder) => ({
+        url: "/api/categories/order",
+        method: "PATCH",
+        body: {newOrder}
+      }),
+      invalidatesTags: ["Category"]
+    })
   })
 })
 
-export const {useGetCategoriesQuery} = categoryApi
+export const {useGetCategoriesQuery, useUpdateOrderMutation} = categoryApi
