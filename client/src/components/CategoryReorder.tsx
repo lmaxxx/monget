@@ -3,55 +3,64 @@ import CategoryIcon from "./CategoryIcon";
 import {useAppSelector} from "../hooks/storeHooks";
 import {TransactionType} from "../types/sliceTypes/category.type";
 import CategoryService from "../services/categoryService";
-import {FC} from "react";
-import {
-  GridContextProvider,
-  GridDropZone,
-  GridItem,
-  swap
-} from "react-grid-dnd";
+import {FC, useEffect, useState} from "react";
+import {GridContextProvider, GridDropZone, GridItem, swap} from "react-grid-dnd";
 
 interface PropsType {
   transactionType: TransactionType
   categoriesNewOrder: any
-  setCategoiesNewOrder: (newValue: any) => void
+  setCategoriesNewOrder: (newValue: any) => void
 }
 
-const CategoryReorder: FC<PropsType> = ({transactionType, categoriesNewOrder, setCategoiesNewOrder}) => {
+const CategoryReorder: FC<PropsType> = ({transactionType, categoriesNewOrder, setCategoriesNewOrder}) => {
   const categories = useAppSelector(state => state.categorySlice[`${transactionType}Categories`])
+  const [categoriesPerRow, setCategoriesPerRow] = useState<number>(3)
+  const [wrapperWidth, setWrapperWidth] = useState<number>(0)
+
+  useEffect(() => {
+    handleResize()
+  }, [wrapperWidth])
+
+  const getWidthFromRef = (data: any) => {
+    if(!data) return
+    setWrapperWidth(data.clientWidth)
+  }
+
+  const handleResize = () => {
+    const newAmountOfCategories = CategoryService.calculateSuitableAmountOfCategories(wrapperWidth, 80)
+    if(newAmountOfCategories !== categoriesPerRow) setCategoriesPerRow(newAmountOfCategories)
+  }
 
   const changeOrder = (sourceId: string, sourceIndex: number, targetIndex: number) => {
     const nextState = swap(categoriesNewOrder, sourceIndex, targetIndex);
-    setCategoiesNewOrder(nextState);
+    setCategoriesNewOrder(nextState);
   }
 
   return (
-    <Group mt={"md"}>
-      {
-        <GridContextProvider onChange={changeOrder}>
-          <GridDropZone
-            id="categories reorder"
-            boxesPerRow={4}
-            rowHeight={100}
-            style={{ height: "400px", width: "100%" }}
-          >
-            {categoriesNewOrder.map((categoryId: string) => {
-              const category = CategoryService.getCategoryById(categories, categoryId)
-              return (
-                <GridItem style={{width: "5rem", height: "5rem"}} key={category?.id}>
-                  <CategoryIcon
-                    backgroundColor={category?.iconBackgroundColor}
-                    iconName={category?.iconName || "IconApple"}
-                    style={{cursor: "grab"}}
-                    backgroundSize={"100%"}
-                    iconSize={"3rem"}
-                  />
-                </GridItem>
-              )
-            })}
-          </GridDropZone>
-        </GridContextProvider>
-      }
+    <Group ref={getWidthFromRef} mt={"md"}>
+      <GridContextProvider onChange={changeOrder}>
+        <GridDropZone
+          id="categories reorder"
+          boxesPerRow={categoriesPerRow}
+          rowHeight={100}
+          style={{minHeight: "70vh", height: "100%", width: "100%"}}
+        >
+          {categoriesNewOrder.map((categoryId: string) => {
+            const category = CategoryService.getCategoryById(categories, categoryId)
+            return (
+              <GridItem style={{width: "5rem", height: "5rem"}} key={category?.id}>
+                <CategoryIcon
+                  backgroundColor={category?.iconBackgroundColor}
+                  iconName={category?.iconName || "IconApple"}
+                  style={{cursor: "grab"}}
+                  backgroundSize={"100%"}
+                  iconSize={"3rem"}
+                />
+              </GridItem>
+            )
+          })}
+        </GridDropZone>
+      </GridContextProvider>
     </Group>
   )
 }

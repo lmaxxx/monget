@@ -12,7 +12,7 @@ const Categories = () => {
   const activeTransactionType = useAppSelector(state => state.categorySlice.activeTransactionType)
   const [isReorderingMode, setIsReorderingMode] = useState<any>(false)
   const categories = useAppSelector(state => state.categorySlice[`${activeTransactionType}Categories`])
-  const [categoriesNewOrder, setCategoiesNewOrder] = useState<any>(categories.map(category  => category.id))
+  const [categoriesNewOrder, setCategoriesNewOrder] = useState<any>(categories.map(category  => category.id))
   const [updateOrder, {isLoading}] = useUpdateOrderMutation()
   const CategoryIconProps = {
     iconSize: "3rem",
@@ -28,7 +28,7 @@ const Categories = () => {
   }, [isReorderingMode])
 
   useEffect(() => {
-    setCategoiesNewOrder(categories.map(category => category.id))
+    setCategoriesNewOrder(categories.map(category => category.id))
   }, [categories])
 
   const onSwitchClickHandle = (e: ChangeEvent<HTMLInputElement>) => {
@@ -63,7 +63,7 @@ const Categories = () => {
           <CategoryReorder
             transactionType={activeTransactionType}
             categoriesNewOrder={categoriesNewOrder}
-            setCategoiesNewOrder={setCategoiesNewOrder}
+            setCategoriesNewOrder={setCategoriesNewOrder}
           />
           :
           <CategoryList iconProps={CategoryIconProps} transactionType={activeTransactionType}/>

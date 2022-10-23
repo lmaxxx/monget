@@ -19,6 +19,14 @@ class CategoryService {
   getCategoryById(categories: ICategory[], id: string) {
     return categories.find(category => category.id === id)
   }
+
+  calculateSuitableAmountOfCategories(wrapperWidth: number, categoryWidth: number) {
+    const categoryWidthWithGap = categoryWidth + 16
+
+    if(!wrapperWidth) return 3
+
+    return Math.floor(wrapperWidth / categoryWidthWithGap)
+  }
 }
 
 export default new CategoryService()
