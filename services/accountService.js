@@ -50,6 +50,14 @@ class AccountService {
     await accountDoc.save()
     return DataService.getAccountFormDoc(accountDoc)
   }
+
+  async getAccount(id) {
+    const accountDoc = await Account.findById(id).catch(err => {
+      throw new ApiError(400, "There is no account with current id")
+    })
+
+    return DataService.getAccountFormDoc(accountDoc)
+  }
 }
 
 module.exports = new AccountService()

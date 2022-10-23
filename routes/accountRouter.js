@@ -5,6 +5,7 @@ const AccountController = require("../controllers/accountController")
 const {body} = require("express-validator");
 
 router.get("/accounts", isAuthorized, AccountController.getAccounts)
+router.get("/account/:id", isAuthorized, AccountController.getAccount)
 router.post("/account",
   body("currency").isLength({min: 3}).withMessage("Choose currency"),
   body("accountName").isLength({min: 1}).withMessage("Account name must be at least 1 char long"),

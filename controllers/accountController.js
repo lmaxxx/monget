@@ -39,6 +39,17 @@ class AccountController {
       res.status(err.status || 500).json({status: err.status, message: err.message})
     }
   }
+
+  async getAccount(req, res) {
+    try {
+      const {id} = req.params
+      const account = await AccountService.getAccount(id)
+
+      res.json(account)
+    } catch (err) {
+      res.status(err.status || 500).json({status: err.status, message: err.message})
+    }
+  }
 }
 
 module.exports = new AccountController()
