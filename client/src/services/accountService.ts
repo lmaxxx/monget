@@ -22,9 +22,13 @@ class AccountService {
     }
   }
 
-  getAccountEditingFormConfig(initialValues: any) {
+  getAccountEditingFormConfig(initialValues?: any) {
     return {
-      initialValues,
+      initialValues: initialValues || {
+        currency: "",
+        amount: "",
+        accountName: ""
+      },
       validate: {
         currency: (value: string) => value.trim().length === 3 ? null : "You need to choose currency",
         amount: (value: string) => typeof value === "number" ? null: "You need to type amount",

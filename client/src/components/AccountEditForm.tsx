@@ -10,26 +10,31 @@ import CurrencySelect from "./CurrencySelect";
 import colorsForPicker from "../data/colorsForPicker.json";
 import AccountIconList from "./AccountIconList";
 import {Link, useNavigate, useParams} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useForm} from "@mantine/form";
 import AccountService from "../services/accountService";
-import {useAppSelector} from "../hooks/storeHooks";
-import {useEditAccountMutation} from "../api/accountApi";
+import {useEditAccountMutation, useGetAccountQuery} from "../api/accountApi";
 import {AccountIconType} from "../data/accountIcons";
+import {IAccount} from "../types/sliceTypes/account.type";
 
 const AccountEditForm = () => {
-  const {id: currentAccountId} = useParams()
-  const [editAccount, {isLoading}] = useEditAccountMutation()
-  const accounts = useAppSelector(state => state.accountSlice.accounts)
-  const currentAccount = accounts.find(account => account.id === currentAccountId)
+  const {id} = useParams()
+  const [editAccount, {isLoading: isLoadingMutation}] = useEditAccountMutation()
+  const {data: currentAccount, isLoading: isLoadingQuery, isError} = useGetAccountQuery(id!)
   const [iconBackgroundColor, setIconBackgroundColor] = useState<string>(currentAccount?.iconBackgroundColor || "#ccc")
   const [activeIconName, setActiveIconName] = useState<AccountIconType>(currentAccount?.iconName || "IconCash")
   const navigate = useNavigate()
-  const form = useForm(AccountService.getAccountEditingFormConfig({
-    accountName: currentAccount?.accountName,
-    amount: currentAccount?.amount,
-    currency: currentAccount?.currency
-  }))
+  const form = useForm(AccountService.getAccountEditingFormConfig())
+
+  useEffect(() => {
+    if(isError) navigate("/accounts")
+
+    if(currentAccount) {
+      form.setFieldValue("accountName", currentAccount.accountName)
+      form.setFieldValue("amount", currentAccount.amount)
+      form.setFieldValue("currency", currentAccount.currency)
+    }
+  }, [currentAccount]);
 
   const submit = async (values: {[key: number]: string}) => {
     const data = {
@@ -37,19 +42,21 @@ const AccountEditForm = () => {
       iconBackgroundColor,
       iconName: activeIconName,
       id: currentAccount?.id
-    }
+    } as IAccount
 
     await editAccount(data)
     navigate("/accounts")
   }
 
-  if(!currentAccount && !accounts) return <div style={{position: "relative", height: "400px"}}>
-    <LoadingOverlay visible={isLoading} overlayBlur={2}/>
-  </div>
+  if(!currentAccount) return (
+    <div style={{position: "relative", height: "400px"}}>
+      <LoadingOverlay visible={true} overlayBlur={2}/>
+    </div>
+  )
 
   return (
     <div style={{position: "relative"}}>
-      <LoadingOverlay visible={false} overlayBlur={2}/>
+      <LoadingOverlay visible={isLoadingMutation || isLoadingQuery} overlayBlur={2}/>
       <Box sx={{
         overflow: "auto",
         height: 450,

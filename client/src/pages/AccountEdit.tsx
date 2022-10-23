@@ -1,23 +1,8 @@
-import {useNavigate, useParams} from "react-router-dom";
-import {useAppSelector} from "../hooks/storeHooks";
-import {useEffect} from "react";
 import {Center, Paper, Title, useMantineTheme} from "@mantine/core";
 import AccountEditForm from "../components/AccountEditForm";
-import {useLazyGetAccountsQuery} from "../api/accountApi";
 
 const AccountEdit = () => {
-  const {id} = useParams()
-  const accounts = useAppSelector(state => state.accountSlice.accounts)
-  const currentAccount = accounts.find(account => account.id === id)
-  const navigate = useNavigate()
   const theme = useMantineTheme()
-  const [getAccounts] = useLazyGetAccountsQuery()
-
-  useEffect(() => {
-    if(!currentAccount && accounts.length) return navigate("/accounts")
-
-    getAccounts()
-  }, [currentAccount])
 
   return (
     <Center style={{
