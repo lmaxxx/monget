@@ -20,6 +20,9 @@ export const accountApi = createApi({
         await AccountService.setAccounts({dispatch, data})
       }
     }),
+    getAccount: builder.query<IAccount, string>({
+      query: (id) => `/api/account/${id}`
+    }),
     createAccount: builder.mutation<IAccount, AccountCreatingFormValues>({
       query: (formData) => ({
         url: "/api/account",
@@ -28,7 +31,7 @@ export const accountApi = createApi({
       }),
       invalidatesTags: ["Account"]
     }),
-    editAccount: builder.mutation<IAccount, any>({
+    editAccount: builder.mutation<IAccount, IAccount>({
       query: (formData) => ({
         url: `/api/account/${formData.id}`,
         method: "PATCH",
@@ -39,4 +42,10 @@ export const accountApi = createApi({
   })
 })
 
-export const {useGetAccountsQuery, useCreateAccountMutation, useLazyGetAccountsQuery, useEditAccountMutation} = accountApi
+export const {
+  useGetAccountsQuery,
+  useCreateAccountMutation,
+  useLazyGetAccountsQuery,
+  useEditAccountMutation,
+  useGetAccountQuery
+} = accountApi
