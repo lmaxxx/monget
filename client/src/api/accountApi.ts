@@ -21,7 +21,7 @@ export const accountApi = createApi({
       }
     }),
     getAccount: builder.query<IAccount, string>({
-      query: (id) => `/api/account/${id}`
+      query: (id) => `/api/account/${id}`,
     }),
     createAccount: builder.mutation<IAccount, AccountCreatingFormValues>({
       query: (formData) => ({

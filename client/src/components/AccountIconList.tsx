@@ -20,7 +20,8 @@ const AccountIconList: FC<PropsType> = ({activeIconName, setActiveIconName, back
             key={name}
             backgroundColor={backgroundColor!}
             iconName={name}
-            size={"3rem"}
+            backgroundSize={"3rem"}
+            iconSize={"2rem"}
             isActive={activeIconName === name}
             onClick={setActiveIconName.bind(this, name)}
           />

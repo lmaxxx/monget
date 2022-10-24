@@ -20,7 +20,7 @@ import {IAccount} from "../types/sliceTypes/account.type";
 const AccountEditForm = () => {
   const {id} = useParams()
   const [editAccount, {isLoading: isLoadingMutation}] = useEditAccountMutation()
-  const {data: currentAccount, isLoading: isLoadingQuery, isError} = useGetAccountQuery(id!)
+  const {data: currentAccount, isLoading: isLoadingQuery, isError} = useGetAccountQuery(id!, {refetchOnMountOrArgChange: true})
   const [iconBackgroundColor, setIconBackgroundColor] = useState<string>(currentAccount?.iconBackgroundColor || "#ccc")
   const [activeIconName, setActiveIconName] = useState<AccountIconType>(currentAccount?.iconName || "IconCash")
   const navigate = useNavigate()
@@ -33,6 +33,7 @@ const AccountEditForm = () => {
       form.setFieldValue("accountName", currentAccount.accountName)
       form.setFieldValue("amount", currentAccount.amount)
       form.setFieldValue("currency", currentAccount.currency)
+      setIconBackgroundColor(currentAccount.iconBackgroundColor)
     }
   }, [currentAccount]);
 
