@@ -11,19 +11,27 @@ import {Link, useNavigate} from "react-router-dom";
 import CurrencySelect from "./CurrencySelect";
 import {useForm} from "@mantine/form";
 import colorsForPicker from "../data/colorsForPicker.json"
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import AccountService from "../services/accountService";
 import {useCreateAccountMutation} from "../api/accountApi";
 import {AccountCreatingFormValues} from "../types/form.type";
 import AccountIconList from "./AccountIconList";
 import {AccountIconType} from "../data/accountIcons";
+import {useAppSelector} from "../hooks/storeHooks";
 
 const AccountCreateForm = () => {
+  const userCurrency = useAppSelector(state => state.userSlice.user.currency)
   const [iconBackgroundColor, setIconBackgroundColor] = useState<string>(colorsForPicker[1])
   const [activeIconName, setActiveIconName] = useState<AccountIconType>("IconCash")
   const form = useForm(AccountService.getAccountCreatingFormConfig())
   const [createAccount, {isLoading}] = useCreateAccountMutation()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if(userCurrency) {
+      form.setFieldValue("currency", userCurrency)
+    }
+  }, [userCurrency]);
 
   const submit = async (values: {[key: number]: string}) => {
     const data = {

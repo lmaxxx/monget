@@ -11,12 +11,12 @@ class AccountService {
     return {
       initialValues: {
         accountName: "",
-        amount: "",
+        amount: 0,
         currency: ""
       },
       validate: {
         currency: (value: string) => value.trim().length === 3 ? null : "You need to choose currency",
-        amount: (value: string) => typeof value === "number" ? null: "You need to type amount",
+        amount: (value: number) => value.toString().trim().length ? null: "You need to type amount",
         accountName:  (value: string) => value.trim().length ? null : "You need to type account name"
       }
     }
