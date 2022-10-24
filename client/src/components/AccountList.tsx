@@ -1,4 +1,4 @@
-import {Container} from "@mantine/core";
+import {Group} from "@mantine/core";
 import {useGetAccountsQuery} from "../api/accountApi";
 import AccountListItem from "./AccountListItem";
 import AccountsSkeleton from "./AccountsSkeleton";
@@ -11,11 +11,11 @@ const AccountList = () => {
   if(isLoading) return <AccountsSkeleton/>
 
   return (
-    <Container px={0} py={"xs"} mt={"lg"}>
+    <Group py={"xs"} mt={"lg"}>
       {
         accounts?.map(account => <AccountListItem key={account.id} account={account}/>)
       }
-    </Container>
+    </Group>
   )
 }
 

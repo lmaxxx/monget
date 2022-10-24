@@ -1,10 +1,10 @@
-import {Group, Text, useMantineTheme} from "@mantine/core";
+import {Box, Text, useMantineTheme} from "@mantine/core";
 import {FC} from 'react'
 import {IAccount} from "../types/sliceTypes/account.type";
 import AccountIcon from "./AccountIcon";
-import getSymbolFromCurrency from "currency-symbol-map";
 import {useNavigate} from "react-router-dom";
 import AccountService from "../services/accountService";
+import HiddenTextStyles from "../assets/hiddenTextStyles";
 
 interface PropsType {
   account: IAccount
@@ -17,26 +17,45 @@ const AccountListItem: FC<PropsType> = ({account}) => {
   const redirect = () => navigate(`/account/${account.id}`)
 
   return (
-    <Group onClick={redirect} position={"apart"} p={"sm"} mb={"md"} sx={{
-      width: "100%",
-      transition: ".2s",
-      borderRadius: ".5rem",
-      cursor: "pointer",
-      border: `1px solid ${theme.colors.gray[4]}`,
-      "&:hover": {
-        border: `1px solid ${theme.colors.gray[5]}`,
-        backgroundColor: theme.colors.gray[0],
-      }
-    }}>
-      <Group>
-        <AccountIcon size={"2rem"} iconName={account.iconName} backgroundColor={account.iconBackgroundColor} />
-        <Text size={"lg"}>{account.accountName}</Text>
-      </Group>
-      <Text size={"lg"}>{AccountService.getFormattedAmount(account.amount, account.currency)}</Text>
-    </Group>
+    <Box
+      onClick={redirect}
+      p={"xs"}
+      sx={{
+        width: "130px",
+        height: "140px",
+        borderRadius: ".5rem",
+        cursor: "pointer",
+        transition: ".2s",
+        border: `1px solid ${theme.colors.gray[4]}`,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        "&:hover": {
+          border: `1px solid ${theme.colors.blue[4]}`,
+        }
+      }}
+    >
+      <AccountIcon
+        backgroundSize={"3rem"}
+        iconName={account.iconName}
+        backgroundColor={account.iconBackgroundColor}
+        iconSize={"2rem"}
+      />
+      <Text
+        align={"center"}
+        pt={"md"}
+        sx={{...HiddenTextStyles, width: "100%"}}
+        size={"lg"}
+      >{account.accountName}</Text>
+      <Text
+        align={"center"}
+        color={"grey"}
+        sx={{...HiddenTextStyles, width: "100%"}}
+        size={"md"}
+      >{AccountService.getFormattedAmount(account.amount, account.currency)}</Text>
+    </Box>
   )
 }
 
 export default AccountListItem
-
-
