@@ -58,6 +58,12 @@ class AccountService {
 
     return DataService.getAccountFormDoc(accountDoc)
   }
+
+  async deleteAccount(id) {
+    await Account.findByIdAndDelete(id).catch(err => {
+      throw new ApiError(400, "There is no account with current id")
+    })
+  }
 }
 
 module.exports = new AccountService()

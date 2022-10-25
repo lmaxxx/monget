@@ -50,6 +50,17 @@ class AccountController {
       res.status(err.status || 500).json({status: err.status, message: err.message})
     }
   }
+
+  async deleteAccount(req, res) {
+    try {
+      const {id} = req.params
+      await AccountService.deleteAccount(id)
+
+      res.json({message: "Success"})
+    } catch (err) {
+      res.status(err.status || 500).json({status: err.status, message: err.message})
+    }
+  }
 }
 
 module.exports = new AccountController()

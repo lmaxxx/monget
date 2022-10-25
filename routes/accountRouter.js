@@ -15,5 +15,6 @@ router.post("/account",
   isAuthorized, AccountController.createAccount)
 
 router.patch("/account/:id", isAuthorized, AccountController.editAccount)
+router.delete("/account/:id", isAuthorized, AccountController.deleteAccount)
 
 module.exports = router
