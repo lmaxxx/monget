@@ -1,5 +1,6 @@
 import {Center, Paper, Title, useMantineTheme} from "@mantine/core";
 import AccountCreateForm from "../components/AccountCreateForm";
+import FormHeader from "../components/FormHeader";
 
 const AccountCreate = () => {
   const theme = useMantineTheme()
@@ -11,7 +12,7 @@ const AccountCreate = () => {
       backgroundColor: theme.colors.gray[1]
     }}>
       <Paper sx={{maxWidth: 400, width: "90%"}} shadow="xl" radius="md" p="xl">
-        <Title mb={"sm"} order={2} sx={{fontSize: "2rem", fontWeight: 500}} align={"center"}>New account</Title>
+        <FormHeader title={"New account"} goBackPath={"/accounts"}/>
         <AccountCreateForm/>
       </Paper>
     </Center>

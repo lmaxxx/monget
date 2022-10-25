@@ -1,5 +1,5 @@
-import {Box, Button, LoadingOverlay, NumberInput, Stack} from "@mantine/core";
-import {Link, useNavigate} from "react-router-dom";
+import {Box, Button, LoadingOverlay, NumberInput} from "@mantine/core";
+import {useNavigate} from "react-router-dom";
 import {useAppSelector} from "../hooks/storeHooks";
 import {useState} from "react";
 import AccountSelect from "./AccountSelect";
@@ -41,7 +41,7 @@ const TransferCreateForm = () => {
   return (
     <div style={{position: "relative"}}>
       <LoadingOverlay visible={isLoading} overlayBlur={2}/>
-      <Box sx={{
+      <Box mt={"md"} sx={{
         overflow: "auto",
         position: "relative",
         padding: ".1rem"
@@ -70,17 +70,7 @@ const TransferCreateForm = () => {
             label="Amount"
             {...form.getInputProps("amount")}
           />
-          <Stack mt={"md"} align={"center"}>
-            <Button fullWidth size={"md"} type="submit">Create</Button>
-            <Button
-              size={"md"}
-              fullWidth
-              component={Link}
-              to={"/accounts"}
-              color={"red"}
-              variant={"outline"}
-            >Go back</Button>
-          </Stack>
+          <Button mt={"md"} fullWidth size={"md"} type="submit">Create</Button>
         </form>
       </Box>
     </div>

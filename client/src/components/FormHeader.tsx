@@ -13,7 +13,7 @@ const FormHeader: FC<PropsType> = ({title, goBackPath}) => {
 
   return (
     <Group position={"apart"}>
-      <Title mb={"sm"} order={2} sx={{fontSize: "2rem", fontWeight: 500}} align={"center"}>{title}</Title>
+      <Title order={2} sx={{fontSize: "2rem", fontWeight: 500}} align={"center"}>{title}</Title>
       <CloseButton color={"red"} size={"lg"} onClick={goBack} aria-label="Close transfers" />
     </Group>
   )

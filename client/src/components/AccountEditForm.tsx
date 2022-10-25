@@ -69,7 +69,7 @@ const AccountEditForm = () => {
   return (
     <div style={{position: "relative"}}>
       <LoadingOverlay visible={isLoading} overlayBlur={2}/>
-      <Box sx={{
+      <Box mt={"md"} sx={{
         overflow: "auto",
         height: 450,
         position: "relative",

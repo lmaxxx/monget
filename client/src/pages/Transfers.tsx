@@ -1,5 +1,4 @@
-import {Center, CloseButton, Group, Paper, Title, useMantineTheme} from "@mantine/core";
-import {useNavigate} from "react-router-dom";
+import {Center, Paper, useMantineTheme} from "@mantine/core";
 import TransferList from "../components/TransferList";
 import FormHeader from "../components/FormHeader";
 

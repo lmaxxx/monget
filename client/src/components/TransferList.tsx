@@ -9,7 +9,7 @@ const TransferList = () => {
   if(isLoading) return <Loader height={"300px"}/>
 
   return (
-    <Box style={{overflowY: "auto", maxHeight: "80vh"}}>
+    <Box mt={"md"} style={{overflowY: "auto", maxHeight: "80vh"}}>
       {
         transfers?.map(transfer => (
           <TransferListItem key={transfer.id} transfer={transfer}/>
