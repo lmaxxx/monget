@@ -2,12 +2,11 @@ import {
   Box,
   Button,
   ColorPicker,
-  Group,
   LoadingOverlay,
   NumberInput, Stack,
   TextInput,
 } from "@mantine/core";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import CurrencySelect from "./CurrencySelect";
 import {useForm} from "@mantine/form";
 import colorsForPicker from "../data/colorsForPicker.json"
@@ -33,7 +32,7 @@ const AccountCreateForm = () => {
     }
   }, [userCurrency]);
 
-  const submit = async (values: {[key: number]: string}) => {
+  const createAccountSubmit = async (values: {[key: number]: string}) => {
     const data = {
       ...values,
       iconBackgroundColor,
@@ -53,7 +52,7 @@ const AccountCreateForm = () => {
         position: "relative",
         padding: ".1rem"
       }}>
-        <form onSubmit={form.onSubmit(submit)}>
+        <form onSubmit={form.onSubmit(createAccountSubmit)}>
           <TextInput
             mb={"sm"}
             label="Name"
@@ -82,14 +81,6 @@ const AccountCreateForm = () => {
               backgroundColor={iconBackgroundColor}
             />
             <Button fullWidth size={"md"} type="submit">Create</Button>
-            <Button
-              size={"md"}
-              fullWidth
-              component={Link}
-              to={"/accounts"}
-              color={"red"}
-              variant={"outline"}
-            >Go back</Button>
           </Stack>
         </form>
       </Box>

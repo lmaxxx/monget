@@ -5,6 +5,7 @@ import {AccountSelectItemOptions, AccountSelectItemProps} from "../types/ui.type
 import accountsIcons from "../data/accountIcons";
 import {ElementType} from 'react'
 import {IAccount} from "../types/sliceTypes/account.type";
+import {UseFormReturnType} from "@mantine/form";
 
 class AccountService {
   getAccountCreatingFormConfig() {
@@ -63,6 +64,12 @@ class AccountService {
 
       return selectItemProps
     })
+  }
+
+  setDefaultEditForm(form: UseFormReturnType<any, (values: any) => any>, account: IAccount) {
+    form.setFieldValue("accountName", account.accountName)
+    form.setFieldValue("amount", account.amount)
+    form.setFieldValue("currency", account.currency)
   }
 }
 

@@ -38,6 +38,13 @@ export const accountApi = createApi({
         body: formData
       }),
       invalidatesTags: ["Account"]
+    }),
+    deleteAccount: builder.mutation<void, string>({
+      query: (id) =>  ({
+        url: `/api/account/${id}`,
+        method: "DELETE"
+      }),
+      invalidatesTags: ["Account"]
     })
   })
 })
@@ -47,5 +54,6 @@ export const {
   useCreateAccountMutation,
   useLazyGetAccountsQuery,
   useEditAccountMutation,
-  useGetAccountQuery
+  useGetAccountQuery,
+  useDeleteAccountMutation
 } = accountApi
