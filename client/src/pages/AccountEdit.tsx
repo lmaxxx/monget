@@ -11,7 +11,7 @@ const AccountEdit = () => {
       width: "100%",
       backgroundColor: theme.colors.gray[1]
     }}>
-      <Paper sx={{maxWidth: 400, width: "90%"}} shadow="xl" radius="md" p="xl">
+      <Paper sx={{maxWidth: 700, width: "90%"}} shadow="xl" radius="md" p="xl">
         <FormHeader title={"Account settings"} goBackPath={"/accounts"}/>
         <AccountEditForm/>
       </Paper>

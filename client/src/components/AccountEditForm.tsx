@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  ColorPicker,
-  LoadingOverlay,
-  NumberInput, Stack,
-  TextInput,
-} from "@mantine/core";
+import {Box, Button, ColorPicker, Group, LoadingOverlay, NumberInput, TextInput} from "@mantine/core";
 import CurrencySelect from "./CurrencySelect";
 import colorsForPicker from "../data/colorsForPicker.json";
 import AccountIconList from "./AccountIconList";
@@ -13,37 +6,40 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {useForm} from "@mantine/form";
 import AccountService from "../services/accountService";
-import {
-  useDeleteAccountMutation,
-  useEditAccountMutation,
-  useGetAccountQuery
-} from "../api/accountApi";
+import {useDeleteAccountMutation, useEditAccountMutation, useGetAccountQuery} from "../api/accountApi";
 import {AccountIconType} from "../data/accountIcons";
 import {IAccount} from "../types/sliceTypes/account.type";
 import {useAppSelector} from "../hooks/storeHooks";
+import {useMediaQuery} from "@mantine/hooks";
 
 const AccountEditForm = () => {
   const {id} = useParams()
   const [editAccount, {isLoading: isEditing}] = useEditAccountMutation()
   const [deleteAccount, {isLoading: isDeleting}] = useDeleteAccountMutation()
-  const {data: currentAccount, isLoading: isLoadingQuery, isError} = useGetAccountQuery(id!, {refetchOnMountOrArgChange: true})
+  const {
+    data: currentAccount,
+    isLoading: isLoadingQuery,
+    isError
+  } = useGetAccountQuery(id!, {refetchOnMountOrArgChange: true})
   const [iconBackgroundColor, setIconBackgroundColor] = useState<string>(currentAccount?.iconBackgroundColor || "#ccc")
   const [activeIconName, setActiveIconName] = useState<AccountIconType>(currentAccount?.iconName || "IconCash")
   const accountsAmount = useAppSelector(state => state.accountSlice.accounts.length)
   const navigate = useNavigate()
   const form = useForm(AccountService.getAccountEditingFormConfig())
   const isLoading = isEditing || isDeleting || isLoadingQuery
+  const isMobile = useMediaQuery('(max-width: 520px)');
 
   useEffect(() => {
-    if(isError) navigate("/accounts")
+    if (isError) navigate("/accounts")
 
-    if(currentAccount) {
+    if (currentAccount) {
       AccountService.setDefaultEditForm(form, currentAccount)
       setIconBackgroundColor(currentAccount.iconBackgroundColor)
+      setActiveIconName(currentAccount.iconName)
     }
   }, [currentAccount]);
 
-  const editAccountSubmit = async (values: {[key: number]: string}) => {
+  const editAccountSubmit = async (values: { [key: number]: string }) => {
     const data = {
       ...values,
       iconBackgroundColor,
@@ -60,7 +56,7 @@ const AccountEditForm = () => {
     navigate("/accounts")
   }
 
-  if(!currentAccount) return (
+  if (!currentAccount) return (
     <div style={{position: "relative", height: "400px"}}>
       <LoadingOverlay visible={true} overlayBlur={2}/>
     </div>
@@ -69,57 +65,72 @@ const AccountEditForm = () => {
   return (
     <div style={{position: "relative"}}>
       <LoadingOverlay visible={isLoading} overlayBlur={2}/>
-      <Box mt={"md"} sx={{
+      <Group mt={"md"} sx={{
         overflow: "auto",
-        height: 450,
+        height: "90%",
+        maxHeight: "70vh",
         position: "relative",
         padding: ".1rem"
       }}>
-        <form onSubmit={form.onSubmit(editAccountSubmit)}>
-          <TextInput
-            mb={"sm"}
-            label="Name"
-            placeholder="My credit card"
-            {...form.getInputProps("accountName")}
-          />
-          <CurrencySelect label={"Currency"} form={form}/>
-          <NumberInput
-            mt={"sm"}
-            placeholder="1251"
-            label="Amount"
-            {...form.getInputProps("amount")}
-          />
-          <Stack align={"center"}>
-            <ColorPicker
+        <Box
+          id={"accountEditForm"}
+          component={"form"}
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            flexDirection: isMobile ? "column" : "initial",
+            alignItems: isMobile ? "center" : "initial",
+            width: "100%",
+            gap: "1rem"
+          }}
+          onSubmit={form.onSubmit(editAccountSubmit)}
+        >
+          <Box sx={{width: isMobile ? "100%" : "50%"}}>
+            <TextInput
+              mb={"sm"}
+              label="Name"
+              placeholder="My credit card"
+              {...form.getInputProps("accountName")}
+            />
+            <CurrencySelect label={"Currency"} form={form}/>
+            <NumberInput
               mt={"sm"}
-              swatchesPerRow={6}
-              format="hex"
-              value={iconBackgroundColor}
-              onChange={setIconBackgroundColor}
-              swatches={colorsForPicker}
+              placeholder="1251"
+              label="Amount"
+              {...form.getInputProps("amount")}
             />
-            <AccountIconList
-              activeIconName={activeIconName}
-              setActiveIconName={setActiveIconName}
-              backgroundColor={iconBackgroundColor}
-            />
-            <Button fullWidth size={"md"} type="submit">Save</Button>
-            {
-              accountsAmount > 1
-              &&
-              <Button
-                onClick={deleteAccountSubmit}
-                size={"md"}
-                fullWidth
-                component={Link}
-                to={"/accounts"}
-                color={"red"}
-                variant={"outline"}
-              >Delete</Button>
-            }
-          </Stack>
-        </form>
-      </Box>
+          </Box>
+          <ColorPicker
+            mt={"sm"}
+            swatchesPerRow={6}
+            size={isMobile ? "xs" : "md"}
+            format="hex"
+            value={iconBackgroundColor}
+            onChange={setIconBackgroundColor}
+            swatches={colorsForPicker}
+          />
+        </Box>
+        <AccountIconList
+          activeIconName={activeIconName}
+          setActiveIconName={setActiveIconName}
+          backgroundColor={iconBackgroundColor}
+        />
+      </Group>
+      <Button form={"accountEditForm"} fullWidth mt={"md"} size={"md"} type="submit">Save</Button>
+      {
+        accountsAmount > 1
+        &&
+        <Button
+          onClick={deleteAccountSubmit}
+          size={"md"}
+          mt={"md"}
+          fullWidth
+          component={Link}
+          to={"/accounts"}
+          color={"red"}
+          variant={"outline"}
+        >Delete</Button>
+      }
     </div>
   )
 }
