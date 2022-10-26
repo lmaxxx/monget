@@ -4,12 +4,12 @@ class TransferService {
       initialValues: {
         from: "",
         to: "",
-        amount: ""
+        amount: 0
       },
       validate: {
-        to: (value: string) => value.trim().length ? null : "You need to choose from account",
-        amount: (value: string) => !!parseInt(value) ? null: "You need to type amount",
-        from: (value: string) => value.trim().length ? null : "You need to choose to account"
+        to: (value: string) => value.trim().length ? null : "You need to choose FROM account",
+        amount: (value: number) => value > 0  ? null: "Amount should be more than 0",
+        from: (value: string) => value.trim().length ? null : "You need to choose TO account"
       }
     }
   }

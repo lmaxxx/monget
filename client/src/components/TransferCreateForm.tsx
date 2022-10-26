@@ -1,4 +1,4 @@
-import {Box, Button, LoadingOverlay, NumberInput} from "@mantine/core";
+import {Box, Button, LoadingOverlay, NumberInput, ActionIcon, Group} from "@mantine/core";
 import {useNavigate} from "react-router-dom";
 import {useAppSelector} from "../hooks/storeHooks";
 import {useState} from "react";
@@ -9,6 +9,7 @@ import TransferService from "../services/transferService";
 import {useCreateTransferMutation} from "../api/transferApi";
 import {useLazyGetAccountsQuery} from "../api/accountApi";
 import {TransferCreatingFormValues} from "../types/form.type";
+import {IconArrowsExchange} from "@tabler/icons";
 
 const TransferCreateForm = () => {
   const navigate = useNavigate()
@@ -38,6 +39,12 @@ const TransferCreateForm = () => {
     await getAccounts()
   }
 
+  const swap = () => {
+    const oldTransferFromId = transferFromId
+    setTransferFromId(transferToId)
+    setTransferToId(oldTransferFromId)
+  }
+
   return (
     <div style={{position: "relative"}}>
       <LoadingOverlay visible={isLoading} overlayBlur={2}/>
@@ -55,6 +62,11 @@ const TransferCreateForm = () => {
             label={"Transfer from account"}
             {...fromInputProps}
           />
+          <Group position={"center"}>
+            <ActionIcon onClick={swap} color="teal" size="lg" radius="xl" variant="light">
+              <IconArrowsExchange size={26} />
+            </ActionIcon>
+          </Group>
           <AccountSelect
             width={"78%"}
             data={AccountService.getAccountSelectItems(accounts, {disabled: [transferFromId]})}
