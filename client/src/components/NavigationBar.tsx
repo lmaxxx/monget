@@ -1,6 +1,7 @@
-import {createStyles, Navbar, ScrollArea} from '@mantine/core';
+import {createStyles, Navbar} from '@mantine/core';
 import {FC} from "react";
 import NavigationLinks from "./NavigationLinks";
+import BottomNavigationSection from "./BottomNavigationSection";
 
 interface PropsType {
   opened: boolean
@@ -17,9 +18,12 @@ const NavigationBar: FC<PropsType> = ({opened}) => {
   const {classes} = useStyles();
 
   return (
-    <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{sm: 200}}>
-      <Navbar.Section grow className={classes.links} component={ScrollArea}>
+    <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{sm: 250}}>
+      <Navbar.Section grow className={classes.links}>
         <NavigationLinks/>
+      </Navbar.Section>
+      <Navbar.Section grow className={classes.links}>
+        <BottomNavigationSection/>
       </Navbar.Section>
     </Navbar>
   );
