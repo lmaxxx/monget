@@ -26,10 +26,9 @@ const AccountCreateForm = () => {
   const [createAccount, {isLoading}] = useCreateAccountMutation()
   const navigate = useNavigate()
 
+
   useEffect(() => {
-    if(userCurrency) {
-      form.setFieldValue("currency", userCurrency)
-    }
+    if(userCurrency) AccountService.setDefaultCreateForm(form, userCurrency)
   }, [userCurrency]);
 
   const createAccountSubmit = async (values: {[key: number]: string}) => {

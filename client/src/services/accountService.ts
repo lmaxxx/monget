@@ -71,6 +71,10 @@ class AccountService {
     form.setFieldValue("amount", account.amount)
     form.setFieldValue("currency", account.currency)
   }
+
+  setDefaultCreateForm(form: UseFormReturnType<any, (values: any) => any>, currency: string) {
+    form.setFieldValue("currency", currency)
+  }
 }
 
 export default new AccountService()
