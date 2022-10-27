@@ -30,13 +30,13 @@ class CategoryService {
     return Math.floor(wrapperWidth / categoryWidthWithGap)
   }
 
-  getCategoryEditingConfig() {
+  getCategoryFormConfig() {
     return {
       initialValues: {
         name: ""
       },
       validate: {
-        name:  (value: string) => value.trim().length ? null : "You need to type an account name"
+        name:  (value: string) => value.trim().length ? null : "You need to type a category name"
       }
     }
   }

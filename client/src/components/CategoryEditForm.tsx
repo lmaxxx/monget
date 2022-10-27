@@ -26,7 +26,7 @@ const CategoryEditForm = () => {
   const [openedModal, setOpenedModal] = useState<boolean>(false)
   const categoriesAmount = useAppSelector(state => state.categorySlice[`${currentCategory?.transactionType || "expenses"}Categories`].length)
   const navigate = useNavigate()
-  const form = useForm(CategoryService.getCategoryEditingConfig())
+  const form = useForm(CategoryService.getCategoryFormConfig())
   const isLoading = isEditing || isDeleting || isLoadingQuery
   const isMobile = useMediaQuery('(max-width: 520px)');
 

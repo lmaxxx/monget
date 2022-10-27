@@ -1,4 +1,4 @@
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useCreateCategoryMutation} from "../api/categoryApi";
 import {useState} from "react";
 import {TransactionIconType} from "../data/transactionIcons";
@@ -18,7 +18,7 @@ const CategoryCreateForm = () => {
   const [activeIconName, setActiveIconName] = useState<TransactionIconType>("IconWorld")
   const [openedModal, setOpenedModal] = useState<boolean>(false)
   const navigate = useNavigate()
-  const form = useForm(CategoryService.getCategoryEditingConfig())
+  const form = useForm(CategoryService.getCategoryFormConfig())
   const isMobile = useMediaQuery('(max-width: 520px)')
   const [transactionType, setTransactionType] = useState<TransactionType>(TransactionType.Expenses)
 
