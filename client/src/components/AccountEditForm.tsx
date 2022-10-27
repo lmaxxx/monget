@@ -56,12 +56,6 @@ const AccountEditForm = () => {
     navigate("/accounts")
   }
 
-  if (!currentAccount) return (
-    <div style={{position: "relative", height: "400px"}}>
-      <LoadingOverlay visible={true} overlayBlur={2}/>
-    </div>
-  )
-
   return (
     <div style={{position: "relative"}}>
       <LoadingOverlay visible={isLoading} overlayBlur={2}/>

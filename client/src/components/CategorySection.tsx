@@ -12,7 +12,7 @@ interface PropsType {
 const CategorySection: FC<PropsType> = ({section, icons, iconProps}) => {
   const iconNames = Object.keys(icons)
   const theme = useMantineTheme()
-  const hasOnClickEvent = !!iconProps.onClick
+  const hasOnClickEvent = !!iconProps?.onClick
 
   return (
     <>
@@ -21,13 +21,13 @@ const CategorySection: FC<PropsType> = ({section, icons, iconProps}) => {
         {
           iconNames.map((iconName) =>
               <CategoryIcon
-                {...iconProps}
                 key={iconName}
                 m={"0.5"}
                 backgroundSize={"4rem"}
                 iconSize={"80%"}
                 iconName={iconName as TransactionIconType}
                 style={{cursor: "pointer"}}
+                {...iconProps}
                 onClick={hasOnClickEvent ? iconProps.onClick.bind(this, iconName) : null}
               />
             )

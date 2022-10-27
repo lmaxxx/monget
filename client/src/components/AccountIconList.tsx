@@ -24,6 +24,7 @@ const AccountIconList: FC<PropsType> = ({activeIconName, setActiveIconName, back
             iconSize={"2rem"}
             isActive={activeIconName === name}
             onClick={setActiveIconName.bind(this, name)}
+            style={{cursor: "pointer"}}
           />
         })
       }

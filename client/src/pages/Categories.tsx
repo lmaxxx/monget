@@ -7,6 +7,7 @@ import {ChangeEvent, useEffect, useState} from "react";
 import CategoryReorder from "../components/CategoryReorder";
 import {useUpdateOrderMutation} from "../api/categoryApi";
 import Loader from "../ui/Loader";
+import {useNavigate} from "react-router-dom";
 
 const Categories = () => {
   const activeTransactionType = useAppSelector(state => state.categorySlice.activeTransactionType)
@@ -14,9 +15,11 @@ const Categories = () => {
   const categories = useAppSelector(state => state.categorySlice[`${activeTransactionType}Categories`])
   const [categoriesNewOrder, setCategoriesNewOrder] = useState<any>(categories.map(category  => category.id))
   const [updateOrder, {isLoading}] = useUpdateOrderMutation()
-  const CategoryIconProps = {
+  const navigate = useNavigate()
+  const categoryIconProps = {
     iconSize: "3rem",
-    backgroundSize: "5rem"
+    backgroundSize: "5rem",
+    onClick: (id: string) => navigate(`/category/${id}`)
   }
 
   useEffect(() => {
@@ -66,7 +69,7 @@ const Categories = () => {
             setCategoriesNewOrder={setCategoriesNewOrder}
           />
           :
-          <CategoryList iconProps={CategoryIconProps} transactionType={activeTransactionType}/>
+          <CategoryList iconProps={categoryIconProps} transactionType={activeTransactionType}/>
       }
     </DefaultPageWrapper>
   )

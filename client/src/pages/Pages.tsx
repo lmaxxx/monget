@@ -13,6 +13,8 @@ import AccountCreate from './AccountCreate'
 import AccountEdit from "./AccountEdit";
 import TransferCreate from "./TransferCreate";
 import Transfers from "./Transfers";
+import CategoryCreate from "./CategoryCreate";
+import CategoryEdit from "./CategoryEdit";
 
 const Pages = () => {
   return (
@@ -30,6 +32,8 @@ const Pages = () => {
       <Route path={"/currency"} element={<Currency/>}/>
       <Route path={"/transfer"} element={<TransferCreate/>}/>
       <Route path={"/transfers"} element={<Transfers/>}/>
+      <Route path={"/category"} element={<CategoryCreate/>}/>
+      <Route path={"/category/:id"} element={<CategoryEdit/>}/>
     </Routes>
   )
 }

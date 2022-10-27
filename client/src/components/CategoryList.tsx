@@ -1,4 +1,4 @@
-import {FC} from 'react'
+import {FC, useEffect} from 'react'
 import {TransactionType} from "../types/sliceTypes/category.type";
 import {useGetCategoriesQuery} from "../api/categoryApi";
 import Loader from "../ui/Loader";
@@ -14,6 +14,7 @@ interface PropsType {
 const CategoryList: FC<PropsType> = ({transactionType, iconProps}) => {
   const {isLoading} = useGetCategoriesQuery(transactionType)
   const categories = useAppSelector(state => state.categorySlice[`${transactionType}Categories`])
+  const hasOnClickEvent = !!iconProps.onClick
 
   if(isLoading) return <Loader height={"80vh"}/>
 
@@ -27,8 +28,8 @@ const CategoryList: FC<PropsType> = ({transactionType, iconProps}) => {
             backgroundColor={category.iconBackgroundColor}
             iconName={category.iconName}
             style={{cursor: "pointer"}}
-            backgroundSize={"100%"}
             {...iconProps}
+            onClick={hasOnClickEvent ? iconProps.onClick.bind(this, category.id) : null}
           />
         ))
       }
