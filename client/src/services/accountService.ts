@@ -38,7 +38,7 @@ class AccountService {
     }
   }
 
-  async setAccounts({dispatch, data}: {
+  setAccounts({dispatch, data}: {
     dispatch: ThunkDispatch<any, any, AnyAction>,
     data: any,
   }) {
