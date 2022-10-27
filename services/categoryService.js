@@ -208,6 +208,19 @@ class CategoryService {
     categoryDoc.save()
     return DataService.getCategoryFromDoc(categoryDoc)
   }
+
+  async createCategory(userId, data) {
+    const amountOfCategoris = await Category.countDocuments({transactionType: data.transactionType})
+
+    const categoryDoc = await Category.create({
+      ...data,
+      ownerId: userId,
+      createdAt: new Date().getTime(),
+      order: amountOfCategoris + 1
+    })
+
+    return DataService.getCategoryFromDoc(categoryDoc)
+  }
 }
 
 module.exports = new CategoryService()

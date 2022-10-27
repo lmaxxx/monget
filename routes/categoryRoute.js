@@ -11,6 +11,13 @@ router.patch("/categories/order",
   body("newOrder").isArray().withMessage("Invalid order"),
   isAuthorized, CategoryController.updateCategoriesOrder)
 
+router.post("/category",
+  body("name").isLength({min: 3}).withMessage("Name must be at least 1 char long"),
+  body("iconName").isLength({min: 1}).withMessage("Choose icon"),
+  body("transactionType").isLength({min: 1}).withMessage("Choose transaction type"),
+  body("iconBackgroundColor").isLength({min: 4}).withMessage("Choose icon background color"),
+  isAuthorized, CategoryController.createCategory)
+
 router.patch("/category/:id", isAuthorized, CategoryController.editCategory)
 router.delete("/category/:id", isAuthorized, CategoryController.deleteCategory)
 

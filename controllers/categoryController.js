@@ -63,6 +63,20 @@ class CategoryController {
       res.status(err.status).json({status: err.status, message: err.message})
     }
   }
+
+  async createCategory(req, res) {
+    try {
+      ApiError.validationRequest(req)
+
+      const data = req.body
+      const {id} = req.user
+      const category = await CategoryService.createCategory(id, data)
+
+      res.json(category)
+    } catch (err) {
+      res.status(err.status).json({status: err.status, message: err.message})
+    }
+  }
 }
 
 module.exports = new CategoryController()
