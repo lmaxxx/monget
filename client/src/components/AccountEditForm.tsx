@@ -11,6 +11,7 @@ import {AccountIconType} from "../data/accountIcons";
 import {IAccount} from "../types/sliceTypes/account.type";
 import {useAppSelector} from "../hooks/storeHooks";
 import {useMediaQuery} from "@mantine/hooks";
+import getSymbolFromCurrency from "currency-symbol-map";
 
 const AccountEditForm = () => {
   const {id} = useParams()
@@ -91,6 +92,8 @@ const AccountEditForm = () => {
               mt={"sm"}
               placeholder="1251"
               label="Amount"
+              precision={2}
+              rightSection={getSymbolFromCurrency(form.values.currency)}
               {...form.getInputProps("amount")}
             />
           </Box>

@@ -1,4 +1,4 @@
-import {Box, Button, ColorPicker, Group, LoadingOverlay, NumberInput, Stack, TextInput,} from "@mantine/core";
+import {Box, Button, ColorPicker, Group, LoadingOverlay, NumberInput, TextInput} from "@mantine/core";
 import {useNavigate} from "react-router-dom";
 import CurrencySelect from "./CurrencySelect";
 import {useForm} from "@mantine/form";
@@ -11,6 +11,7 @@ import AccountIconList from "./AccountIconList";
 import {AccountIconType} from "../data/accountIcons";
 import {useAppSelector} from "../hooks/storeHooks";
 import {useMediaQuery} from "@mantine/hooks";
+import getSymbolFromCurrency from "currency-symbol-map";
 
 const AccountCreateForm = () => {
   const userCurrency = useAppSelector(state => state.userSlice.user.currency)
@@ -71,6 +72,8 @@ const AccountCreateForm = () => {
               mt={"sm"}
               placeholder="1251"
               label="Amount"
+              precision={2}
+              rightSection={getSymbolFromCurrency(form.values.currency)}
               {...form.getInputProps("amount")}
             />
           </Box>

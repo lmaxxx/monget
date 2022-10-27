@@ -10,6 +10,7 @@ import {useCreateTransferMutation} from "../api/transferApi";
 import {useLazyGetAccountsQuery} from "../api/accountApi";
 import {TransferCreatingFormValues} from "../types/form.type";
 import {IconArrowsExchange} from "@tabler/icons";
+import getSymbolFromCurrency from "currency-symbol-map";
 
 const TransferCreateForm = () => {
   const navigate = useNavigate()
@@ -80,6 +81,7 @@ const TransferCreateForm = () => {
             mt={"sm"}
             placeholder="1251"
             label="Amount"
+            precision={2}
             {...form.getInputProps("amount")}
           />
           <Button mt={"md"} fullWidth size={"md"} type="submit">Create</Button>

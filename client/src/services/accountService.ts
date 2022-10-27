@@ -48,7 +48,7 @@ class AccountService {
   getFormattedAmount(amount: number | undefined, currency: string | undefined) {
     if(amount === undefined || currency === undefined) return null
 
-    return amount.toFixed(1) + getSymbolFromCurrency(currency)
+    return amount + getSymbolFromCurrency(currency)
   }
 
   getAccountSelectItems(accounts: IAccount[], options?: AccountSelectItemOptions) {
