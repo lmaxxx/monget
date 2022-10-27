@@ -17,14 +17,9 @@ class AccountService {
       return DataService.getAccountFormDoc(accountDoc)
     }
 
-    const {currency, accountName, iconName, iconBackgroundColor, amount} = data
     const accountDoc = await Account.create({
-      currency,
+      ...data,
       ownerId: userData.id,
-      accountName,
-      iconName,
-      iconBackgroundColor,
-      amount,
       createdAt: new Date().getTime()
     })
 
