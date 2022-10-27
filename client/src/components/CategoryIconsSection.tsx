@@ -9,7 +9,7 @@ interface PropsType {
   iconProps?: any
 }
 
-const CategorySection: FC<PropsType> = ({section, icons, iconProps}) => {
+const CategoryIconsSection: FC<PropsType> = ({section, icons, iconProps}) => {
   const iconNames = Object.keys(icons)
   const theme = useMantineTheme()
   const hasOnClickEvent = !!iconProps?.onClick
@@ -37,4 +37,4 @@ const CategorySection: FC<PropsType> = ({section, icons, iconProps}) => {
   )
 }
 
-export default CategorySection
+export default CategoryIconsSection

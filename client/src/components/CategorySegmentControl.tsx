@@ -1,28 +1,21 @@
-import {Group, SegmentedControl} from "@mantine/core";
+import {Group, SegmentedControl, GroupPosition} from "@mantine/core";
 import {TransactionType} from "../types/sliceTypes/category.type";
-import {useAppSelector} from "../hooks/storeHooks";
-import {useDispatch} from "react-redux";
-import {setActiveTransactionType} from "../store/categorySlice";
 import {FC} from "react";
 
 interface PropsType {
-  disabled: boolean
+  disabled?: boolean
+  transactionType: TransactionType
+  onChange: (newValue: any) => void
+  position?: GroupPosition
 }
 
-const CategorySegmentControl: FC<PropsType> = ({disabled}) => {
-  const activeTransactionType = useAppSelector(state => state.categorySlice.activeTransactionType)
-  const dispatch = useDispatch()
-
-  const activeTransactionHadle = (transactionType: TransactionType) => {
-    dispatch(setActiveTransactionType(transactionType))
-  }
-
+const CategorySegmentControl: FC<PropsType> = ({disabled, transactionType, onChange, position}) => {
   return (
-    <Group position={"center"}>
+    <Group position={position}>
       <SegmentedControl
         disabled={disabled}
-        value={activeTransactionType}
-        onChange={activeTransactionHadle}
+        value={transactionType}
+        onChange={onChange}
         data={[
           { label: 'Expenses', value:  TransactionType.Expenses},
           { label: 'Income', value: TransactionType.Income },

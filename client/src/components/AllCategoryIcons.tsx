@@ -1,6 +1,6 @@
 import {FC} from 'react'
 import transactionIcons from "../data/transactionIcons";
-import CategorySection from "./CategorySection";
+import CategoryIconsSection from "./CategoryIconsSection";
 
 interface PropsType {
   iconsProps?: any
@@ -11,7 +11,7 @@ const AllCategoryIcons: FC<PropsType> = ({iconsProps}) => {
     <>
       {
         transactionIcons.map(([section, icons]) => (
-          <CategorySection key={section} iconProps={iconsProps} section={section} icons={icons}/>
+          <CategoryIconsSection key={section} iconProps={iconsProps} section={section} icons={icons}/>
         ))
       }
     </>

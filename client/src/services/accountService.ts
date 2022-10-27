@@ -33,7 +33,7 @@ class AccountService {
       validate: {
         currency: (value: string) => value.trim().length === 3 ? null : "You need to choose currency",
         amount: (value: number) => value !== undefined ? null: "You need to type an amount",
-        accountName:  (value: string) => value.trim().length ? null : "You need to type na account name"
+        accountName:  (value: string) => value.trim().length ? null : "You need to type an account name"
       }
     }
   }

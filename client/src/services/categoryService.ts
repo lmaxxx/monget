@@ -36,7 +36,7 @@ class CategoryService {
         name: ""
       },
       validate: {
-        name:  (value: string) => value.trim().length ? null : "You need to type na account name"
+        name:  (value: string) => value.trim().length ? null : "You need to type an account name"
       }
     }
   }
