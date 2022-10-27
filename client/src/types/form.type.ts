@@ -1,3 +1,6 @@
+import {TransactionIconType} from "../data/transactionIcons";
+import {TransactionType} from "./sliceTypes/category.type";
+
 export interface RegistrationFormValues {
   email: string
   name: string
@@ -26,4 +29,11 @@ export interface TransferCreatingFormValues {
   from: string
   to: string
   amount: number
+}
+
+export interface CategoryCreatingFormValues {
+  name: string
+  iconName: TransactionIconType
+  transactionType: TransactionType
+  iconBackgroundColor: string
 }
