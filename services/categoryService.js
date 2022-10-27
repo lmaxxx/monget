@@ -169,6 +169,8 @@ class CategoryService {
         throw new ApiError(400, "There isn't find any category with current id")
       })
 
+    if(!categoryDoc) throw new ApiError(400, "There isn't find any category with current id")
+
     return DataService.getCategoryFromDoc(categoryDoc)
   }
 
@@ -184,6 +186,27 @@ class CategoryService {
         update: {order: index + 1}
       }
     }))
+  }
+
+  async deleteCategory(id) {
+    await Category.findByIdAndDelete(id)
+      .catch(err => {
+        throw new ApiError(400, "There isn't find any category with current id")
+      })
+  }
+
+  async editCategory(id, data) {
+    const categoryDoc = await Category.findById(id)
+      .catch(err => {
+        throw new ApiError(400, "There isn't find any category with current id")
+      })
+
+    Object.entries(data).forEach(([property, value]) => {
+      categoryDoc[property] = value
+    })
+
+    categoryDoc.save()
+    return DataService.getCategoryFromDoc(categoryDoc)
   }
 }
 

@@ -42,18 +42,19 @@ const CategoryReorder: FC<PropsType> = ({transactionType, categoriesNewOrder, se
         <GridDropZone
           id="categories reorder"
           boxesPerRow={categoriesPerRow}
-          rowHeight={100}
+          rowHeight={120}
           style={{minHeight: "70vh", height: "100%", width: "100%"}}
         >
           {categoriesNewOrder.map((categoryId: string) => {
             const category = CategoryService.getCategoryById(categories, categoryId)
             return (
-              <GridItem style={{width: "5rem", height: "5rem"}} key={category?.id}>
+              <GridItem style={{width: "5rem", height: "5"}} key={category?.id}>
                 <CategoryIcon
+                  description={category?.name}
                   backgroundColor={category?.iconBackgroundColor}
                   iconName={category?.iconName || "IconApple"}
                   style={{cursor: "grab"}}
-                  backgroundSize={"100%"}
+                  backgroundSize={"5rem"}
                   iconSize={"3rem"}
                 />
               </GridItem>

@@ -80,7 +80,6 @@ class AuthController {
 
       return res.json(userData)
     } catch (err) {
-      console.log(err)
       res.status(err.status).json({status: err.status, message: err.message})
     }
   }

@@ -22,6 +22,7 @@ const CategoryList: FC<PropsType> = ({transactionType, iconProps}) => {
       {
         categories.map(category => (
           <CategoryIcon
+            description={category.name}
             key={category.id}
             backgroundColor={category.iconBackgroundColor}
             iconName={category.iconName}

@@ -37,6 +37,32 @@ class CategoryController {
       res.status(err.status).json({status: err.status, message: err.message})
     }
   }
+
+  async editCategory(req, res) {
+    try {
+      const {id} = req.params
+      const data = req.body
+
+      if(!data) throw new ApiError(400, "There aren't any new properties")
+
+      const category = await CategoryService.editCategory(id, data)
+
+      res.json(category)
+    } catch(err) {
+      res.status(err.status).json({status: err.status, message: err.message})
+    }
+  }
+
+  async deleteCategory(req, res) {
+    try {
+      const {id} = req.params
+      await CategoryService.deleteCategory(id)
+
+      res.json({message: "Success"})
+    } catch(err) {
+      res.status(err.status).json({status: err.status, message: err.message})
+    }
+  }
 }
 
 module.exports = new CategoryController()

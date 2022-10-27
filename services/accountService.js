@@ -39,7 +39,9 @@ class AccountService {
   }
 
   async editAccount(id, data) {
-    const accountDoc = await Account.findById(id)
+    const accountDoc = await Account.findById(id).catch(err => {
+      throw new ApiError(400, "There is no account with current id")
+    })
 
     if(!accountDoc) throw new ApiError(400, "Account with this id doesn't exist")
 

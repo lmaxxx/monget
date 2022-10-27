@@ -11,4 +11,7 @@ router.patch("/categories/order",
   body("newOrder").isArray().withMessage("Invalid order"),
   isAuthorized, CategoryController.updateCategoriesOrder)
 
+router.patch("/category/:id", isAuthorized, CategoryController.editCategory)
+router.delete("/category/:id", isAuthorized, CategoryController.deleteCategory)
+
 module.exports = router
