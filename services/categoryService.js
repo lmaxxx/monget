@@ -189,10 +189,15 @@ class CategoryService {
   }
 
   async deleteCategory(id) {
-    await Category.findByIdAndDelete(id)
+    const deletedCategoryDoc = await Category.findByIdAndDelete(id)
       .catch(err => {
         throw new ApiError(400, "There isn't find any category with current id")
       })
+    const {ownerId, transactionType} = deletedCategoryDoc
+    const categoriesDocs = await Category.find({ownerId, transactionType}).sort({order: "asc"})
+    const categoriesNewOrder = categoriesDocs.map(category => category.id)
+
+    await this.updateCategoriesOrder(categoriesNewOrder)
   }
 
   async editCategory(id, data) {
