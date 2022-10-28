@@ -1,5 +1,3 @@
-const {Schema} = require("mongoose");
-
 class DataService {
   getUserFromDoc(userDoc) {
     return {
@@ -60,6 +58,22 @@ class DataService {
 
   getCategoriesFromDocs(categoriesFocs) {
     return categoriesFocs.map(categoryDoc => this.getCategoryFromDoc(categoryDoc))
+  }
+
+  getTransactionFromDoc(transaction) {
+    return {
+      title: transaction.title,
+      description: transaction.description,
+      ownerId: transaction.ownerId,
+      createdAt: transaction.createdAt,
+      accountId: transaction.accountId,
+      transactionType: transaction.transactionType,
+      id: transaction._id
+    }
+  }
+
+  getTransactionsFromDocs(transactions) {
+    return transactions.map(transaction => this.getTransactionFromDoc(transaction))
   }
 }
 
