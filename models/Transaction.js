@@ -1,4 +1,4 @@
-const {Schema, model} = require("mogoose")
+const {Schema, model} = require("mongoose")
 
 const transactionSchema = new Schema({
   title: {type: String, required: true},
