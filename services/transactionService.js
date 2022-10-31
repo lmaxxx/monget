@@ -1,7 +1,8 @@
 const Transaction = require("../models/Transaction");
 const ApiError = require("../exceptions/apiError");
 const DataService = require("../services/dataService")
-const Category = require("../models/Category");
+const Account = require("../models/Account");
+const ConverterService = require("../services/converterService")
 
 class TransactionService {
   async getTransactions(accountId, transactionType) {
@@ -41,6 +42,7 @@ class TransactionService {
       ownerId: userId,
       createdAt: new Date().getTime()
     })
+    await this.processAfterCreatingTransaction(data.accountId, newTransactionDoc)
 
     return DataService.getTransactionFromDoc(newTransactionDoc)
   }
@@ -67,6 +69,52 @@ class TransactionService {
         throw new ApiError(400, "There is no transactions with current id")
       })
   }
+
+  async processAfterCreatingTransaction(accountId, transactionDoc) {
+    const accountDoc = await Account.findById(accountId)
+      .catch(err => {
+        throw new ApiError(400, "There is no category with current id")
+      })
+    const {accountAmount, accountCurrency, _id} = accountDoc
+    const {transactionAmount, transactionCurrency} = transactionDoc
+
+    if(!accountDoc) throw new ApiError(400, "There is no category with current id")
+
+    if(accountCurrency === transactionCurrency) {
+      await Account.updateOne({_id}, {amount: accountAmount + transactionAmount})
+    } else {
+      const newAmount = ConverterService.convert({
+        want: accountCurrency,
+        have: transactionCurrency,
+        amount: transactionAmount
+      })
+
+      await Account.updateOne({_id}, {amount: accountAmount + newAmount})
+    }
+  }
+
+  // async processAfterDeletingTransaction(accountId, transactionDoc) {
+  //   const accountDoc = await Account.findById(accountId)
+  //     .catch(err => {
+  //       throw new ApiError(400, "There is no category with current id")
+  //     })
+  //   const {accountAmount, accountCurrency, _id} = accountDoc
+  //   const {transactionAmount, transactionCurrency} = transactionDoc
+  //
+  //   if(!accountDoc) throw new ApiError(400, "There is no category with current id")
+  //
+  //   if(accountCurrency === transactionCurrency) {
+  //     await Account.updateOne({_id}, {amount: accountAmount - transactionAmount})
+  //   } else {
+  //     const newAmount = ConverterService.convert({
+  //       want: accountCurrency,
+  //       have: transactionCurrency,
+  //       amount: transactionAmount
+  //     })
+  //
+  //     await Account.updateOne({_id}, {amount: accountAmount - newAmount})
+  //   }
+  // }
 }
 
 module.exports = new TransactionService()
