@@ -68,6 +68,9 @@ class DataService {
       createdAt: transaction.createdAt,
       accountId: transaction.accountId,
       transactionType: transaction.transactionType,
+      categoryId: transaction.categoryId,
+      amount: transaction.amount,
+      currency: transaction.currency,
       id: transaction._id
     }
   }

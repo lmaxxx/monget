@@ -1,4 +1,5 @@
 const TransactionService = require("../services/transactionService")
+const ApiError = require("../exceptions/apiError");
 
 class TransactionController {
   async getTransactions(req, res) {
@@ -8,7 +9,8 @@ class TransactionController {
 
       res.json(transactions)
     } catch (err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      res.json(err)
+      // res.status(err.status).json({status: err.status, message: err.message})
     }
   }
 
@@ -19,7 +21,8 @@ class TransactionController {
 
       res.json(transactions)
     } catch (err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      res.json(err)
+      // res.status(err.status).json({status: err.status, message: err.message})
     }
   }
 
@@ -47,7 +50,13 @@ class TransactionController {
 
   async createTransaction(req, res) {
     try {
+      ApiError.validationRequest(req)
 
+      const data = req.body
+      const {id} = req.user
+      const transaction = await TransactionService.createTransaction(id, data)
+
+      res.json(transaction)
     } catch (err) {
       res.status(err.status).json({status: err.status, message: err.message})
     }
@@ -55,7 +64,16 @@ class TransactionController {
 
   async editTransaction(req, res) {
     try {
+      ApiError.validationRequest(req)
 
+      const data = req.body
+      const {id} = req.params
+
+      if(!Object.values(data).length) throw new ApiError(400, "There aren't any new properties")
+
+      const transaction = await TransactionService.editTransaction(id, data)
+
+      res.json(transaction)
     } catch (err) {
       res.status(err.status).json({status: err.status, message: err.message})
     }
@@ -63,7 +81,10 @@ class TransactionController {
 
   async deleteTransaction(req, res) {
     try {
+      const {id} = req.params
+      await TransactionService.deleteTransaction(id)
 
+      res.json({message: "Success"})
     } catch (err) {
       res.status(err.status).json({status: err.status, message: err.message})
     }

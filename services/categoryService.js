@@ -206,6 +206,8 @@ class CategoryService {
         throw new ApiError(400, "There isn't find any category with current id")
       })
 
+    if(!categoryDoc) throw new ApiError(400, "There isn't find any category with current id")
+
     Object.entries(data).forEach(([property, value]) => {
       categoryDoc[property] = value
     })
