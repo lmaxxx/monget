@@ -1,6 +1,12 @@
 import {TransactionIconType} from "../../data/transactionIcons";
 import {TransactionType} from "./transaction.type";
 
+export interface InitialStateType {
+  incomeCategories: ICategory[]
+  expensesCategories: ICategory[]
+  activeTransactionType: TransactionType
+}
+
 export interface ICategory {
   name: string
   iconName: TransactionIconType
@@ -12,8 +18,9 @@ export interface ICategory {
   id: string
 }
 
-export interface InitialStateType {
-  incomeCategories: ICategory[]
-  expensesCategories: ICategory[]
-  activeTransactionType: TransactionType
+export interface CategoryCreatingFormValues {
+  name: string
+  iconName: TransactionIconType
+  transactionType: TransactionType
+  iconBackgroundColor: string
 }

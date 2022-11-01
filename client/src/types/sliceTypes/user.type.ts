@@ -1,3 +1,10 @@
+import {ComponentPropsWithoutRef} from "react";
+
+export interface InitialStateType {
+  user: IUser,
+  isAuth: boolean | null
+}
+
 export interface IUser {
   email: string
   password: string
@@ -8,10 +15,6 @@ export interface IUser {
   id: string
 }
 
-export interface InitialStateType {
-  user: IUser,
-  isAuth: boolean | null
-}
 export interface AuthResponse {
   user: IUser
   refreshToken: string
@@ -22,10 +25,24 @@ export interface CurrencyUpdateResponse {
   user: IUser
 }
 
-export interface ApiError {
-  status: number,
-  data: {
-    message: string
-    status: number
-  }
+export interface CurrencySelectItemProps extends ComponentPropsWithoutRef<'div'> {
+  image: string;
+  label: string;
+  value: string;
+}
+
+export interface CurrencyRegistrationFormValues {
+  currency: string
+}
+
+export interface RegistrationFormValues {
+  email: string
+  name: string
+  password: string
+  repeatPassword: string
+}
+
+export interface LoginFormValues {
+  email: string
+  password: string
 }

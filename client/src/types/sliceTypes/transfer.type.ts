@@ -8,3 +8,9 @@ export interface ITransfer {
   createdAt: number
   id: string
 }
+
+export interface TransferCreatingFormValues {
+  from: string
+  to: string
+  amount: number
+}

@@ -8,10 +8,6 @@ export interface InitialStateType {
   expensesTransactions: ITransaction[]
 }
 
-export enum TransactionType {
-  Expenses = "expenses", Income = "income"
-}
-
 export interface ITransaction {
   title: string,
   description: string,
@@ -23,4 +19,8 @@ export interface ITransaction {
   amount: number,
   currency: string,
   id: string
+}
+
+export enum TransactionType {
+  Expenses = "expenses", Income = "income"
 }

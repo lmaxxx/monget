@@ -1,4 +1,10 @@
 import {AccountIconType} from "../../data/accountIcons";
+import {ComponentPropsWithoutRef} from "react";
+
+export interface InitialStateType {
+  accounts: IAccount[]
+  activeAccount: IAccount
+}
 
 export interface IAccount {
   currency: string
@@ -11,7 +17,22 @@ export interface IAccount {
   id: string
 }
 
-export interface InitialStateType {
-  accounts: IAccount[]
-  activeAccount: IAccount
+export interface AccountCreatingFormValues {
+  currency: string
+  amount: number
+  accountName: string
+  iconName: string
+  iconBackgroundColor: string
+}
+
+export interface AccountSelectItemProps extends ComponentPropsWithoutRef<"div"> {
+  label: string
+  value: string
+  iconName: AccountIconType
+  iconBackgroundColor: string
+  disabled?: boolean
+}
+
+export interface AccountSelectItemOptions {
+  disabled: [string | null]
 }
