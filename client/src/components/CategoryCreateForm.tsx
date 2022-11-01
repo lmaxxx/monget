@@ -11,7 +11,7 @@ import {Box, Button, ColorPicker, Group, LoadingOverlay, TextInput} from "@manti
 import CategoryIcon from "./CategoryIcon";
 import colorsForPicker from "../data/colorsForPicker.json";
 import ChooseCategoryIconModal from "./ChooseCategoryIconModal";
-import CategorySegmentControl from "./CategorySegmentControl";
+import TransactionTypeSegmentControl from "./TransactionTypeSegmentControl";
 
 const CategoryCreateForm = () => {
   const [createCategory, {isLoading}] = useCreateCategoryMutation()
@@ -68,7 +68,7 @@ const CategoryCreateForm = () => {
               placeholder="My credit card"
               {...form.getInputProps("name")}
             />
-            <CategorySegmentControl
+            <TransactionTypeSegmentControl
               position={isMobile ? "center" : "left"}
               transactionType={transactionType}
               onChange={setTransactionType}

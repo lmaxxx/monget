@@ -9,7 +9,7 @@ interface PropsType {
   position?: GroupPosition
 }
 
-const CategorySegmentControl: FC<PropsType> = ({disabled, transactionType, onChange, position}) => {
+const TransactionTypeSegmentControl: FC<PropsType> = ({disabled, transactionType, onChange, position}) => {
   return (
     <Group position={position}>
       <SegmentedControl
@@ -25,4 +25,4 @@ const CategorySegmentControl: FC<PropsType> = ({disabled, transactionType, onCha
   )
 }
 
-export default CategorySegmentControl
+export default TransactionTypeSegmentControl
