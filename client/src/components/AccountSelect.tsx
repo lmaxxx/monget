@@ -1,7 +1,7 @@
 import {Group, Select} from "@mantine/core"
 import AccountSelectItem from "./AccountSelectItem"
 import {FC} from "react"
-import {AccountSelectItemProps} from "../types/ui.type";
+import {AccountSelectItemProps} from "../types/sliceTypes/account.type";
 import AccountIcon from "./AccountIcon";
 import {useAppSelector} from "../hooks/storeHooks";
 

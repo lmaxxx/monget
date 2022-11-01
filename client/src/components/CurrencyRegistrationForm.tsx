@@ -4,8 +4,8 @@ import AuthService from "../services/authService";
 import {useUpdateCurrencyMutation} from "../api/authApi";
 import {useEffect} from "react";
 import NotificationService from "../services/notificationService";
-import {ApiError} from "../types/sliceTypes/user.type";
-import {CurrencyRegistrationFormValues} from "../types/form.type";
+import {ApiError} from "../types/ui.type";
+import {CurrencyRegistrationFormValues} from "../types/sliceTypes/user.type";
 import CurrencySelect from "./CurrencySelect";
 
 const CurrencyRegistrationForm = () => {

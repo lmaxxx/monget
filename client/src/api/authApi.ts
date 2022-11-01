@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
-import {CurrencyRegistrationFormValues, LoginFormValues, RegistrationFormValues} from "../types/form.type";
+import {CurrencyRegistrationFormValues, LoginFormValues, RegistrationFormValues} from "../types/sliceTypes/user.type";
 import {AuthResponse, CurrencyUpdateResponse} from "../types/sliceTypes/user.type";
 import AuthService from "../services/authService";
 

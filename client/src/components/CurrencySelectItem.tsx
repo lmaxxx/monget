@@ -1,6 +1,6 @@
 import {Group, Image, Text} from "@mantine/core";
 import {forwardRef} from "react";
-import {CurrencySelectItemProps} from "../types/ui.type";
+import {CurrencySelectItemProps} from "../types/sliceTypes/user.type";
 
 const CurrencySelectItem = forwardRef<HTMLDivElement, CurrencySelectItemProps>(
   ({ image, label, ...others }: CurrencySelectItemProps, ref) => (

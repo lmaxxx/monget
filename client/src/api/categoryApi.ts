@@ -3,7 +3,7 @@ import baseQueryWithReauth from "./baseQueryWithReauth";
 import {TransactionType} from "../types/sliceTypes/transaction.type";
 import {ICategory} from "../types/sliceTypes/category.type"
 import CategoryService from "../services/categoryService";
-import {CategoryCreatingFormValues} from "../types/form.type";
+import {CategoryCreatingFormValues} from "../types/sliceTypes/category.type";
 
 export const categoryApi = createApi({
   reducerPath: "categoryApi",

@@ -1,7 +1,7 @@
 import {forwardRef} from "react";
 import {Group, Text} from "@mantine/core";
 import AccountIcon from "./AccountIcon";
-import {AccountSelectItemProps} from "../types/ui.type";
+import {AccountSelectItemProps} from "../types/sliceTypes/account.type";
 import HiddenTextStyles from "../assets/hiddenTextStyles";
 
 const AccountSelectItem = forwardRef<HTMLDivElement, any>(

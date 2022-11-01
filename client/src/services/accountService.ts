@@ -1,9 +1,7 @@
 import {AnyAction, ThunkDispatch} from "@reduxjs/toolkit";
 import {setAccounts} from "../store/accountSlice";
 import getSymbolFromCurrency from "currency-symbol-map";
-import {AccountSelectItemOptions, AccountSelectItemProps} from "../types/ui.type";
-import accountsIcons from "../data/accountIcons";
-import {ElementType} from 'react'
+import {AccountSelectItemOptions, AccountSelectItemProps} from "../types/sliceTypes/account.type";
 import {IAccount} from "../types/sliceTypes/account.type";
 import {UseFormReturnType} from "@mantine/form";
 

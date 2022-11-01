@@ -1,7 +1,7 @@
 import {createApi} from "@reduxjs/toolkit/query/react";
 import {IAccount} from "../types/sliceTypes/account.type";
 import baseQueryWithReauth from "./baseQueryWithReauth";
-import {AccountCreatingFormValues} from "../types/form.type";
+import {AccountCreatingFormValues} from "../types/sliceTypes/account.type";
 import AccountService from "../services/accountService";
 
 export const accountApi = createApi({

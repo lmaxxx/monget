@@ -8,9 +8,8 @@ import {useForm} from "@mantine/form";
 import TransferService from "../services/transferService";
 import {useCreateTransferMutation} from "../api/transferApi";
 import {useLazyGetAccountsQuery} from "../api/accountApi";
-import {TransferCreatingFormValues} from "../types/form.type";
+import {TransferCreatingFormValues} from "../types/sliceTypes/transfer.type";
 import {IconArrowsExchange} from "@tabler/icons";
-import getSymbolFromCurrency from "currency-symbol-map";
 
 const TransferCreateForm = () => {
   const navigate = useNavigate()

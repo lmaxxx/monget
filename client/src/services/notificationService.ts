@@ -1,4 +1,4 @@
-import {ApiError} from "../types/sliceTypes/user.type";
+import {ApiError} from "../types/ui.type";
 import {showNotification} from "@mantine/notifications";
 
 class NotificationService {

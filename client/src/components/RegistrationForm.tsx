@@ -2,9 +2,9 @@ import {Box, Button, Group, LoadingOverlay, PasswordInput, TextInput, Title, Tex
 import {useForm} from '@mantine/form'
 import {useEffect, useRef} from "react";
 import {Link} from 'react-router-dom';
-import {RegistrationFormValues} from "../types/form.type";
+import {RegistrationFormValues} from "../types/sliceTypes/user.type";
 import {useRegistrationMutation} from "../api/authApi";
-import {ApiError} from "../types/sliceTypes/user.type";
+import {ApiError} from "../types/ui.type";
 import AuthService from "../services/authService";
 import NotificationService from "../services/notificationService";
 

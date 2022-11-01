@@ -6,7 +6,7 @@ import colorsForPicker from "../data/colorsForPicker.json"
 import {useEffect, useState} from "react";
 import AccountService from "../services/accountService";
 import {useCreateAccountMutation} from "../api/accountApi";
-import {AccountCreatingFormValues} from "../types/form.type";
+import {AccountCreatingFormValues} from "../types/sliceTypes/account.type"
 import AccountIconList from "./AccountIconList";
 import {AccountIconType} from "../data/accountIcons";
 import {useAppSelector} from "../hooks/storeHooks";
