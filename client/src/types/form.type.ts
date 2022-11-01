@@ -1,5 +1,5 @@
 import {TransactionIconType} from "../data/transactionIcons";
-import {TransactionType} from "./sliceTypes/category.type";
+import {TransactionType} from "./sliceTypes/transaction.type";
 
 export interface RegistrationFormValues {
   email: string

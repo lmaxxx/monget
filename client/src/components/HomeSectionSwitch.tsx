@@ -1,26 +1,26 @@
 import {Group, SegmentedControl} from "@mantine/core";
-import {HomeSwitchValue} from "../types/ui.type";
 import {useAppDispatch, useAppSelector} from "../hooks/storeHooks";
-import {setActiveSection} from "../store/financeHistorySlice";
+import {setActiveTransactionType} from "../store/transactionSlice";
+import {TransactionType} from "../types/sliceTypes/transaction.type";
 
 const segmentData = [
-  {label: "Expenses", value: HomeSwitchValue.Expenses},
-  {label: "Income", value: HomeSwitchValue.Income},
+  {label: "Expenses", value: TransactionType.Expenses},
+  {label: "Income", value: TransactionType.Income},
 ]
 
 const HomeSectionSwitch = () => {
   const dispatch = useAppDispatch()
-  const activeSection = useAppSelector(state => state.financeHistorySlice.activeSection)
+  const activeTransactionType = useAppSelector(state => state.transactionSlice.activeTransactionType)
 
-  const setNewActiveSection = (section: HomeSwitchValue) => {
-    dispatch(setActiveSection(section))
+  const setNewActiveSection = (transactionType: TransactionType) => {
+    dispatch(setActiveTransactionType(transactionType))
   }
 
   return (
     <Group position={"center"} mb={"1.5rem"}>
       <SegmentedControl
         data={segmentData}
-        value={activeSection}
+        value={activeTransactionType}
         onChange={setNewActiveSection}
       />
     </Group>

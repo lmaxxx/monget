@@ -1,6 +1,7 @@
 import {createApi} from "@reduxjs/toolkit/query/react";
 import baseQueryWithReauth from "./baseQueryWithReauth";
-import {ICategory, TransactionType} from "../types/sliceTypes/category.type";
+import {TransactionType} from "../types/sliceTypes/transaction.type";
+import {ICategory} from "../types/sliceTypes/category.type"
 import CategoryService from "../services/categoryService";
 import {CategoryCreatingFormValues} from "../types/form.type";
 

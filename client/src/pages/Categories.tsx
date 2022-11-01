@@ -9,7 +9,7 @@ import {useUpdateOrderMutation} from "../api/categoryApi";
 import Loader from "../ui/Loader";
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {TransactionType} from "../types/sliceTypes/category.type";
+import {TransactionType} from "../types/sliceTypes/transaction.type";
 import {setActiveTransactionType} from "../store/categorySlice";
 import {IconPlus} from "@tabler/icons";
 

@@ -1,7 +1,7 @@
 import {Group} from "@mantine/core";
 import CategoryIcon from "./CategoryIcon";
 import {useAppSelector} from "../hooks/storeHooks";
-import {TransactionType} from "../types/sliceTypes/category.type";
+import {TransactionType} from "../types/sliceTypes/transaction.type";
 import CategoryService from "../services/categoryService";
 import {FC, useEffect, useState} from "react";
 import {GridContextProvider, GridDropZone, GridItem, swap} from "react-grid-dnd";

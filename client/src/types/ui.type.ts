@@ -24,7 +24,3 @@ export interface ILink {
   icon: ReactNode
   path: string
 }
-
-export enum HomeSwitchValue {
-  Expenses = "expenses", Income = "income"
-}

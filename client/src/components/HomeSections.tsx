@@ -3,19 +3,19 @@ import HomeSection from "./HomeSection";
 import HomeSectionSwitch from "./HomeSectionSwitch";
 import {useMediaQuery} from "@mantine/hooks";
 import {useAppSelector} from "../hooks/storeHooks";
-import {HomeSwitchValue} from "../types/ui.type";
+import {TransactionType} from "../types/sliceTypes/transaction.type";
 
 const HomeSections = () => {
   const isTablet = useMediaQuery('(max-width: 900px)');
-  const activeSection = useAppSelector(state => state.financeHistorySlice.activeSection)
+  const activeTransactionType = useAppSelector(state => state.transactionSlice.activeTransactionType)
 
   if(isTablet) {
     return (
       <>
         <HomeSectionSwitch/>
         <SimpleGrid cols={1}>
-          {activeSection === HomeSwitchValue.Expenses && <HomeSection title={"Expenses"}/>}
-          {activeSection === HomeSwitchValue.Income && <HomeSection title={"Income"}/>}
+          {activeTransactionType === TransactionType.Expenses && <HomeSection title={"Expenses"}/>}
+          {activeTransactionType === TransactionType.Income && <HomeSection title={"Income"}/>}
         </SimpleGrid>
       </>
     )

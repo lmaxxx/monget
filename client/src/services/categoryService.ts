@@ -1,6 +1,7 @@
 import {AnyAction, ThunkDispatch} from "@reduxjs/toolkit";
 import {setExpensesCategories, setIncomeCategories} from "../store/categorySlice";
-import {ICategory, TransactionType} from "../types/sliceTypes/category.type";
+import {ICategory} from "../types/sliceTypes/category.type";
+import {TransactionType} from "../types/sliceTypes/transaction.type";
 import {UseFormReturnType} from "@mantine/form";
 import {IAccount} from "../types/sliceTypes/account.type";
 

@@ -1,6 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit'
 import type {PayloadAction} from "@reduxjs/toolkit";
-import {ICategory, InitialStateType, TransactionType} from '../types/sliceTypes/category.type'
+import {TransactionType} from '../types/sliceTypes/transaction.type'
+import {ICategory, InitialStateType} from '../types/sliceTypes/category.type'
 
 const initialState = {
   incomeCategories: [],

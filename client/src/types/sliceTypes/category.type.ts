@@ -1,4 +1,5 @@
 import {TransactionIconType} from "../../data/transactionIcons";
+import {TransactionType} from "./transaction.type";
 
 export interface ICategory {
   name: string
@@ -9,10 +10,6 @@ export interface ICategory {
   transactionType: TransactionType,
   order: number,
   id: string
-}
-
-export enum TransactionType {
-  Expenses = "expenses", Income = "income"
 }
 
 export interface InitialStateType {

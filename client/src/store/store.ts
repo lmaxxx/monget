@@ -1,7 +1,7 @@
 import {configureStore} from '@reduxjs/toolkit'
 import userReducer from './userSlice'
 import accountReducer from "./accountSlice";
-import financeHistoryReducer from "./financeHistorySlice";
+import transactionReducer from "./transactionSlice";
 import categoryReducer from './categorySlice'
 import {authApi} from '../api/authApi'
 import {accountApi} from "../api/accountApi";
@@ -12,7 +12,7 @@ export const store = configureStore({
   reducer: {
     userSlice: userReducer,
     accountSlice: accountReducer,
-    financeHistorySlice: financeHistoryReducer,
+    transactionSlice: transactionReducer,
     categorySlice: categoryReducer,
     [authApi.reducerPath]: authApi.reducer,
     [accountApi.reducerPath]: accountApi.reducer,

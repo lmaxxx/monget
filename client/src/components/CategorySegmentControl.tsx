@@ -1,5 +1,5 @@
 import {Group, SegmentedControl, GroupPosition} from "@mantine/core";
-import {TransactionType} from "../types/sliceTypes/category.type";
+import {TransactionType} from "../types/sliceTypes/transaction.type";
 import {FC} from "react";
 
 interface PropsType {

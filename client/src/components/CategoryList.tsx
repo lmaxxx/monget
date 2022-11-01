@@ -1,5 +1,5 @@
 import {FC, useEffect} from 'react'
-import {TransactionType} from "../types/sliceTypes/category.type";
+import {TransactionType} from "../types/sliceTypes/transaction.type";
 import {useGetCategoriesQuery} from "../api/categoryApi";
 import Loader from "../ui/Loader";
 import {useAppSelector} from "../hooks/storeHooks";
