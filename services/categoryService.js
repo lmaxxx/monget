@@ -157,7 +157,14 @@ class CategoryService {
   }
 
   async getCategories(transactionType, userId) {
-    const categoriesDocs = await Category.find({ownerId: userId, transactionType}).sort({order: "asc"})
+    let categoriesDocs
+
+    if(transactionType) {
+      categoriesDocs = await Category.find({ownerId: userId, transactionType}).sort({order: "asc"})
+    } else {
+      categoriesDocs = await Category.find({ownerId: userId}).sort({order: "asc"})
+    }
+
     const categories = DataService.getCategoriesFromDocs(categoriesDocs)
 
     return categories

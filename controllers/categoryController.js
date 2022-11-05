@@ -77,6 +77,17 @@ class CategoryController {
       res.status(err.status).json({status: err.status, message: err.message})
     }
   }
+
+  async getAllCategories(req, res) {
+    try {
+      const {id} = req.user
+      const categories = await CategoryService.getCategories(null, id)
+
+      res.json(categories)
+    } catch (err) {
+      res.status(err.status).json({status: err.status, message: err.message})
+    }
+  }
 }
 
 module.exports = new CategoryController()

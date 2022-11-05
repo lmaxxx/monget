@@ -5,6 +5,7 @@ const CategoryController = require("../controllers/categoryController")
 const {body} = require("express-validator");
 
 router.get("/categories/expenses", isAuthorized, CategoryController.getCategories)
+router.get("/categories", isAuthorized, CategoryController.getAllCategories)
 router.get("/categories/income", isAuthorized, CategoryController.getCategories)
 router.get("/category/:id", isAuthorized, CategoryController.getCategory)
 router.patch("/categories/order",

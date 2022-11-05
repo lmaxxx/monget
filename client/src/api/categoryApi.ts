@@ -12,13 +12,17 @@ export const categoryApi = createApi({
   endpoints: (builder) => ({
     getCategories: builder.query<ICategory[], TransactionType>({
       query: (transactionType) => `/api/categories/${transactionType}`,
-      providesTags: (result, error, arg) =>
-        result
-          ? [...result.map(({id}) => ({type: 'Category' as const, id})), 'Category']
-          : ['Category'],
       async onQueryStarted(id, {dispatch, queryFulfilled}) {
         const {data} = await queryFulfilled
         CategoryService.setCategories({dispatch, data})
+      }
+    }),
+    getAllCategories: builder.query<ICategory[], void>({
+      query: () => "/api/categories",
+      providesTags: ['Category'],
+      async onQueryStarted(id, {dispatch, queryFulfilled}) {
+        const {data} = await queryFulfilled
+        CategoryService.setAllCategories({dispatch, data})
       }
     }),
     updateOrder: builder.mutation<void, string>({
@@ -60,9 +64,11 @@ export const categoryApi = createApi({
 
 export const {
   useGetCategoriesQuery,
+  useLazyGetCategoriesQuery,
   useUpdateOrderMutation,
   useCreateCategoryMutation,
   useDeleteCategoryMutation,
   useEditCategoryMutation,
   useGetCategoryQuery,
+  useGetAllCategoriesQuery
 } = categoryApi
