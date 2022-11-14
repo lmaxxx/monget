@@ -7,6 +7,7 @@ import {authApi} from '../api/authApi'
 import {accountApi} from "../api/accountApi";
 import {transferApi} from "../api/transferApi";
 import {categoryApi} from "../api/categoryApi";
+import {transactionApi} from '../api/transactionApi'
 
 export const store = configureStore({
   reducer: {
@@ -17,14 +18,16 @@ export const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [accountApi.reducerPath]: accountApi.reducer,
     [transferApi.reducerPath]: transferApi.reducer,
-    [categoryApi.reducerPath]: categoryApi.reducer
+    [categoryApi.reducerPath]: categoryApi.reducer,
+    [transactionApi.reducerPath]: transactionApi.reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       authApi.middleware,
       accountApi.middleware,
       transferApi.middleware,
-      categoryApi.middleware
+      categoryApi.middleware,
+      transactionApi.middleware
     ),
 })
 

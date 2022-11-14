@@ -19,6 +19,17 @@ class CategoryService {
     }
   }
 
+  setAllCategories({dispatch, data}: {
+    dispatch: ThunkDispatch<any, any, AnyAction>,
+    data: ICategory[],
+  }) {
+    const expensesCategories = data.filter(category => category.transactionType == TransactionType.Expenses)
+    const incomeCategories = data.filter(category => category.transactionType == TransactionType.Income)
+
+    dispatch(setExpensesCategories(expensesCategories))
+    dispatch(setIncomeCategories(incomeCategories))
+  }
+
   getCategoryById(categories: ICategory[], id: string) {
     return categories.find(category => category.id === id)
   }

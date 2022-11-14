@@ -1,7 +1,7 @@
 import DefaultPageWrapper from "../hoc/DefaultPageWrapper";
 import {useAppSelector} from "../hooks/storeHooks";
 import CategoryList from "../components/CategoryList";
-import CategorySegmentControl from "../components/CategorySegmentControl";
+import TransactionTypeSegmentControl from "../components/TransactionTypeSegmentControl";
 import {Button, Group, Switch, Text} from "@mantine/core";
 import {ChangeEvent, useEffect, useState} from "react";
 import CategoryReorder from "../components/CategoryReorder";
@@ -58,7 +58,7 @@ const Categories = () => {
   return (
     <DefaultPageWrapper>
       <Group position={"apart"}>
-        <CategorySegmentControl
+        <TransactionTypeSegmentControl
           onChange={activeTransactionHadle}
           transactionType={activeTransactionType}
           disabled={isReorderingMode}

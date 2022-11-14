@@ -15,6 +15,8 @@ import TransferCreate from "./TransferCreate";
 import Transfers from "./Transfers";
 import CategoryCreate from "./CategoryCreate";
 import CategoryEdit from "./CategoryEdit";
+import TransactionCreate from "./TransactionCreate";
+import TransactionEdit from "./TransactionEdit";
 
 const Pages = () => {
   return (
@@ -34,6 +36,8 @@ const Pages = () => {
       <Route path={"/transfers"} element={<Transfers/>}/>
       <Route path={"/category"} element={<CategoryCreate/>}/>
       <Route path={"/category/:id"} element={<CategoryEdit/>}/>
+      <Route path={"/transaction/:id"} element={<TransactionEdit/>}/>
+      <Route path={"/transaction"} element={<TransactionCreate/>}/>
     </Routes>
   )
 }

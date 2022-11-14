@@ -8,7 +8,11 @@ interface PropsType {
   setActiveIconName: (newValue: any) => void
 }
 
-const ChooseCategoryIconModal: FC<PropsType> = ({opened, onClose, setActiveIconName}) => {
+const ChooseCategoryIconModal: FC<PropsType> = ({
+                                                  opened,
+                                                  onClose,
+                                                  setActiveIconName,
+                                                }) => {
   const theme = useMantineTheme()
   const setIconAndClose = (name: string) => {
     setActiveIconName(name)

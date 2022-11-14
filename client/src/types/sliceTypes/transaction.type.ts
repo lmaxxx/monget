@@ -21,6 +21,21 @@ export interface ITransaction {
   id: string
 }
 
+export interface TransactionCreatingFormValues {
+  title: string
+  description?: string
+  currency: string
+  amount: number
+  transactionType: TransactionType
+  accountId: string
+  categoryId: string
+}
+
 export enum TransactionType {
   Expenses = "expenses", Income = "income"
+}
+
+export interface GetTransactionParamsType {
+  accountId: string,
+  transactionType?: TransactionType,
 }
