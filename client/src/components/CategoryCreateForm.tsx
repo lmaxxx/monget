@@ -6,7 +6,7 @@ import {useForm} from "@mantine/form";
 import CategoryService from "../services/categoryService";
 import {useMediaQuery} from "@mantine/hooks";
 import {TransactionType} from "../types/sliceTypes/transaction.type";
-import {ICategory} from "../types/sliceTypes/category.type";
+import {CategoryCreatingFormValues, ICategory} from "../types/sliceTypes/category.type";
 import {Box, Button, ColorPicker, Group, LoadingOverlay, TextInput} from "@mantine/core";
 import CategoryIcon from "./CategoryIcon";
 import colorsForPicker from "../data/colorsForPicker.json";
@@ -29,7 +29,7 @@ const CategoryCreateForm = () => {
       iconBackgroundColor,
       iconName: activeIconName,
       transactionType
-    } as ICategory
+    } as CategoryCreatingFormValues
 
     await createCategory(data)
     navigate("/categories")

@@ -15,11 +15,11 @@ export const categoryApi = createApi({
       async onQueryStarted(id, {dispatch, queryFulfilled}) {
         const {data} = await queryFulfilled
         CategoryService.setCategories({dispatch, data})
-      }
+      },
+      providesTags: ['Category']
     }),
     getAllCategories: builder.query<ICategory[], void>({
       query: () => "/api/categories",
-      providesTags: ['Category'],
       async onQueryStarted(id, {dispatch, queryFulfilled}) {
         const {data} = await queryFulfilled
         CategoryService.setAllCategories({dispatch, data})
@@ -64,11 +64,10 @@ export const categoryApi = createApi({
 
 export const {
   useGetCategoriesQuery,
-  useLazyGetCategoriesQuery,
   useUpdateOrderMutation,
   useCreateCategoryMutation,
   useDeleteCategoryMutation,
   useEditCategoryMutation,
   useGetCategoryQuery,
-  useGetAllCategoriesQuery
+  useGetAllCategoriesQuery,
 } = categoryApi
