@@ -27,7 +27,9 @@ class TransactionService {
         amount: 0,
       },
       validate: {
-        // title:  (value: string) => value.trim().length ? null : "You need to type a category name"
+        title: (value: string) => value.trim().length ? null : "Title must be least 3 chars long",
+        currency: (value: string) => value.trim().length ? null : "You need to choose currency",
+        amount: (value: number) => value > 0 ? null : "Amount should be bigger than 0"
       }
     }
   }

@@ -37,7 +37,7 @@ const Pages = () => {
       <Route path={"/category"} element={<CategoryCreate/>}/>
       <Route path={"/category/:id"} element={<CategoryEdit/>}/>
       <Route path={"/transaction/:id"} element={<TransactionEdit/>}/>
-      <Route path={"/transaction"} element={<TransactionCreate/>}/>
+      <Route path={"/transaction/create/:id"} element={<TransactionCreate/>}/>
     </Routes>
   )
 }

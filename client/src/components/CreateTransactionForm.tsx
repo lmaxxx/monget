@@ -1,10 +1,10 @@
 import {useGetAllCategoriesQuery} from "../api/categoryApi";
 import {useEffect, useMemo, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useForm} from "@mantine/form";
 import CategoryService from "../services/categoryService";
 import {useMediaQuery} from "@mantine/hooks";
-import {ITransaction, TransactionType} from "../types/sliceTypes/transaction.type";
+import {TransactionCreatingFormValues, TransactionType} from "../types/sliceTypes/transaction.type";
 import {Box, Button, Group, LoadingOverlay, NumberInput, Textarea, TextInput} from "@mantine/core";
 import TransactionTypeSegmentControl from "./TransactionTypeSegmentControl";
 import CategoryIcon from "./CategoryIcon";
@@ -18,6 +18,7 @@ import ChooseCategoryModaL from "./ChooseCategoryModaL";
 
 const CreateTransactionForm = () => {
   const [createTransaction, {isLoading: isCreatingTransaction}] = useCreateTransactionMutation()
+  const {id: accountId} = useParams()
   const [openedModal, setOpenedModal] = useState<boolean>(false)
   const {isLoading: isGettingCategoriesLoading} = useGetAllCategoriesQuery()
   const navigate = useNavigate()
@@ -36,93 +37,93 @@ const CreateTransactionForm = () => {
   }, [transactionType]);
 
   const createTransactionSubmit = async (values: { [key: number]: string }) => {
-    console.log(values)
     const data = {
-      // ...values,
-      // iconBackgroundColor,
-      // iconName: activeIconName,
-      // transactionType
+      ...values,
+      transactionType,
+      categoryId: activeCategoryId,
+      accountId
+    } as TransactionCreatingFormValues
 
-    } as ITransaction
-
-    // await createTransaction(data)
-    // navigate("/")
+    await createTransaction(data)
+    navigate("/")
   }
 
   const openModal = () => setOpenedModal(true)
   const closeModal = () => setOpenedModal(false)
 
   return (
-    <div style={{position: "relative"}}>
+    <div style={{position: "relative", minHeight: "300px"}}>
       {
         isLoading ?
           <LoadingOverlay visible={true} overlayBlur={2}/>
           :
-          <Group mt={"md"} sx={{
-            overflow: "auto",
-            height: "90%",
-            maxHeight: "70vh",
-            position: "relative",
-            padding: ".1rem"
-          }}>
-            <Box
-              id={"categoryTransferForm"}
-              component={"form"}
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                flexDirection: isMobile ? "column" : "initial",
-                alignItems: isMobile ? "center" : "initial",
-                width: "100%",
-                gap: "1rem 2rem"
-              }}
-              onSubmit={form.onSubmit(createTransactionSubmit)}
-            >
-              <Box sx={{width: isMobile ? "100%" : "50%"}}>
-                <TextInput
-                  mb={"sm"}
-                  label="Title"
-                  placeholder="Bought a new book"
-                  {...form.getInputProps("title")}
-                />
-                <CurrencySelect label={"Currency"} form={form}/>
-                <NumberInput
-                  mt={"sm"}
-                  placeholder="1251"
-                  label="Amount"
-                  precision={2}
-                  rightSection={getSymbolFromCurrency(form.values.currency)}
-                  {...form.getInputProps("amount")}
-                />
-              </Box>
-              <Box sx={{width: isMobile ? "100%" : "50%"}}>
-                <Textarea
-                  label="Description"
-                  description={"Not required"}
-                  placeholder={"Nice description..."}
-                  maxRows={2}
-                  mb={"sm"}
-                  {...form.getInputProps("description")}
-                />
-                <TransactionTypeSegmentControl
-                  position={isMobile ? "center" : "left"}
-                  transactionType={transactionType}
-                  onChange={setTransactionType}
-                />
-                <Group mt={"sm"} position={isMobile ? "center": "left"}>
-                  <CategoryIcon
-                    backgroundColor={activeCategory.iconBackgroundColor}
-                    iconName={activeCategory.iconName}
-                    backgroundSize={"3rem"}
-                    iconSize={"2rem"}
+          <>
+            <Group mt={"md"} sx={{
+              overflow: "auto",
+              height: "90%",
+              maxHeight: "70vh",
+              position: "relative",
+              padding: ".1rem"
+            }}>
+              <Box
+                id={"categoryTransferForm"}
+                component={"form"}
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  flexDirection: isMobile ? "column" : "initial",
+                  alignItems: isMobile ? "center" : "initial",
+                  width: "100%",
+                  gap: "1rem 2rem"
+                }}
+                onSubmit={form.onSubmit(createTransactionSubmit)}
+              >
+                <Box sx={{width: isMobile ? "100%" : "50%"}}>
+                  <TextInput
+                    mb={"sm"}
+                    label="Title"
+                    placeholder="Bought a new book"
+                    {...form.getInputProps("title")}
                   />
-                  <Button onClick={openModal} color={"violet"} variant={"light"}>Choose cateogry</Button>
-                </Group>
+                  <CurrencySelect label={"Currency"} form={form}/>
+                  <NumberInput
+                    mt={"sm"}
+                    placeholder="1251"
+                    label="Amount"
+                    precision={2}
+                    rightSection={getSymbolFromCurrency(form.values.currency)}
+                    {...form.getInputProps("amount")}
+                  />
+                </Box>
+                <Box sx={{width: isMobile ? "100%" : "50%"}}>
+                  <Textarea
+                    label="Description"
+                    description={"Not required"}
+                    placeholder={"Nice description..."}
+                    maxRows={2}
+                    mb={"sm"}
+                    {...form.getInputProps("description")}
+                  />
+                  <TransactionTypeSegmentControl
+                    position={isMobile ? "center" : "left"}
+                    transactionType={transactionType}
+                    onChange={setTransactionType}
+                  />
+                  <Group mt={"sm"} position={isMobile ? "center" : "left"}>
+                    <CategoryIcon
+                      backgroundColor={activeCategory.iconBackgroundColor}
+                      iconName={activeCategory.iconName}
+                      backgroundSize={"3rem"}
+                      iconSize={"2rem"}
+                    />
+                    <Button onClick={openModal} color={"violet"} variant={"light"}>Choose cateogry</Button>
+                  </Group>
+                </Box>
               </Box>
-            </Box>
-          </Group>
+            </Group>
+            <Button form={"categoryTransferForm"} fullWidth mt={"md"} size={"md"} type="submit">Create</Button>
+          </>
       }
-      <Button form={"categoryTransferForm"} fullWidth mt={"md"} size={"md"} type="submit">Create</Button>
       <ChooseCategoryModaL
         opened={openedModal}
         onClose={closeModal}

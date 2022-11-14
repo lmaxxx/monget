@@ -1,5 +1,4 @@
 import {Modal, useMantineTheme} from "@mantine/core";
-import AllCategoryIcons from "./AllCategoryIcons";
 import {FC} from "react";
 import CategoryList from "./CategoryList";
 import {TransactionType} from "../types/sliceTypes/transaction.type";
