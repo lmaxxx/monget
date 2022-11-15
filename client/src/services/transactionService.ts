@@ -25,6 +25,7 @@ class TransactionService {
         description: "",
         currency: "",
         amount: 0,
+        date: new Date(),
       },
       validate: {
         title: (value: string) => value.trim().length ? null : "Title must be least 3 chars long",

@@ -29,6 +29,7 @@ export interface TransactionCreatingFormValues {
   transactionType: TransactionType
   accountId: string
   categoryId: string
+  date: Date
 }
 
 export enum TransactionType {

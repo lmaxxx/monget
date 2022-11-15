@@ -123,9 +123,15 @@ const TransactionCreateForm = () => {
                     <Button onClick={openModal} color={"violet"} variant={"light"}>Choose cateogry</Button>
                   </Group>
                 </Box>
-                <DatePicker dropdownType="modal" placeholder="Pick date" label="Event date" />
               </Box>
             </Group>
+            <DatePicker
+              mt={"sm"}
+              dropdownType="modal"
+              clearable={false}
+              placeholder="Pick date"
+              {...form.getInputProps("date")}
+            />
             <Button form={"categoryTransferForm"} fullWidth mt={"md"} size={"md"} type="submit">Create</Button>
           </>
       }
