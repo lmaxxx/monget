@@ -1,6 +1,6 @@
 import {useGetAllCategoriesQuery} from "../api/categoryApi";
 import {useEffect, useMemo, useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useForm} from "@mantine/form";
 import CategoryService from "../services/categoryService";
 import {useMediaQuery} from "@mantine/hooks";
@@ -15,8 +15,11 @@ import getSymbolFromCurrency from "currency-symbol-map";
 import {useAppSelector} from "../hooks/storeHooks";
 import {ICategory} from "../types/sliceTypes/category.type";
 import ChooseCategoryModaL from "./ChooseCategoryModaL";
+import {DatePicker} from '@mantine/dates'
 
 const TransactionCreateForm = () => {
+  const location = useLocation()
+  const {transactionType: defaultTransactionType} = location.state
   const [createTransaction, {isLoading: isCreatingTransaction}] = useCreateTransactionMutation()
   const {id: accountId} = useParams()
   const [openedModal, setOpenedModal] = useState<boolean>(false)
@@ -24,13 +27,14 @@ const TransactionCreateForm = () => {
   const navigate = useNavigate()
   const form = useForm(TransactionService.getCreateTransactionFormConfig())
   const isMobile = useMediaQuery('(max-width: 600px)')
-  const [transactionType, setTransactionType] = useState<TransactionType>(TransactionType.Expenses)
+  const [transactionType, setTransactionType] = useState<TransactionType>(defaultTransactionType)
   const categories = useAppSelector(state => state.categorySlice[`${transactionType}Categories`])
   const [activeCategoryId, setActiveCategoryId] = useState<string>(categories[0]?.id)
   const activeCategory = useMemo<ICategory>(() => (
     CategoryService.getCategoryById(categories, activeCategoryId)!
   ), [activeCategoryId])
-  const isLoading = isCreatingTransaction || isGettingCategoriesLoading
+  const isLoading = isCreatingTransaction || isGettingCategoriesLoading || !activeCategory
+
 
   useEffect(() => {
     setActiveCategoryId(categories[0]?.id)
@@ -119,6 +123,7 @@ const TransactionCreateForm = () => {
                     <Button onClick={openModal} color={"violet"} variant={"light"}>Choose cateogry</Button>
                   </Group>
                 </Box>
+                <DatePicker dropdownType="modal" placeholder="Pick date" label="Event date" />
               </Box>
             </Group>
             <Button form={"categoryTransferForm"} fullWidth mt={"md"} size={"md"} type="submit">Create</Button>
