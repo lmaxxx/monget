@@ -18,6 +18,7 @@ export interface ITransaction {
   categoryId: string | ICategory,
   amount: number,
   currency: string,
+  date: Date
   id: string
 }
 

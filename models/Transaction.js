@@ -7,6 +7,7 @@ const transactionSchema = new Schema({
   currency: {type: String, required: true},
   ownerId: {type: Schema.Types.ObjectId, ref: "User", required: true},
   createdAt: {type: Date, default: new Date().getTime()},
+  date: {type: Date, required: true},
   accountId: {type: Schema.Types.ObjectId, ref: "Account", required: true},
   transactionType: {type: String, required: true},
   categoryId: {type: Schema.Types.ObjectId, ref: "Category"}

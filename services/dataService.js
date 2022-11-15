@@ -71,6 +71,7 @@ class DataService {
       categoryId: transaction.categoryId,
       amount: transaction.amount,
       currency: transaction.currency,
+      date: transaction.date,
       id: transaction._id
     }
   }

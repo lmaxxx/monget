@@ -15,6 +15,7 @@ router.post("/transaction",
   body("transactionType").isLength({min: 1}).withMessage("Choose transactionType"),
   body("accountId").isLength({min: 7}).withMessage("Choose account"),
   body("categoryId").isLength({min: 1}).withMessage("Choose category"),
+  body("date").isString().withMessage("Choose date"),
   isAuthorized, TransactionController.createTransaction)
 router.patch("/transaction/:id", isAuthorized, TransactionController.editTransaction)
 router.delete("/transaction/:id", isAuthorized, TransactionController.deleteTransaction)
