@@ -7,12 +7,12 @@ import AccountService from "../services/accountService";
 const HomeAccountSelect = () => {
   const dispatch = useAppDispatch()
   const accounts = useAppSelector(state => state.accountSlice.accounts)
+  const activeAccount = useAppSelector(state => state.accountSlice.activeAccount)
   const dataForSelect = useMemo(() => AccountService.getAccountSelectItems(accounts), [accounts])
   const [activeAccountId, setActiveAccountId] = useState<string | null>(null)
 
   useEffect(() => {
-    dispatch(setActiveAccount(accounts[0].id))
-    setActiveAccountId(accounts[0].id)
+    !activeAccount.accountName ? setActiveAccountId(accounts[0].id): setActiveAccountId(activeAccount.id)
   }, [])
 
   useEffect(() => {

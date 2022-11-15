@@ -11,10 +11,7 @@ export const accountApi = createApi({
   endpoints: (builder) => ({
     getAccounts: builder.query<IAccount[], void>({
       query: () => "/api/accounts",
-      providesTags: (result, error, arg) =>
-        result
-          ? [...result.map(({ id }) => ({ type: 'Account' as const, id })), 'Account']
-          : ['Account'],
+      providesTags: ['Account'],
       async onQueryStarted(id, {dispatch, queryFulfilled}) {
         const {data} = await queryFulfilled
         await AccountService.setAccounts({dispatch, data})
