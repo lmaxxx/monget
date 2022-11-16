@@ -16,7 +16,7 @@ const TransferCreateForm = () => {
   const accounts = useAppSelector(state => state.accountSlice.accounts)
   const [transferFromId, setTransferFromId] = useState<string | null>(null)
   const [transferToId, setTransferToId] = useState<string | null>(null)
-  const form = useForm(TransferService.getTransferCreatingFormConfig())
+  const form = useForm<TransferCreatingFormValues>(TransferService.getTransferCreatingFormConfig())
   const fromInputProps = form.getInputProps("from")
   const toInputProps = form.getInputProps("to")
   const [createTransfer, {isLoading}] = useCreateTransferMutation()
@@ -32,8 +32,8 @@ const TransferCreateForm = () => {
     setTransferToId(value)
   }
 
-  const submit = async (values: any) => {
-    await createTransfer(values as TransferCreatingFormValues)
+  const submit = async (values: TransferCreatingFormValues) => {
+    await createTransfer(values)
     navigate("/accounts")
 
     await getAccounts()

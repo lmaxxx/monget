@@ -11,7 +11,7 @@ import NotificationService from "../services/notificationService";
 const RegistrationForm = () => {
   const [registration, {error, isLoading}] = useRegistrationMutation()
   const passportInputRef = useRef<HTMLInputElement>()
-  const form = useForm(AuthService.getRegistrationFormConfig(passportInputRef))
+  const form = useForm<RegistrationFormValues>(AuthService.getRegistrationFormConfig(passportInputRef))
 
   useEffect(() => {
     if(error) NotificationService.sendErrorNotification(error as ApiError)

@@ -6,7 +6,7 @@ import {useForm} from "@mantine/form";
 import CategoryService from "../services/categoryService";
 import {useMediaQuery} from "@mantine/hooks";
 import {TransactionType} from "../types/sliceTypes/transaction.type";
-import {CategoryCreatingFormValues, ICategory} from "../types/sliceTypes/category.type";
+import {CategoryCreatingFormValues} from "../types/sliceTypes/category.type";
 import {Box, Button, ColorPicker, Group, LoadingOverlay, TextInput} from "@mantine/core";
 import CategoryIcon from "./CategoryIcon";
 import colorsForPicker from "../data/colorsForPicker.json";
@@ -19,17 +19,17 @@ const CategoryCreateForm = () => {
   const [activeIconName, setActiveIconName] = useState<TransactionIconType>("IconWorld")
   const [openedModal, setOpenedModal] = useState<boolean>(false)
   const navigate = useNavigate()
-  const form = useForm(CategoryService.getCategoryFormConfig())
+  const form = useForm<CategoryCreatingFormValues>(CategoryService.getCategoryFormConfig())
   const isMobile = useMediaQuery('(max-width: 520px)')
   const [transactionType, setTransactionType] = useState<TransactionType>(TransactionType.Expenses)
 
-  const createCategorySubmit = async (values: { [key: number]: string }) => {
+  const createCategorySubmit = async (values: CategoryCreatingFormValues) => {
     const data = {
       ...values,
       iconBackgroundColor,
       iconName: activeIconName,
       transactionType
-    } as CategoryCreatingFormValues
+    }
 
     await createCategory(data)
     navigate("/categories")

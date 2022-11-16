@@ -3,7 +3,7 @@ import baseQueryWithReauth from "./baseQueryWithReauth";
 import {
   GetTransactionParamsType,
   ITransaction,
-  TransactionCreatingFormValues
+  TransactionCreatingBodyParams
 } from "../types/sliceTypes/transaction.type";
 import TransactionService from "../services/transactionService";
 
@@ -25,7 +25,7 @@ export const transactionApi = createApi({
     getTransaction: builder.query<ITransaction, string>({
       query: (id) => `/api/transaction/${id}`
     }),
-    createTransaction: builder.mutation<ITransaction, TransactionCreatingFormValues>({
+    createTransaction: builder.mutation<ITransaction, TransactionCreatingBodyParams>({
       query: (formData) => ({
         url: `/api/transaction`,
         body: formData,

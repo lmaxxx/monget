@@ -22,14 +22,22 @@ export interface ITransaction {
   id: string
 }
 
+export interface TransactionCreatingBodyParams {
+  title: string
+  description?: string
+  currency: string
+  amount: number
+  date: Date
+  transactionType: TransactionType
+  accountId: string
+  categoryId: string
+}
+
 export interface TransactionCreatingFormValues {
   title: string
   description?: string
   currency: string
   amount: number
-  transactionType: TransactionType
-  accountId: string
-  categoryId: string
   date: Date
 }
 

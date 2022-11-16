@@ -4,7 +4,11 @@ import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useForm} from "@mantine/form";
 import CategoryService from "../services/categoryService";
 import {useMediaQuery} from "@mantine/hooks";
-import {TransactionCreatingFormValues, TransactionType} from "../types/sliceTypes/transaction.type";
+import {
+  TransactionCreatingBodyParams,
+  TransactionCreatingFormValues,
+  TransactionType
+} from "../types/sliceTypes/transaction.type";
 import {Box, Button, Group, LoadingOverlay, NumberInput, Textarea, TextInput} from "@mantine/core";
 import TransactionTypeSegmentControl from "./TransactionTypeSegmentControl";
 import CategoryIcon from "./CategoryIcon";
@@ -16,6 +20,7 @@ import {useAppSelector} from "../hooks/storeHooks";
 import {ICategory} from "../types/sliceTypes/category.type";
 import ChooseCategoryModaL from "./ChooseCategoryModaL";
 import {DatePicker} from '@mantine/dates'
+import {IconCalendar} from "@tabler/icons";
 
 const TransactionCreateForm = () => {
   const location = useLocation()
@@ -25,7 +30,7 @@ const TransactionCreateForm = () => {
   const [openedModal, setOpenedModal] = useState<boolean>(false)
   const {isLoading: isGettingCategoriesLoading} = useGetAllCategoriesQuery()
   const navigate = useNavigate()
-  const form = useForm(TransactionService.getCreateTransactionFormConfig())
+  const form = useForm<TransactionCreatingFormValues>(TransactionService.getCreateTransactionFormConfig())
   const isMobile = useMediaQuery('(max-width: 600px)')
   const [transactionType, setTransactionType] = useState<TransactionType>(defaultTransactionType)
   const categories = useAppSelector(state => state.categorySlice[`${transactionType}Categories`])
@@ -40,13 +45,13 @@ const TransactionCreateForm = () => {
     setActiveCategoryId(categories[0]?.id)
   }, [transactionType]);
 
-  const createTransactionSubmit = async (values: { [key: number]: string }) => {
+  const createTransactionSubmit = async (values: TransactionCreatingFormValues) => {
     const data = {
       ...values,
       transactionType,
       categoryId: activeCategoryId,
-      accountId
-    } as TransactionCreatingFormValues
+      accountId: accountId!
+    }
 
     await createTransaction(data)
     navigate("/")
@@ -126,6 +131,7 @@ const TransactionCreateForm = () => {
               </Box>
             </Group>
             <DatePicker
+              icon={<IconCalendar size={16} />}
               mt={"sm"}
               dropdownType="modal"
               clearable={false}

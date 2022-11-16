@@ -3,7 +3,7 @@ import baseQueryWithReauth from "./baseQueryWithReauth";
 import {TransactionType} from "../types/sliceTypes/transaction.type";
 import {ICategory} from "../types/sliceTypes/category.type"
 import CategoryService from "../services/categoryService";
-import {CategoryCreatingFormValues} from "../types/sliceTypes/category.type";
+import {CategoryCreatingBodyParams} from "../types/sliceTypes/category.type";
 
 export const categoryApi = createApi({
   reducerPath: "categoryApi",
@@ -36,7 +36,7 @@ export const categoryApi = createApi({
     getCategory: builder.query<ICategory, string>({
       query: (id) => `/api/category/${id}`
     }),
-    createCategory: builder.mutation<ICategory, CategoryCreatingFormValues>({
+    createCategory: builder.mutation<ICategory, CategoryCreatingBodyParams>({
       query: (formData) => ({
         url: "/api/category",
         method: "POST",

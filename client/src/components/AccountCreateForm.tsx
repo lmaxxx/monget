@@ -6,7 +6,7 @@ import colorsForPicker from "../data/colorsForPicker.json"
 import {useEffect, useState} from "react";
 import AccountService from "../services/accountService";
 import {useCreateAccountMutation} from "../api/accountApi";
-import {AccountCreatingFormValues} from "../types/sliceTypes/account.type"
+import {AccountCreatingBodyParams, AccountCreatingFormValues} from "../types/sliceTypes/account.type"
 import AccountIconList from "./AccountIconList";
 import {AccountIconType} from "../data/accountIcons";
 import {useAppSelector} from "../hooks/storeHooks";
@@ -17,7 +17,7 @@ const AccountCreateForm = () => {
   const userCurrency = useAppSelector(state => state.userSlice.user.currency)
   const [iconBackgroundColor, setIconBackgroundColor] = useState<string>(colorsForPicker[1])
   const [activeIconName, setActiveIconName] = useState<AccountIconType>("IconCash")
-  const form = useForm(AccountService.getAccountCreatingFormConfig())
+  const form = useForm<AccountCreatingFormValues>(AccountService.getAccountCreatingFormConfig())
   const [createAccount, {isLoading}] = useCreateAccountMutation()
   const navigate = useNavigate()
   const isMobile = useMediaQuery('(max-width: 520px)');
@@ -26,12 +26,12 @@ const AccountCreateForm = () => {
     if (userCurrency) AccountService.setDefaultCreateForm(form, userCurrency)
   }, [userCurrency]);
 
-  const createAccountSubmit = async (values: { [key: number]: string }) => {
+  const createAccountSubmit = async (values: AccountCreatingFormValues) => {
     const data = {
       ...values,
       iconBackgroundColor,
       iconName: activeIconName
-    } as AccountCreatingFormValues
+    }
 
     await createAccount(data)
     navigate("/accounts")

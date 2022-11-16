@@ -11,7 +11,7 @@ import NotificationService from "../services/notificationService";
 const LoginForm = () => {
   const [login, {error, isLoading}] = useLoginMutation()
   const passportInputRef = useRef<HTMLInputElement>()
-  const form = useForm(AuthService.getLoginFormConfig());
+  const form = useForm<LoginFormValues>(AuthService.getLoginFormConfig());
 
   useEffect(() => {
     if(error) NotificationService.sendErrorNotification(error as ApiError)
