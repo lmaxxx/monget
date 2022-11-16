@@ -17,18 +17,15 @@ export interface IAccount {
   id: string
 }
 
-export interface AccountCreatingBodyParams {
-  currency: string
-  amount: number
-  accountName: string
-  iconName: string
-  iconBackgroundColor: string
-}
-
 export interface AccountCreatingFormValues {
   currency: string
   amount: number
   accountName: string
+}
+
+export interface AccountCreatingBodyParams extends AccountCreatingFormValues{
+  iconName: string
+  iconBackgroundColor: string
 }
 
 export interface AccountSelectItemProps extends ComponentPropsWithoutRef<"div"> {

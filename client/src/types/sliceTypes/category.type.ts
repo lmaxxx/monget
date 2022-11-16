@@ -18,13 +18,12 @@ export interface ICategory {
   id: string
 }
 
-export interface CategoryCreatingBodyParams {
+export interface CategoryCreatingFormValues {
   name: string
+}
+
+export interface CategoryCreatingBodyParams extends CategoryCreatingFormValues{
   iconName: TransactionIconType
   transactionType: TransactionType
   iconBackgroundColor: string
-}
-
-export interface CategoryCreatingFormValues {
-  name: string
 }

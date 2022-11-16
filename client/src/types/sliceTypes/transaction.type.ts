@@ -22,23 +22,18 @@ export interface ITransaction {
   id: string
 }
 
-export interface TransactionCreatingBodyParams {
-  title: string
-  description?: string
-  currency: string
-  amount: number
-  date: Date
-  transactionType: TransactionType
-  accountId: string
-  categoryId: string
-}
-
 export interface TransactionCreatingFormValues {
   title: string
   description?: string
   currency: string
   amount: number
   date: Date
+}
+
+export interface TransactionCreatingBodyParams extends TransactionCreatingFormValues{
+  transactionType: TransactionType
+  accountId: string
+  categoryId: string
 }
 
 export enum TransactionType {
