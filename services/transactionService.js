@@ -3,24 +3,24 @@ const ApiError = require("../exceptions/apiError");
 const DataService = require("../services/dataService")
 const Account = require("../models/Account");
 const ConverterService = require("../services/converterService")
+const DateService = require("../services/dateService")
 
 class TransactionService {
-  async getTransactions(accountId, transactionType) {
-    let transactionsDocs
+  async getTransactions(accountId, transactionType, query) {
+    const findQuery = {accountId}
 
-    if(transactionType) {
-      transactionsDocs = await Transaction.find({transactionType, accountId}).sort({createdAt: "asc"})
-        .catch(err => {
-          throw new ApiError(400, "There is no transactions in current account")
-        })
-    } else {
-      transactionsDocs = await Transaction.find({accountId}).sort({createdAt: "asc"})
-        .catch(err => {
-          throw new ApiError(400, "There is no transactions in current account")
-        })
+    if (transactionType) findQuery.transactionType = transactionType
+    if (query) {
+      const {start, end} = query
+      findQuery.date = {$gt: start, $lt: end}
     }
 
-    if(!transactionsDocs) throw new ApiError(400, "There is no transactions in current account")
+    const transactionsDocs = await Transaction.find(findQuery).sort({createdAt: "asc"})
+      .catch(err => {
+        throw new ApiError(400, "There is no transactions in current account")
+      })
+
+    if (!transactionsDocs) throw new ApiError(400, "There is no transactions in current account")
 
     return DataService.getTransactionsFromDocs(transactionsDocs)
   }
@@ -31,7 +31,7 @@ class TransactionService {
         throw new ApiError(400, "There is no transactions with current id")
       })
 
-    if(!transactionDoc) throw new ApiError(400, "There is no transactions with current id")
+    if (!transactionDoc) throw new ApiError(400, "There is no transactions with current id")
 
     return DataService.getTransactionFromDoc(transactionDoc)
   }
@@ -53,7 +53,7 @@ class TransactionService {
         throw new ApiError(400, "There isn't find any category with current id")
       })
 
-    if(!transactionDoc) throw new ApiError(400, "There isn't find any category with current id")
+    if (!transactionDoc) throw new ApiError(400, "There isn't find any category with current id")
 
     Object.entries(data).forEach(([property, value]) => {
       transactionDoc[property] = value
@@ -78,9 +78,9 @@ class TransactionService {
     const {accountAmount, accountCurrency, _id} = accountDoc
     const {transactionAmount, transactionCurrency} = transactionDoc
 
-    if(!accountDoc) throw new ApiError(400, "There is no category with current id")
+    if (!accountDoc) throw new ApiError(400, "There is no category with current id")
 
-    if(accountCurrency === transactionCurrency) {
+    if (accountCurrency === transactionCurrency) {
       await Account.updateOne({_id}, {amount: accountAmount + transactionAmount})
     } else {
       const newAmount = ConverterService.convert({
@@ -115,6 +115,30 @@ class TransactionService {
   //     await Account.updateOne({_id}, {amount: accountAmount - newAmount})
   //   }
   // }
+
+  validateGetTransactionQuery(query) {
+    const currentDate = new Date()
+    let {days, start, end} = query
+
+    days = +days
+    start = new Date(+start)
+    end = new Date(+end)
+
+    if(days || days === 0) {
+      const lastDate = DateService.subtractDays(currentDate, days)
+
+      return {
+        start: DateService.getStartOfTheDay(lastDate),
+        end: DateService.getEndOfTheDay(currentDate),
+      }
+    }
+    else if(start && end) {
+      return {
+        start: DateService.getStartOfTheDay(start),
+        end: DateService.getEndOfTheDay(end),
+      }
+    }
+  }
 }
 
 module.exports = new TransactionService()

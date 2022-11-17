@@ -5,31 +5,32 @@ class TransactionController {
   async getTransactions(req, res) {
     try {
       const {accountId} = req.params
-      const transactions = await TransactionService.getTransactions(accountId)
+      const validatedQuery = TransactionService.validateGetTransactionQuery(req.query)
+      const transactions = await TransactionService.getTransactions(accountId, null, validatedQuery)
 
       res.json(transactions)
     } catch (err) {
-      res.json(err)
-      // res.status(err.status).json({status: err.status, message: err.message})
+      res.status(err.status).json({status: err.status, message: err.message})
     }
   }
 
   async getExpensesTransactions(req, res) {
     try {
       const {accountId} = req.params
-      const transactions = await TransactionService.getTransactions(accountId, "expenses")
+      const validatedQuery = TransactionService.validateGetTransactionQuery(req.query)
+      const transactions = await TransactionService.getTransactions(accountId, "expenses", validatedQuery)
 
       res.json(transactions)
     } catch (err) {
-      res.json(err)
-      // res.status(err.status).json({status: err.status, message: err.message})
+      res.status(err.status).json({status: err.status, message: err.message})
     }
   }
 
   async getIncomeTransactions(req, res) {
     try {
       const {accountId} = req.params
-      const transactions = await TransactionService.getTransactions(accountId, "income")
+      const validatedQuery = TransactionService.validateGetTransactionQuery(req.query)
+      const transactions = await TransactionService.getTransactions(accountId, "income", validatedQuery)
 
       res.json(transactions)
     } catch (err) {
