@@ -29,7 +29,7 @@ export const transactionApi = createApi({
       query: (formData) => ({
         url: `/api/transaction`,
         body: formData,
-        method: "POST"
+        method: "POST",
       }),
       invalidatesTags: ["Transaction"]
     }),

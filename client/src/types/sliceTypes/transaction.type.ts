@@ -44,3 +44,15 @@ export interface GetTransactionParamsType {
   accountId: string,
   transactionType?: TransactionType,
 }
+
+export enum TransactionRequestDateType {
+  Today = "today", Week = "week", Month = "month", Range = "range"
+}
+
+export const TransactionRequestDays = {
+  [TransactionRequestDateType.Today]: 0,
+  [TransactionRequestDateType.Week]: 6,
+  [TransactionRequestDateType.Month]: 29,
+}
+
+export type DateRangeType = [Date, Date]

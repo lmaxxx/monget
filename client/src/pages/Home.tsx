@@ -6,6 +6,8 @@ import {useGetAccountsQuery} from "../api/accountApi";
 import {Title} from '@mantine/core'
 import AccountService from "../services/accountService";
 import HomeSections from "../components/HomeSections";
+import {TransactionRequestDateType} from "../types/sliceTypes/transaction.type";
+import ChooseDateModel from "../components/ChooseDateModel";
 
 const Home = () => {
   useGetAccountsQuery()
@@ -26,6 +28,7 @@ const Home = () => {
       <HomeBar/>
       <Title my={"1rem"} align={"center"} order={2}>{formattedAmount}</Title>
       <HomeSections/>
+      <ChooseDateModel opened={true} activeTransactionRequestDate={TransactionRequestDateType.Range}/>
     </DefaultPageWrapper>
   // <DefaultPageWrapper>
   //   <HomeSkeleton/>
