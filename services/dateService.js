@@ -1,7 +1,14 @@
 class DateService {
   subtractDays(date, days) {
     const copyDate = new Date(date.getTime())
-    copyDate.setUTCDate(copyDate.getUTCDate() - days)
+    copyDate.setUTCDate(copyDate.getUTCDate() - days + 1)
+
+    return copyDate
+  }
+
+  addDays(date, days) {
+    const copyDate = new Date(date.getTime())
+    copyDate.setUTCDate(copyDate.getUTCDate() + days - 1)
 
     return copyDate
   }
@@ -18,6 +25,17 @@ class DateService {
     copyDate.setUTCHours(23, 59, 59, 999)
 
     return copyDate
+  }
+
+  substractMonths(date, months) {
+    const copyDate = new Date(date.getTime())
+    copyDate.setUTCMonth(copyDate.getUTCMonth() - months + 1)
+
+    return copyDate
+  }
+
+  setFirstDay(date) {
+    date.setUTCDate(1)
   }
 }
 

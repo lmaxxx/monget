@@ -118,24 +118,49 @@ class TransactionService {
 
   validateGetTransactionQuery(query) {
     const currentDate = new Date()
-    let {days, start, end} = query
+    let {days, weeks, months, rangeStart, rangeEnd} = query
 
     days = +days
-    start = new Date(+start)
-    end = new Date(+end)
+    weeks = +weeks
+    months = +months
+    rangeStart = +rangeStart ? new Date(+rangeStart) : null
+    rangeEnd = +rangeEnd ? new Date(+rangeEnd) : null
 
     if(days || days === 0) {
-      const lastDate = DateService.subtractDays(currentDate, days)
+      const currentDay = DateService.subtractDays(currentDate, days)
 
       return {
-        start: DateService.getStartOfTheDay(lastDate),
-        end: DateService.getEndOfTheDay(currentDate),
+        start: DateService.getStartOfTheDay(currentDay),
+        end: DateService.getEndOfTheDay(currentDay),
       }
     }
-    else if(start && end) {
+
+    if(weeks || weeks === 0) {
+      const weekStartDay = DateService.subtractDays(currentDate, weeks * 7)
+      const weekEndDay = DateService.addDays(weekStartDay, 7)
+
       return {
-        start: DateService.getStartOfTheDay(start),
-        end: DateService.getEndOfTheDay(end),
+        start: DateService.getStartOfTheDay(weekStartDay),
+        end: DateService.getEndOfTheDay(weekEndDay),
+      }
+    }
+
+    if(months || months === 0) {
+      const monthStartDay = DateService.substractMonths(currentDate, months)
+      const monthEndDay = new Date(monthStartDay.getFullYear(), monthStartDay.getMonth()+1, 0)
+
+      monthStartDay.setUTCDate(1)
+
+      return {
+        start: DateService.getStartOfTheDay(monthStartDay),
+        end: DateService.getEndOfTheDay(monthEndDay),
+      }
+    }
+
+    if(rangeStart && rangeEnd) {
+      return {
+        start: DateService.getStartOfTheDay(rangeStart),
+        end: DateService.getEndOfTheDay(rangeEnd),
       }
     }
   }
