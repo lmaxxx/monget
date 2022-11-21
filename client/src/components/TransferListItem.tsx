@@ -11,7 +11,6 @@ interface PropsType {
 const TransferListItem: FC<PropsType> = ({transfer}) => {
   const {from, to, amount, createdAt} = transfer
   const date = new Date(createdAt)
-  console.log(date, from.accountName, to.accountName)
   const options: Intl.DateTimeFormatOptions = {weekday: 'long', year: 'numeric', month: 'short', day: 'numeric'}
 
   return (

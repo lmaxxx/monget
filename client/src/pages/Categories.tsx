@@ -1,5 +1,5 @@
 import DefaultPageWrapper from "../hoc/DefaultPageWrapper";
-import {useAppSelector} from "../hooks/storeHooks";
+import {useAppDispatch, useAppSelector} from "../hooks/storeHooks";
 import CategoryList from "../components/CategoryList";
 import TransactionTypeSegmentControl from "../components/TransactionTypeSegmentControl";
 import {Button, Group, Switch, Text} from "@mantine/core";
@@ -8,7 +8,6 @@ import CategoryReorder from "../components/CategoryReorder";
 import {useUpdateOrderMutation} from "../api/categoryApi";
 import Loader from "../ui/Loader";
 import {Link, useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
 import {TransactionType} from "../types/sliceTypes/transaction.type";
 import {setActiveTransactionType} from "../store/categorySlice";
 import {IconPlus} from "@tabler/icons";
@@ -19,7 +18,7 @@ const Categories = () => {
   const categories = useAppSelector(state => state.categorySlice[`${activeTransactionType}Categories`])
   const [categoriesNewOrder, setCategoriesNewOrder] = useState<any>(categories.map(category => category.id))
   const [updateOrder, {isLoading}] = useUpdateOrderMutation()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const categoryIconProps = {
     iconSize: "3rem",

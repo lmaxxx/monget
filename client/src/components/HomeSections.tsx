@@ -1,4 +1,4 @@
-import {SimpleGrid} from "@mantine/core";
+import {SimpleGrid, Box} from "@mantine/core";
 import HomeSection from "./HomeSection";
 import HomeSectionSwitch from "./HomeSectionSwitch";
 import {useMediaQuery} from "@mantine/hooks";
@@ -11,7 +11,7 @@ const HomeSections = () => {
 
 
   return (
-    <>
+    <Box mt={"md"}>
       {isTablet && <HomeSectionSwitch/>}
       <SimpleGrid mt={"1.5rem"} cols={isTablet ? 1 : 2}>
         {activeTransactionType === TransactionType.Expenses && isTablet && <HomeSection title={"Expenses"}/>}
@@ -23,7 +23,7 @@ const HomeSections = () => {
           </>
         }
       </SimpleGrid>
-    </>
+    </Box>
   )
 }
 

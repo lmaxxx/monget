@@ -6,6 +6,9 @@ export interface InitialStateType {
   activeTransactionType: TransactionType
   incomeTransactions: ITransaction[]
   expensesTransactions: ITransaction[]
+  transactionDateRequestType: TransactionDateRequestType
+  dateCounter: number
+  range: DateRangeType
 }
 
 export interface ITransaction {
@@ -45,14 +48,8 @@ export interface GetTransactionParamsType {
   transactionType?: TransactionType,
 }
 
-export enum TransactionRequestDateType {
-  Today = "today", Week = "week", Month = "month", Range = "range"
+export enum TransactionDateRequestType {
+  Today = "days", Week = "weeks", Month = "months", Range = "range"
 }
 
-export const TransactionRequestDays = {
-  [TransactionRequestDateType.Today]: 0,
-  [TransactionRequestDateType.Week]: 6,
-  [TransactionRequestDateType.Month]: 29,
-}
-
-export type DateRangeType = [Date, Date]
+export type DateRangeType = [Date | null, Date | null]
