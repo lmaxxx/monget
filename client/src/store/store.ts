@@ -22,7 +22,7 @@ export const store = configureStore({
     [transactionApi.reducerPath]: transactionApi.reducer
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(
+    getDefaultMiddleware({serializableCheck: false}).concat(
       authApi.middleware,
       accountApi.middleware,
       transferApi.middleware,

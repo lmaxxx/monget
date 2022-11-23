@@ -6,7 +6,9 @@ export interface InitialStateType {
   activeTransactionType: TransactionType
   incomeTransactions: ITransaction[]
   expensesTransactions: ITransaction[]
-  transactionDateRequestType: TransactionDateRequestType
+  expensesDataForDonut: DonutSection[],
+  incomeDataForDonut: DonutSection[],
+  activeTransactionDateRequestType: TransactionDateRequestType
   dateCounter: number
   range: DateRangeType
 }
@@ -45,11 +47,20 @@ export enum TransactionType {
 
 export interface GetTransactionParamsType {
   accountId: string,
-  transactionType?: TransactionType,
+  transactionType?: TransactionType
+  transactionDateRequestType?: TransactionDateRequestType
+  dateCounter?: number
+  range?: DateRangeType
 }
 
 export enum TransactionDateRequestType {
   Today = "days", Week = "weeks", Month = "months", Range = "range"
+}
+
+export interface DonutSection {
+  id: string,
+  value: number
+  color: string,
 }
 
 export type DateRangeType = [Date | null, Date | null]

@@ -1,7 +1,7 @@
 import type {PayloadAction} from "@reduxjs/toolkit";
 import {createSlice} from '@reduxjs/toolkit'
 import {
-  DateRangeType,
+  DateRangeType, DonutSection,
   InitialStateType,
   ITransaction,
   TransactionDateRequestType,
@@ -11,8 +11,10 @@ import {
 const initialState = {
   activeTransactionType: TransactionType.Expenses,
   expensesTransactions: [],
+  expensesDataForDonut: [],
   incomeTransactions: [],
-  transactionDateRequestType: TransactionDateRequestType.Today,
+  incomeDataForDonut: [],
+  activeTransactionDateRequestType: TransactionDateRequestType.Today,
   dateCounter: 1,
   range: [
     new Date(),
@@ -34,7 +36,7 @@ export const transactionSlice = createSlice({
       state.expensesTransactions = action.payload
     },
     setTransactionDateRequestType: (state, action: PayloadAction<TransactionDateRequestType>) => {
-      state.transactionDateRequestType = action.payload
+      state.activeTransactionDateRequestType = action.payload
       state.dateCounter = 1
     },
     setRange: (state, action: PayloadAction<DateRangeType>) => {
@@ -45,7 +47,13 @@ export const transactionSlice = createSlice({
     },
     subDateCounter: (state) => {
       state.dateCounter -= 1
-    }
+    },
+    setExpensesDataForDonut(state, action: PayloadAction<DonutSection[]>) {
+      state.expensesDataForDonut = action.payload
+    },
+    setIncomeDataForDonut(state, action: PayloadAction<DonutSection[]>) {
+      state.incomeDataForDonut = action.payload
+    },
   }
 })
 
@@ -56,7 +64,9 @@ export const {
   setTransactionDateRequestType,
   setRange,
   addDateCounter,
-  subDateCounter
+  subDateCounter,
+  setExpensesDataForDonut,
+  setIncomeDataForDonut
 } = transactionSlice.actions
 
 export default transactionSlice.reducer

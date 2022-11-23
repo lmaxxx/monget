@@ -6,6 +6,8 @@ import {
   TransactionCreatingBodyParams
 } from "../types/sliceTypes/transaction.type";
 import TransactionService from "../services/transactionService";
+import {RootState} from "../store/store";
+import {ICategory} from "../types/sliceTypes/category.type";
 
 export const transactionApi = createApi({
   reducerPath: "transactionApi",
@@ -13,13 +15,15 @@ export const transactionApi = createApi({
   tagTypes: ["Transaction"],
   endpoints: (builder) => ({
     getTransactions: builder.query<ITransaction[], GetTransactionParamsType>({
-      query: ({accountId, transactionType}) => (
-        transactionType ? `/api/transactions/${transactionType}/${accountId}` : `/api/transactions/${accountId}`
-      ),
+      query: ({accountId, transactionType, dateCounter, transactionDateRequestType, range}) => ( {
+        url: transactionType ? `/api/transactions/${transactionType}/${accountId}` : `/api/transactions/${accountId}`,
+        params: {[transactionDateRequestType as string]: dateCounter}
+      }),
       providesTags: ['Transaction'],
-      async onQueryStarted(id, {dispatch, queryFulfilled}) {
+      async onQueryStarted(id, {dispatch, queryFulfilled, getState}) {
         const {data} = await queryFulfilled
-        await TransactionService.setTransactions({dispatch, data})
+        const categories = (getState() as RootState).categorySlice.expensesCategories
+        await TransactionService.setTransactions({dispatch, data, categories})
       }
     }),
     getTransaction: builder.query<ITransaction, string>({

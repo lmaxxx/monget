@@ -1,21 +1,43 @@
 import {AnyAction, ThunkDispatch} from "@reduxjs/toolkit";
-import {DateRangeType, TransactionDateRequestType, TransactionType} from "../types/sliceTypes/transaction.type";
-import {setExpensesTransactions, setIncomeTransactions} from "../store/transactionSlice";
+import {
+  DateRangeType, DonutSection,
+  ITransaction,
+  TransactionDateRequestType,
+  TransactionType
+} from "../types/sliceTypes/transaction.type";
+import {
+  setExpensesDataForDonut,
+  setExpensesTransactions,
+  setIncomeDataForDonut,
+  setIncomeTransactions
+} from "../store/transactionSlice";
 import DateService from "./dateService";
+import CategoryService from "./categoryService";
+import {ICategory} from "../types/sliceTypes/category.type";
 
 class TransactionService {
-  setTransactions({dispatch, data}: {
+  setTransactions({dispatch, data, categories}: {
     dispatch: ThunkDispatch<any, any, AnyAction>,
     data: any,
+    categories: ICategory[]
   }) {
-    if(!data.length) return
+    if(!data.length) {
+      dispatch(setExpensesTransactions([]))
+      dispatch(setIncomeTransactions([]))
+      dispatch(setExpensesDataForDonut([]))
+      dispatch(setIncomeDataForDonut([]))
+      return
+    }
 
     const transactionType = data[0].transactionType
+    const dataForDonut = this.processDataForDonut(data, transactionType, categories)
 
     if(transactionType === TransactionType.Expenses) {
       dispatch(setExpensesTransactions(data))
+      dispatch(setExpensesDataForDonut(dataForDonut))
     } else {
       dispatch(setIncomeTransactions(data))
+      dispatch(setIncomeDataForDonut(dataForDonut))
     }
   }
 
@@ -75,6 +97,33 @@ class TransactionService {
 
       return `${start} - ${end}`
     }
+  }
+
+  processDataForDonut(data: ITransaction[], transactionType: TransactionType, categories: ICategory[]) {
+    const dataForDonut: DonutSection[] = []
+    const categoriesId = data.map(transaction => transaction.categoryId) as string[]
+    const uniqueCategoriesId = categoriesId.filter((categoryId, index) => (
+      categoriesId.indexOf(categoryId) === index
+    ))
+    uniqueCategoriesId.forEach(categoryId => {
+      const transactionsWithCurrentCategory = data.filter(transaction => (
+        transaction.categoryId === categoryId
+      ))
+      const currentCategory = CategoryService.getCategoryById(categories, categoryId)!
+      const donutSection: DonutSection = {
+        id: categoryId,
+        value: 0,
+        color: currentCategory.iconBackgroundColor
+      }
+
+      transactionsWithCurrentCategory.forEach(transaction => {
+        donutSection.value += transaction.amount
+      })
+
+      dataForDonut.push(donutSection)
+    })
+
+    return dataForDonut
   }
 }
 

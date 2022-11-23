@@ -7,7 +7,7 @@ import {addDateCounter, setRange, setTransactionDateRequestType, subDateCounter}
 
 const HomeTransactionDate = () => {
   const dispatch = useAppDispatch()
-  const activeTransactionDateRequestType = useAppSelector(state => state.transactionSlice.transactionDateRequestType)
+  const activeTransactionDateRequestType = useAppSelector(state => state.transactionSlice.activeTransactionDateRequestType)
   const range = useAppSelector(state => state.transactionSlice.range)
   const dateCounter = useAppSelector(state => state.transactionSlice.dateCounter)
 

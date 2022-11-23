@@ -1,14 +1,19 @@
 import {Group} from "@mantine/core";
-import {useGetAccountsQuery} from "../api/accountApi";
+import {useLazyGetAccountsQuery} from "../api/accountApi";
 import AccountListItem from "./AccountListItem";
 import AccountsSkeleton from "./AccountsSkeleton";
 import {useAppSelector} from "../hooks/storeHooks";
+import {useEffect} from "react";
 
 const AccountList = () => {
-  const {isLoading} = useGetAccountsQuery()
+  const [getAccounts, {isLoading}] = useLazyGetAccountsQuery()
   const accounts = useAppSelector(state => state.accountSlice.accounts)
 
-  if(isLoading) return <AccountsSkeleton/>
+  useEffect(() => {
+    if(!accounts.length) getAccounts()
+  }, []);
+
+  if(isLoading || !accounts.length) return <AccountsSkeleton/>
 
   return (
     <Group py={"xs"} mt={"lg"}>

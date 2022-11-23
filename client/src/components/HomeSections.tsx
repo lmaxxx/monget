@@ -9,7 +9,6 @@ const HomeSections = () => {
   const isTablet = useMediaQuery('(max-width: 900px)');
   const activeTransactionType = useAppSelector(state => state.transactionSlice.activeTransactionType)
 
-
   return (
     <Box mt={"md"}>
       {isTablet && <HomeSectionSwitch/>}
