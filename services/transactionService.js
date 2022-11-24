@@ -9,7 +9,6 @@ const CategoryService = require("../services/categoryService")
 class TransactionService {
   async getTransactions(accountId, transactionType, query) {
     const findQuery = {accountId}
-
     if (transactionType) findQuery.transactionType = transactionType
     if (query) {
       const {start, end} = query
@@ -43,7 +42,7 @@ class TransactionService {
       ownerId: userId,
       createdAt: new Date().getTime()
     })
-    await this.processAfterCreatingTransaction(data.accountId, newTransactionDoc)
+    // await this.processAfterCreatingTransaction(data.accountId, newTransactionDoc)
 
     return DataService.getTransactionFromDoc(newTransactionDoc)
   }
@@ -98,6 +97,7 @@ class TransactionService {
     const chartData = []
     const categories = await CategoryService.getCategories(transactionType, userId)
     const transactions = await this.getTransactions(accountId, transactionType, query)
+
     const categoriesInTransactions = transactions.map(transaction => transaction.categoryId.toString())
     const uniqueCategoriesId = categoriesInTransactions.filter((categoryId, index) => (
       categoriesInTransactions.indexOf(categoryId.toString()) === index

@@ -19,6 +19,8 @@ const HomeSection: FC<PropsType> = ({title}) => {
   const transactionType = title === "Expenses" ? TransactionType.Expenses : TransactionType.Income
   const chartData = useAppSelector(state => state.transactionSlice[`${transactionType}ChartData`])
 
+  console.log(activeAccountId)
+
   useGetTransactionsChartDataQuery({
       accountId: activeAccountId,
       transactionType,

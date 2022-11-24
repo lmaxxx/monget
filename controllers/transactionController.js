@@ -59,6 +59,7 @@ class TransactionController {
 
       res.json(transaction)
     } catch (err) {
+      console.log(err)
       res.status(err.status).json({status: err.status, message: err.message})
     }
   }
@@ -107,7 +108,7 @@ class TransactionController {
   async getIncomeChartData(req, res) {
     try {
       const {id: userId} = req.user
-      const {id: accountId} = req.params
+      const {accountId} = req.params
       const validatedQuery = TransactionService.validateGetTransactionQuery(req.query)
       const chartData = await TransactionService.getChartData(accountId, "income", userId, validatedQuery)
 
