@@ -1,5 +1,3 @@
-import {DonutSection} from "../types/sliceTypes/transaction.type";
-
 const CenteredMetric = ({ dataWithArc, centerX, centerY }: any) => {
   const isEmpty = dataWithArc[0].data.isEmpty
 

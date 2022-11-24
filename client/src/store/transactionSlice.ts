@@ -8,6 +8,9 @@ import {
   TransactionType
 } from '../types/sliceTypes/transaction.type'
 
+const secondDay = new Date()
+secondDay.setDate(secondDay.getDate() + 1)
+
 const initialState = {
   activeTransactionType: TransactionType.Expenses,
   expensesTransactions: [],
@@ -18,7 +21,7 @@ const initialState = {
   dateCounter: 1,
   range: [
     new Date(),
-    new Date()
+    secondDay
   ]
 } as InitialStateType
 

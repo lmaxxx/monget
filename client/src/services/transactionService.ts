@@ -42,6 +42,19 @@ class TransactionService {
     }
   }
 
+  setDateParams(dateCounter?: number, transactionDateRequestType?: TransactionDateRequestType, range?: DateRangeType) {
+    if(transactionDateRequestType === TransactionDateRequestType.Range && range) {
+      return {
+        rangeStart: range[0]?.getTime(),
+        rangeEnd: range[1]?.getTime()
+      }
+    }
+
+    if(dateCounter && transactionDateRequestType) {
+      return {[transactionDateRequestType]: dateCounter}
+    }
+  }
+
   getCreateTransactionFormConfig() {
     return {
       initialValues: {

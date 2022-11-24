@@ -26,10 +26,11 @@ const HomeSection: FC<PropsType> = ({title}) => {
           accountId: activeAccountId,
           transactionType,
           dateCounter,
-          transactionDateRequestType: activeTransactionDateRequestType
+          transactionDateRequestType: activeTransactionDateRequestType,
+          range
         })
     }
-  }, [activeAccountId, transactionType, dateCounter, activeTransactionDateRequestType]);
+  }, [activeAccountId, transactionType, dateCounter, activeTransactionDateRequestType, range[1]]);
 
   return (
     <Stack align={"center"}>

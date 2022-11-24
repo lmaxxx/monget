@@ -16,7 +16,7 @@ export const transactionApi = createApi({
     getTransactions: builder.query<ITransaction[], GetTransactionParamsType>({
       query: ({accountId, transactionType, dateCounter, transactionDateRequestType, range}) => ( {
         url: transactionType ? `/api/transactions/${transactionType}/${accountId}` : `/api/transactions/${accountId}`,
-        params: {[transactionDateRequestType as string]: dateCounter}
+        params: TransactionService.setDateParams(dateCounter, transactionDateRequestType, range)
       }),
       providesTags: ['Transaction'],
       async onQueryStarted(id, {dispatch, queryFulfilled}) {
@@ -53,7 +53,7 @@ export const transactionApi = createApi({
     getTransactionsChartData: builder.query<DonutSection[], GetTransactionParamsType>({
       query: ({accountId, transactionType, dateCounter, transactionDateRequestType, range}) => ({
         url: `/api/transactions/chart/${transactionType}/${accountId}`,
-        params: {[transactionDateRequestType as string]: dateCounter}
+        params: TransactionService.setDateParams(dateCounter, transactionDateRequestType, range)
       }),
       async onQueryStarted(id, {dispatch, queryFulfilled}) {
         const {data} = await queryFulfilled
@@ -69,6 +69,5 @@ export const {
   useCreateTransactionMutation,
   useDeleteTransactionMutation,
   useEditTransactionMutation,
-  useGetTransactionsChartDataQuery,
   useLazyGetTransactionsChartDataQuery
 } = transactionApi

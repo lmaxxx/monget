@@ -40,7 +40,7 @@ const ChooseDateModal: FC<PropsType> = ({
       overlayBlur={3}
       opened={opened}
       withCloseButton={false}
-      onClose={onClose}
+      onClose={() => {}}
       centered
     >
       <Stack align={"center"}>
