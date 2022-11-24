@@ -1,13 +1,12 @@
 import {createApi} from "@reduxjs/toolkit/query/react";
 import baseQueryWithReauth from "./baseQueryWithReauth";
 import {
+  DonutSection,
   GetTransactionParamsType,
   ITransaction,
   TransactionCreatingBodyParams
 } from "../types/sliceTypes/transaction.type";
 import TransactionService from "../services/transactionService";
-import {RootState} from "../store/store";
-import {ICategory} from "../types/sliceTypes/category.type";
 
 export const transactionApi = createApi({
   reducerPath: "transactionApi",
@@ -20,10 +19,9 @@ export const transactionApi = createApi({
         params: {[transactionDateRequestType as string]: dateCounter}
       }),
       providesTags: ['Transaction'],
-      async onQueryStarted(id, {dispatch, queryFulfilled, getState}) {
+      async onQueryStarted(id, {dispatch, queryFulfilled}) {
         const {data} = await queryFulfilled
-        const categories = (getState() as RootState).categorySlice.expensesCategories
-        await TransactionService.setTransactions({dispatch, data, categories})
+        await TransactionService.setTransactions({dispatch, data})
       }
     }),
     getTransaction: builder.query<ITransaction, string>({
@@ -51,6 +49,16 @@ export const transactionApi = createApi({
         method: "DELETE"
       }),
       invalidatesTags: ["Transaction"]
+    }),
+    getTransactionsChartData: builder.query<DonutSection[], GetTransactionParamsType>({
+      query: ({accountId, transactionType, dateCounter, transactionDateRequestType, range}) => ({
+        url: `/api/transactions/chart/${transactionType}/${accountId}`,
+        params: {[transactionDateRequestType as string]: dateCounter}
+      }),
+      async onQueryStarted(id, {dispatch, queryFulfilled}) {
+        const {data} = await queryFulfilled
+        await TransactionService.setChartData({dispatch, data})
+      }
     })
   })
 })
@@ -60,5 +68,6 @@ export const {
   useGetTransactionsQuery,
   useCreateTransactionMutation,
   useDeleteTransactionMutation,
-  useEditTransactionMutation
+  useEditTransactionMutation,
+  useGetTransactionsChartDataQuery
 } = transactionApi

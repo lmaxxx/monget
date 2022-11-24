@@ -95,9 +95,10 @@ class TransactionController {
     try {
       const {id: userId} = req.user
       const {accountId} = req.params
-      const chartData = await TransactionService.getChartData(accountId, "expenses", userId)
+      const validatedQuery = TransactionService.validateGetTransactionQuery(req.query)
+      const chartData = await TransactionService.getChartData(accountId, "expenses", userId, validatedQuery)
 
-      res.json(chartData)
+      res.json({chartData, transactionType: "expenses"})
     } catch (err) {
       res.status(err.status).json({status: err.status, message: err.message})
     }
@@ -107,9 +108,10 @@ class TransactionController {
     try {
       const {id: userId} = req.user
       const {id: accountId} = req.params
-      const chartData = await TransactionService.getChartData(accountId, "income", userId)
+      const validatedQuery = TransactionService.validateGetTransactionQuery(req.query)
+      const chartData = await TransactionService.getChartData(accountId, "income", userId, validatedQuery)
 
-      res.json(chartData)
+      res.json({chartData, transactionType: "income"})
     } catch (err) {
       res.status(err.status).json({status: err.status, message: err.message})
     }

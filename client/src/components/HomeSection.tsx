@@ -4,8 +4,9 @@ import PieChartWithoutData from "./PieChartWithoutData";
 import {IconPlus} from "@tabler/icons";
 import {Link} from "react-router-dom";
 import {useAppSelector} from "../hooks/storeHooks";
-import {useGetTransactionsQuery} from "../api/transactionApi";
+import {useGetTransactionsChartDataQuery} from "../api/transactionApi";
 import {TransactionType} from "../types/sliceTypes/transaction.type";
+import PieChart from "./PieChart";
 
 interface PropsType {
   title: string
@@ -16,23 +17,23 @@ const HomeSection: FC<PropsType> = ({title}) => {
   const dateCounter = useAppSelector(state => state.transactionSlice.dateCounter)
   const activeTransactionDateRequestType = useAppSelector(state => state.transactionSlice.activeTransactionDateRequestType)
   const transactionType = title === "Expenses" ? TransactionType.Expenses : TransactionType.Income
-  const dataForDonut = useAppSelector(state => state.transactionSlice[`${transactionType}DataForDonut`])
-  useGetTransactionsQuery(
-    {
+  const chartData = useAppSelector(state => state.transactionSlice[`${transactionType}ChartData`])
+
+  useGetTransactionsChartDataQuery({
       accountId: activeAccountId,
       transactionType,
       dateCounter,
       transactionDateRequestType: activeTransactionDateRequestType
     },
-    {refetchOnMountOrArgChange: true})
-
-  console.log(dataForDonut)
+    {refetchOnMountOrArgChange: true}
+  )
 
   return (
     <Stack align={"center"}>
       <Title align={"center"}>{title}</Title>
       <Stack sx={{height: "45vh", width: "100%"}}>
-        <PieChartWithoutData/>
+        {chartData.length ? <PieChart data={chartData}/> : <PieChartWithoutData/>}
+
       </Stack>
       <Button
         component={Link}

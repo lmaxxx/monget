@@ -6,8 +6,8 @@ export interface InitialStateType {
   activeTransactionType: TransactionType
   incomeTransactions: ITransaction[]
   expensesTransactions: ITransaction[]
-  expensesDataForDonut: DonutSection[],
-  incomeDataForDonut: DonutSection[],
+  expensesChartData: DonutSection[],
+  incomeChartData: DonutSection[],
   activeTransactionDateRequestType: TransactionDateRequestType
   dateCounter: number
   range: DateRangeType

@@ -11,9 +11,9 @@ import {
 const initialState = {
   activeTransactionType: TransactionType.Expenses,
   expensesTransactions: [],
-  expensesDataForDonut: [],
+  expensesChartData: [],
   incomeTransactions: [],
-  incomeDataForDonut: [],
+  incomeChartData: [],
   activeTransactionDateRequestType: TransactionDateRequestType.Today,
   dateCounter: 1,
   range: [
@@ -48,11 +48,11 @@ export const transactionSlice = createSlice({
     subDateCounter: (state) => {
       state.dateCounter -= 1
     },
-    setExpensesDataForDonut(state, action: PayloadAction<DonutSection[]>) {
-      state.expensesDataForDonut = action.payload
+    setExpensesChartData(state, action: PayloadAction<DonutSection[]>) {
+      state.expensesChartData = action.payload
     },
-    setIncomeDataForDonut(state, action: PayloadAction<DonutSection[]>) {
-      state.incomeDataForDonut = action.payload
+    setIncomeChartData(state, action: PayloadAction<DonutSection[]>) {
+      state.incomeChartData = action.payload
     },
   }
 })
@@ -65,8 +65,8 @@ export const {
   setRange,
   addDateCounter,
   subDateCounter,
-  setExpensesDataForDonut,
-  setIncomeDataForDonut
+  setExpensesChartData,
+  setIncomeChartData
 } = transactionSlice.actions
 
 export default transactionSlice.reducer

@@ -1,25 +1,20 @@
 import {AnyAction, ThunkDispatch} from "@reduxjs/toolkit";
 import {
-  DateRangeType, DonutSection,
-  ITransaction,
+  DateRangeType,
   TransactionDateRequestType,
   TransactionType
 } from "../types/sliceTypes/transaction.type";
 import {
-  setExpensesDataForDonut,
-  setExpensesTransactions,
-  setIncomeDataForDonut,
+  setExpensesChartData,
+  setExpensesTransactions, setIncomeChartData,
   setIncomeTransactions
 } from "../store/transactionSlice";
 import DateService from "./dateService";
-import CategoryService from "./categoryService";
-import {ICategory} from "../types/sliceTypes/category.type";
 
 class TransactionService {
-  setTransactions({dispatch, data, categories}: {
+  setTransactions({dispatch, data}: {
     dispatch: ThunkDispatch<any, any, AnyAction>,
     data: any,
-    categories: ICategory[]
   }) {
     if(!data.length) {
       dispatch(setExpensesTransactions([]))
@@ -33,6 +28,17 @@ class TransactionService {
       dispatch(setExpensesTransactions(data))
     } else {
       dispatch(setIncomeTransactions(data))
+    }
+  }
+
+  setChartData({dispatch, data}: {
+    dispatch: ThunkDispatch<any, any, AnyAction>,
+    data: any,
+  }) {
+    if(data.transactionType === TransactionType.Expenses) {
+      dispatch(setExpensesChartData(data.chartData))
+    } else {
+      dispatch(setIncomeChartData(data.chartData))
     }
   }
 
@@ -54,7 +60,7 @@ class TransactionService {
   }
 
   getDateLabelText(transactionDateRequestType: TransactionDateRequestType, dateCounter: number, range: DateRangeType) {
-    const stirngDateOptions: Intl.DateTimeFormatOptions = {year: 'numeric', month: 'short', day: 'numeric' };
+    const stringDateOptions: Intl.DateTimeFormatOptions = {year: 'numeric', month: 'short', day: 'numeric' };
     const currentDate = new Date()
 
     if(transactionDateRequestType === TransactionDateRequestType.Range && range.length) {
@@ -62,22 +68,22 @@ class TransactionService {
 
       if(!rangeStart || !rangeEnd) return ""
 
-      const start = rangeStart.toLocaleDateString("en-US", stirngDateOptions)
-      const end = rangeEnd.toLocaleDateString("en-US", stirngDateOptions)
+      const start = rangeStart.toLocaleDateString("en-US", stringDateOptions)
+      const end = rangeEnd.toLocaleDateString("en-US", stringDateOptions)
 
       return `${start} - ${end}`
     }
 
     if(transactionDateRequestType === TransactionDateRequestType.Today) {
-      const currentDay = DateService.subtractDays(currentDate, dateCounter).toLocaleDateString("en-US", stirngDateOptions)
+      const currentDay = DateService.subtractDays(currentDate, dateCounter).toLocaleDateString("en-US", stringDateOptions)
 
       return `${currentDay}`
     }
 
     if(transactionDateRequestType === TransactionDateRequestType.Week) {
       const weekStartDay = DateService.subtractDays(currentDate, dateCounter * 7)
-      const start = DateService.getStartOfTheDay(weekStartDay).toLocaleDateString("en-US", stirngDateOptions)
-      const end = DateService.addDays(weekStartDay, 7).toLocaleDateString("en-US", stirngDateOptions)
+      const start = DateService.getStartOfTheDay(weekStartDay).toLocaleDateString("en-US", stringDateOptions)
+      const end = DateService.addDays(weekStartDay, 7).toLocaleDateString("en-US", stringDateOptions)
 
       return `${start} - ${end}`
     }
@@ -87,38 +93,11 @@ class TransactionService {
       const monthEndDay = new Date(monthStartDay.getFullYear(), monthStartDay.getMonth()+1, 0)
 
       monthStartDay.setUTCDate(1)
-      const start = DateService.getStartOfTheDay(monthStartDay).toLocaleDateString("en-US", stirngDateOptions)
-      const end = DateService.getEndOfTheDay(monthEndDay).toLocaleDateString("en-US", stirngDateOptions)
+      const start = DateService.getStartOfTheDay(monthStartDay).toLocaleDateString("en-US", stringDateOptions)
+      const end = DateService.getEndOfTheDay(monthEndDay).toLocaleDateString("en-US", stringDateOptions)
 
       return `${start} - ${end}`
     }
-  }
-
-  processDataForDonut(data: ITransaction[], transactionType: TransactionType, categories: ICategory[]) {
-    const dataForDonut: DonutSection[] = []
-    const categoriesId = data.map(transaction => transaction.categoryId) as string[]
-    const uniqueCategoriesId = categoriesId.filter((categoryId, index) => (
-      categoriesId.indexOf(categoryId) === index
-    ))
-    uniqueCategoriesId.forEach(categoryId => {
-      const transactionsWithCurrentCategory = data.filter(transaction => (
-        transaction.categoryId === categoryId
-      ))
-      const currentCategory = CategoryService.getCategoryById(categories, categoryId)!
-      const donutSection: DonutSection = {
-        id: categoryId,
-        value: 0,
-        color: currentCategory.iconBackgroundColor
-      }
-
-      transactionsWithCurrentCategory.forEach(transaction => {
-        donutSection.value += transaction.amount
-      })
-
-      dataForDonut.push(donutSection)
-    })
-
-    return dataForDonut
   }
 }
 

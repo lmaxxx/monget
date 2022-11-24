@@ -94,10 +94,10 @@ class TransactionService {
     }
   }
 
-  async getChartData(accountId, transactionType, userId) {
+  async getChartData(accountId, transactionType, userId, query) {
     const chartData = []
     const categories = await CategoryService.getCategories(transactionType, userId)
-    const transactions = await this.getTransactions(accountId, transactionType)
+    const transactions = await this.getTransactions(accountId, transactionType, query)
     const categoriesInTransactions = transactions.map(transaction => transaction.categoryId.toString())
     const uniqueCategoriesId = categoriesInTransactions.filter((categoryId, index) => (
       categoriesInTransactions.indexOf(categoryId.toString()) === index
