@@ -1,5 +1,14 @@
+import {DonutSection} from "../types/sliceTypes/transaction.type";
+
 const CenteredMetric = ({ dataWithArc, centerX, centerY }: any) => {
   const isEmpty = dataWithArc[0].data.isEmpty
+
+  const getAllValues = () => {
+    let value = 0
+    dataWithArc.forEach((obj: any) => value += obj.data.value)
+
+    return value
+  }
 
   return (
     <text
@@ -12,7 +21,7 @@ const CenteredMetric = ({ dataWithArc, centerX, centerY }: any) => {
         fontSize: '1.2rem',
       }}
     >
-      {isEmpty ? "There aren't any data" : "Data"}
+      {isEmpty ? "There aren't any data" : getAllValues()}
     </text>
   )
 }

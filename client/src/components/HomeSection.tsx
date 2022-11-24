@@ -1,11 +1,10 @@
 import {Button, Stack, Title} from '@mantine/core'
-import {FC} from 'react'
-import PieChartWithoutData from "./PieChartWithoutData";
+import {FC, useEffect} from 'react'
 import {IconPlus} from "@tabler/icons";
 import {Link} from "react-router-dom";
 import {useAppSelector} from "../hooks/storeHooks";
-import {useGetTransactionsChartDataQuery} from "../api/transactionApi";
-import {TransactionType} from "../types/sliceTypes/transaction.type";
+import {useLazyGetTransactionsChartDataQuery} from "../api/transactionApi";
+import {TransactionDateRequestType, TransactionType} from "../types/sliceTypes/transaction.type";
 import PieChart from "./PieChart";
 
 interface PropsType {
@@ -18,24 +17,25 @@ const HomeSection: FC<PropsType> = ({title}) => {
   const activeTransactionDateRequestType = useAppSelector(state => state.transactionSlice.activeTransactionDateRequestType)
   const transactionType = title === "Expenses" ? TransactionType.Expenses : TransactionType.Income
   const chartData = useAppSelector(state => state.transactionSlice[`${transactionType}ChartData`])
+  const range = useAppSelector(state => state.transactionSlice.range)
+  const [getChartData] = useLazyGetTransactionsChartDataQuery()
 
-  console.log(activeAccountId)
-
-  useGetTransactionsChartDataQuery({
-      accountId: activeAccountId,
-      transactionType,
-      dateCounter,
-      transactionDateRequestType: activeTransactionDateRequestType
-    },
-    {refetchOnMountOrArgChange: true}
-  )
+  useEffect(() => {
+    if(activeAccountId && transactionType && dateCounter && activeTransactionDateRequestType && range[0] && range[1]) {
+        getChartData({
+          accountId: activeAccountId,
+          transactionType,
+          dateCounter,
+          transactionDateRequestType: activeTransactionDateRequestType
+        })
+    }
+  }, [activeAccountId, transactionType, dateCounter, activeTransactionDateRequestType]);
 
   return (
     <Stack align={"center"}>
       <Title align={"center"}>{title}</Title>
       <Stack sx={{height: "45vh", width: "100%"}}>
-        {chartData.length ? <PieChart data={chartData}/> : <PieChartWithoutData/>}
-
+        <PieChart data={chartData}/>
       </Stack>
       <Button
         component={Link}

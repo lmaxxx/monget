@@ -2,6 +2,7 @@ import {FC} from 'react'
 import {ResponsivePie} from "@nivo/pie";
 import CenteredMetric from "../ui/CenteredMetric";
 import {DonutSection} from "../types/sliceTypes/transaction.type";
+import emptyPieChartData from "../data/emptyPieChartData";
 
 interface PropsType {
   data: DonutSection[]
@@ -10,7 +11,7 @@ interface PropsType {
 const PieChart: FC<PropsType> = ({data}) => {
   return (
     <ResponsivePie
-      data={data}
+      data={data.length ? data : emptyPieChartData}
       tooltip={() => <></>}
       enableArcLinkLabels={false}
       enableArcLabels={false}
