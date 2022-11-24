@@ -91,6 +91,30 @@ class TransactionController {
     }
   }
 
+  async getExpensesChartData(req, res) {
+    try {
+      const {id: userId} = req.user
+      const {accountId} = req.params
+      const chartData = await TransactionService.getChartData(accountId, "expenses", userId)
+
+      res.json(chartData)
+    } catch (err) {
+      res.status(err.status).json({status: err.status, message: err.message})
+    }
+  }
+
+  async getIncomeChartData(req, res) {
+    try {
+      const {id: userId} = req.user
+      const {id: accountId} = req.params
+      const chartData = await TransactionService.getChartData(accountId, "income", userId)
+
+      res.json(chartData)
+    } catch (err) {
+      res.status(err.status).json({status: err.status, message: err.message})
+    }
+  }
+
 }
 
 module.exports = new TransactionController()

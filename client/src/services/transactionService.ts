@@ -24,20 +24,15 @@ class TransactionService {
     if(!data.length) {
       dispatch(setExpensesTransactions([]))
       dispatch(setIncomeTransactions([]))
-      dispatch(setExpensesDataForDonut([]))
-      dispatch(setIncomeDataForDonut([]))
       return
     }
 
     const transactionType = data[0].transactionType
-    const dataForDonut = this.processDataForDonut(data, transactionType, categories)
 
     if(transactionType === TransactionType.Expenses) {
       dispatch(setExpensesTransactions(data))
-      dispatch(setExpensesDataForDonut(dataForDonut))
     } else {
       dispatch(setIncomeTransactions(data))
-      dispatch(setIncomeDataForDonut(dataForDonut))
     }
   }
 

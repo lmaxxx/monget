@@ -4,6 +4,7 @@ const DataService = require("../services/dataService")
 const Account = require("../models/Account");
 const ConverterService = require("../services/converterService")
 const DateService = require("../services/dateService")
+const CategoryService = require("../services/categoryService")
 
 class TransactionService {
   async getTransactions(accountId, transactionType, query) {
@@ -93,28 +94,39 @@ class TransactionService {
     }
   }
 
-  // async processAfterDeletingTransaction(accountId, transactionDoc) {
-  //   const accountDoc = await Account.findById(accountId)
-  //     .catch(err => {
-  //       throw new ApiError(400, "There is no category with current id")
-  //     })
-  //   const {accountAmount, accountCurrency, _id} = accountDoc
-  //   const {transactionAmount, transactionCurrency} = transactionDoc
-  //
-  //   if(!accountDoc) throw new ApiError(400, "There is no category with current id")
-  //
-  //   if(accountCurrency === transactionCurrency) {
-  //     await Account.updateOne({_id}, {amount: accountAmount - transactionAmount})
-  //   } else {
-  //     const newAmount = ConverterService.convert({
-  //       want: accountCurrency,
-  //       have: transactionCurrency,
-  //       amount: transactionAmount
-  //     })
-  //
-  //     await Account.updateOne({_id}, {amount: accountAmount - newAmount})
-  //   }
-  // }
+  async getChartData(accountId, transactionType, userId) {
+    const chartData = []
+    const categories = await CategoryService.getCategories(transactionType, userId)
+    const transactions = await this.getTransactions(accountId, transactionType)
+    const categoriesInTransactions = transactions.map(transaction => transaction.categoryId.toString())
+    const uniqueCategoriesId = categoriesInTransactions.filter((categoryId, index) => (
+      categoriesInTransactions.indexOf(categoryId.toString()) === index
+    ))
+
+    const getCategory = id => {
+      return categories.find(category => category.id.toString() === id)
+    }
+
+    uniqueCategoriesId.forEach(categoryId => {
+      const categoryDoc = getCategory(categoryId)
+      const transactionsWithCurrentCategory = transactions.filter(transaction => (
+        transaction.categoryId.equals(categoryDoc.id)
+      ))
+      const donutSection = {
+        id: categoryDoc.id.toString(),
+        value: 0,
+        color: categoryDoc.iconBackgroundColor
+      }
+
+      transactionsWithCurrentCategory.forEach(transaction => {
+        donutSection.value += transaction.amount
+      })
+
+      chartData.push(donutSection)
+    })
+
+    return chartData
+  }
 
   validateGetTransactionQuery(query) {
     const currentDate = new Date()
@@ -164,6 +176,30 @@ class TransactionService {
       }
     }
   }
+
+
+  // async processAfterDeletingTransaction(accountId, transactionDoc) {
+  //   const accountDoc = await Account.findById(accountId)
+  //     .catch(err => {
+  //       throw new ApiError(400, "There is no category with current id")
+  //     })
+  //   const {accountAmount, accountCurrency, _id} = accountDoc
+  //   const {transactionAmount, transactionCurrency} = transactionDoc
+  //
+  //   if(!accountDoc) throw new ApiError(400, "There is no category with current id")
+  //
+  //   if(accountCurrency === transactionCurrency) {
+  //     await Account.updateOne({_id}, {amount: accountAmount - transactionAmount})
+  //   } else {
+  //     const newAmount = ConverterService.convert({
+  //       want: accountCurrency,
+  //       have: transactionCurrency,
+  //       amount: transactionAmount
+  //     })
+  //
+  //     await Account.updateOne({_id}, {amount: accountAmount - newAmount})
+  //   }
+  // }
 }
 
 module.exports = new TransactionService()

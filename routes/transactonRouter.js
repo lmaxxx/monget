@@ -7,6 +7,8 @@ const {body} = require("express-validator");
 router.get("/transactions/:accountId", isAuthorized, TransactionController.getTransactions)
 router.get("/transactions/expenses/:accountId", isAuthorized, TransactionController.getExpensesTransactions)
 router.get("/transactions/income/:accountId", isAuthorized, TransactionController.getIncomeTransactions)
+router.get("/transactions/chart/expenses/:accountId", isAuthorized, TransactionController.getExpensesChartData)
+router.get("/transactions/chart/income/:accountId", isAuthorized, TransactionController.getIncomeChartData)
 router.get("/transaction/:id", isAuthorized, TransactionController.getTransaction)
 router.post("/transaction",
   body("title").isLength({min: 3}).withMessage("Title must be at least 3 char long"),

@@ -1,4 +1,4 @@
-import {FC, useEffect} from 'react'
+import {FC} from 'react'
 import {TransactionType} from "../types/sliceTypes/transaction.type";
 import {useGetCategoriesQuery} from "../api/categoryApi";
 import Loader from "../ui/Loader";
@@ -16,7 +16,7 @@ const CategoryList: FC<PropsType> = ({transactionType, iconProps}) => {
   const categories = useAppSelector(state => state.categorySlice[`${transactionType}Categories`])
   const hasOnClickEvent = !!iconProps.onClick
 
-  if(isLoading) return <Loader height={"80vh"}/>
+  if(isLoading || !categories.length) return <Loader height={"80vh"}/>
 
   return (
     <Group mt={"md"}>
