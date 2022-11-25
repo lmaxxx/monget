@@ -540,11 +540,6 @@
     "image": "https://wise.com/public-resources/assets/flags/rectangle/rsd.png"
   },
   {
-    "label": "Russian ruble",
-    "value": "RUB",
-    "image": "https://wise.com/public-resources/assets/flags/rectangle/rub.png"
-  },
-  {
     "label": "Rwandan franc",
     "value": "RWF",
     "image": "https://wise.com/public-resources/assets/flags/rectangle/rwf.png"
