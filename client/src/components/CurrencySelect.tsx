@@ -7,12 +7,14 @@ import {UseFormReturnType} from "@mantine/form";
 interface PropsType {
   form: UseFormReturnType<any>
   label?: string
+  disabled?: boolean
 }
 
-const CurrencySelect: FC<PropsType> = ({form, label}) => {
+const CurrencySelect: FC<PropsType> = ({form, label, disabled}) => {
   return (
     <Select
       label={label}
+      disabled={disabled}
       placeholder="Search currency"
       itemComponent={CurrencySelectItem}
       data={currencies}

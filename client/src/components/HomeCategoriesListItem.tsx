@@ -38,7 +38,7 @@ const HomeCategoriesListItem: FC<PropsType> = ({transactionType, chartSection}) 
       <Text color={"gray"} sx={{justifySelf: "end"}}>
         {CategoryService.getPercentOfCategory(chartDataValue, chartSection.value)}
       </Text>
-      <Text fw={600} sx={{justifySelf: "end"}}>
+      <Text fw={500} sx={{justifySelf: "end"}}>
         {AccountService.getFormattedAmount(chartSection.value, currency)}
       </Text>
 

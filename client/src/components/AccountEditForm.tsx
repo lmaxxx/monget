@@ -87,7 +87,7 @@ const AccountEditForm = () => {
               placeholder="My credit card"
               {...form.getInputProps("accountName")}
             />
-            <CurrencySelect label={"Currency"} form={form}/>
+            <CurrencySelect label={"Currency"} form={form} disabled/>
             <NumberInput
               mt={"sm"}
               placeholder="1251"

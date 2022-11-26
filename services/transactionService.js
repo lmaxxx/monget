@@ -42,7 +42,7 @@ class TransactionService {
       ownerId: userId,
       createdAt: new Date().getTime()
     })
-    // await this.processAfterCreatingTransaction(data.accountId, newTransactionDoc)
+    await this.processNewTransaction(data.accountId, newTransactionDoc)
 
     return DataService.getTransactionFromDoc(newTransactionDoc)
   }
@@ -70,26 +70,33 @@ class TransactionService {
       })
   }
 
-  async processAfterCreatingTransaction(accountId, transactionDoc) {
+  async processNewTransaction(accountId, transactionDoc) {
     const accountDoc = await Account.findById(accountId)
       .catch(err => {
         throw new ApiError(400, "There is no category with current id")
       })
-    const {accountAmount, accountCurrency, _id} = accountDoc
-    const {transactionAmount, transactionCurrency} = transactionDoc
+    const {amount: accountAmount, currency: accountCurrency, _id} = accountDoc
+    const {amount: transactionAmount, currency: transactionCurrency, transactionType} = transactionDoc
 
     if (!accountDoc) throw new ApiError(400, "There is no category with current id")
 
     if (accountCurrency === transactionCurrency) {
-      await Account.updateOne({_id}, {amount: accountAmount + transactionAmount})
+      const newAmount = transactionType === "expenses" ?
+        accountAmount - transactionAmount
+        : accountAmount + transactionAmount
+
+      await Account.updateOne({_id}, {amount: newAmount})
     } else {
-      const newAmount = ConverterService.convert({
+      const additionalAmount = await ConverterService.convert({
         want: accountCurrency,
         have: transactionCurrency,
         amount: transactionAmount
       })
+      const newAmount = transactionType === "expenses" ?
+        accountAmount - additionalAmount
+        : accountAmount + additionalAmount
 
-      await Account.updateOne({_id}, {amount: accountAmount + newAmount})
+      await Account.updateOne({_id}, {amount: newAmount})
     }
   }
 

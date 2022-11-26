@@ -21,11 +21,13 @@ import {ICategory} from "../types/sliceTypes/category.type";
 import ChooseCategoryModaL from "./ChooseCategoryModaL";
 import {DatePicker} from '@mantine/dates'
 import {IconCalendar} from "@tabler/icons";
+import {useLazyGetAccountsQuery} from "../api/accountApi";
 
 const TransactionCreateForm = () => {
   const location = useLocation()
   const {transactionType: defaultTransactionType} = location.state
   const [createTransaction, {isLoading: isCreatingTransaction}] = useCreateTransactionMutation()
+  const [getAccounts, {isLoading: isGettingAccounts}] = useLazyGetAccountsQuery()
   const {id: accountId} = useParams()
   const [openedModal, setOpenedModal] = useState<boolean>(false)
   const {isLoading: isGettingCategoriesLoading} = useGetAllCategoriesQuery()
@@ -38,7 +40,7 @@ const TransactionCreateForm = () => {
   const activeCategory = useMemo<ICategory>(() => (
     CategoryService.getCategoryById(categories, activeCategoryId)!
   ), [activeCategoryId])
-  const isLoading = isCreatingTransaction || isGettingCategoriesLoading || !activeCategory
+  const isLoading = isCreatingTransaction || isGettingCategoriesLoading || isGettingAccounts || !activeCategory
 
 
   useEffect(() => {
@@ -54,6 +56,7 @@ const TransactionCreateForm = () => {
     }
 
     await createTransaction(data)
+    await getAccounts()
     navigate("/")
   }
 
