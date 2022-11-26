@@ -61,7 +61,7 @@ class DataService {
   }
 
   getTransactionFromDoc(transaction) {
-    return {
+    const clearTransaction =  {
       title: transaction.title,
       description: transaction.description,
       ownerId: transaction.ownerId,
@@ -74,6 +74,13 @@ class DataService {
       date: transaction.date,
       id: transaction._id
     }
+
+    if(transaction.convertedAmount && transaction.convertingCurrency) {
+      clearTransaction.convertedAmount = transaction.convertedAmount
+      clearTransaction.convertingCurrency = transaction.convertingCurrency
+    }
+
+    return clearTransaction
   }
 
   getTransactionsFromDocs(transactions) {

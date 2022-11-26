@@ -95,7 +95,10 @@ class TransactionService {
       const newAmount = transactionType === "expenses" ?
         accountAmount - additionalAmount
         : accountAmount + additionalAmount
+      transactionDoc.convertedAmount = additionalAmount
+      transactionDoc.convertingCurrency = accountCurrency
 
+      await transactionDoc.save()
       await Account.updateOne({_id}, {amount: newAmount})
     }
   }
@@ -104,7 +107,6 @@ class TransactionService {
     const chartData = []
     const categories = await CategoryService.getCategories(transactionType, userId)
     const transactions = await this.getTransactions(accountId, transactionType, query)
-
     const categoriesInTransactions = transactions.map(transaction => transaction.categoryId.toString())
     const uniqueCategoriesId = categoriesInTransactions.filter((categoryId, index) => (
       categoriesInTransactions.indexOf(categoryId.toString()) === index
@@ -126,7 +128,7 @@ class TransactionService {
       }
 
       transactionsWithCurrentCategory.forEach(transaction => {
-        donutSection.value += transaction.amount
+        donutSection.value += transaction.convertedAmount ? transaction.convertedAmount : transaction.amount
       })
 
       chartData.push(donutSection)

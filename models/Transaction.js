@@ -10,7 +10,9 @@ const transactionSchema = new Schema({
   date: {type: Date, required: true},
   accountId: {type: Schema.Types.ObjectId, ref: "Account", required: true},
   transactionType: {type: String, required: true},
-  categoryId: {type: Schema.Types.ObjectId, ref: "Category"}
+  categoryId: {type: Schema.Types.ObjectId, ref: "Category"},
+  convertedAmount: Number,
+  convertingCurrency: String
 })
 
 const Transaction = model("Transaction", transactionSchema)

@@ -25,6 +25,8 @@ export interface ITransaction {
   currency: string,
   date: Date
   id: string
+  convertedAmount?: number,
+  convertingCurrency?: string
 }
 
 export interface TransactionCreatingFormValues {
