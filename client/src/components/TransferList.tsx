@@ -1,6 +1,6 @@
 import { Box, Text } from "@mantine/core";
 import {useGetTransfersQuery} from "../api/transferApi";
-import Loader from "../ui/Loader";
+import Loader from "./Loader";
 import TransferListItem from "./TransferListItem";
 
 const TransferList = () => {

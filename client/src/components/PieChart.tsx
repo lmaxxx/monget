@@ -1,6 +1,6 @@
 import {FC} from 'react'
 import {ResponsivePie} from "@nivo/pie";
-import CenteredMetric from "../ui/CenteredMetric";
+import CenteredMetric from "./CenteredMetric";
 import {DonutSection} from "../types/sliceTypes/transaction.type";
 import emptyPieChartData from "../data/emptyPieChartData";
 

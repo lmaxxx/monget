@@ -46,12 +46,14 @@ class AccountService {
   getFormattedAmount(amount?: number | string, currency?: string, disableAbbreviation?: boolean) {
     if(amount === undefined || currency === undefined) return null
 
-    if(amount > 99999 && !disableAbbreviation) {
+    if(amount.toString().length > 5 && !disableAbbreviation) {
       amount = amount.toLocaleString('en-US', {
         notation: "compact",
         compactDisplay: "short"
       })
     }
+
+    if(typeof amount === "number" && amount !== parseInt(amount.toString())) amount = amount.toFixed(2)
 
     return amount + getSymbolFromCurrency(currency)
   }

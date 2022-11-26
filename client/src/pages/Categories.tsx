@@ -6,7 +6,7 @@ import {Button, Group, Switch, Text} from "@mantine/core";
 import {ChangeEvent, useEffect, useState} from "react";
 import CategoryReorder from "../components/CategoryReorder";
 import {useUpdateOrderMutation} from "../api/categoryApi";
-import Loader from "../ui/Loader";
+import Loader from "../components/Loader";
 import {Link, useNavigate} from "react-router-dom";
 import {TransactionType} from "../types/sliceTypes/transaction.type";
 import {setActiveTransactionType} from "../store/categorySlice";
