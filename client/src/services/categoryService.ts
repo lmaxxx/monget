@@ -56,6 +56,14 @@ class CategoryService {
   setDefaultEditForm(form: UseFormReturnType<any, (values: any) => any>, category: ICategory) {
     form.setFieldValue("name", category.name)
   }
+
+  getPercentOfCategory(wholeNumber: number, value: number) {
+    const percents = Math.round(value * 100 / wholeNumber)
+
+    if(percents === 0) return "<1%"
+
+    return percents + "%"
+  }
 }
 
 export default new CategoryService()

@@ -12,7 +12,7 @@ const Home = () => {
   useGetAccountsQuery()
   const accountLength = useAppSelector(state => state.accountSlice.accounts.length)
   const activeAccount = useAppSelector(state => state.accountSlice.activeAccount)
-  const formattedAmount = AccountService.getFormattedAmount(activeAccount.amount, activeAccount.currency)
+  const formattedAmount = AccountService.getFormattedAmount(activeAccount.amount, activeAccount.currency, true)
 
   if(!accountLength) {
     return (

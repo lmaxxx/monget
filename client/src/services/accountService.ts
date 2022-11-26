@@ -43,8 +43,15 @@ class AccountService {
     dispatch(setAccounts(data))
   }
 
-  getFormattedAmount(amount: number | undefined, currency: string | undefined) {
+  getFormattedAmount(amount?: number | string, currency?: string, disableAbbreviation?: boolean) {
     if(amount === undefined || currency === undefined) return null
+
+    if(amount > 99999 && !disableAbbreviation) {
+      amount = amount.toLocaleString('en-US', {
+        notation: "compact",
+        compactDisplay: "short"
+      })
+    }
 
     return amount + getSymbolFromCurrency(currency)
   }

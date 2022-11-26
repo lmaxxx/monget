@@ -108,14 +108,14 @@ class TransactionService {
     }
 
     uniqueCategoriesId.forEach(categoryId => {
-      const categoryDoc = getCategory(categoryId)
-      const transactionsWithCurrentCategory = transactions.filter(transaction => (
-        transaction.categoryId.equals(categoryDoc.id)
-      ))
+      const category = getCategory(categoryId)
+      const transactionsWithCurrentCategory = transactions.filter(transaction => {
+        return transaction.categoryId.equals(category.id)
+      })
       const donutSection = {
-        id: categoryDoc.id.toString(),
+        id: category.id.toString(),
         value: 0,
-        color: categoryDoc.iconBackgroundColor
+        color: category.iconBackgroundColor
       }
 
       transactionsWithCurrentCategory.forEach(transaction => {
