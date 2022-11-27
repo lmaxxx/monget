@@ -17,6 +17,7 @@ import CategoryCreate from "./CategoryCreate";
 import CategoryEdit from "./CategoryEdit";
 import TransactionCreate from "./TransactionCreate";
 import TransactionEdit from "./TransactionEdit";
+import CategoryTransactions from "./CategoryTransactions";
 
 const Pages = () => {
   return (
@@ -38,6 +39,7 @@ const Pages = () => {
       <Route path={"/category/:id"} element={<CategoryEdit/>}/>
       <Route path={"/transaction/:id"} element={<TransactionEdit/>}/>
       <Route path={"/transaction/create/:id"} element={<TransactionCreate/>}/>
+      <Route path={"/transactions/:id"} element={<CategoryTransactions/>}/>
     </Routes>
   )
 }
