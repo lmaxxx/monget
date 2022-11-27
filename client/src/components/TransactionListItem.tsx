@@ -1,5 +1,5 @@
 import {Box, Text} from "@mantine/core"
-import {FC} from 'react'
+import {FC, forwardRef, Ref} from 'react'
 import {ITransaction} from "../types/sliceTypes/transaction.type";
 import {Link, useLocation, useParams} from "react-router-dom";
 import CategoryIcon from "./CategoryIcon";
@@ -13,7 +13,7 @@ interface PropsType {
   transaction: ITransaction
 }
 
-const TransactionListItem: FC<PropsType> = ({transaction, showDate}) => {
+const TransactionListItem = forwardRef<HTMLAnchorElement, PropsType>(({transaction, showDate}, ref) => {
   const stringDateOptions: Intl.DateTimeFormatOptions = {year: 'numeric', month: 'short', day: 'numeric' };
   const location = useLocation()
   const {activeAccount, category} = location.state
@@ -30,6 +30,7 @@ const TransactionListItem: FC<PropsType> = ({transaction, showDate}) => {
           textDecoration: "none",
           color: "inherit"
         }}
+        ref={ref}
       >
         <Box
           sx={{
@@ -41,7 +42,7 @@ const TransactionListItem: FC<PropsType> = ({transaction, showDate}) => {
         >
           <CategoryIcon
             backgroundSize={"3rem"}
-            iconSize={"2rem"}
+            iconSize={"32px"}
             iconName={category.iconName}
             backgroundColor={category.iconBackgroundColor}
           />
@@ -58,6 +59,6 @@ const TransactionListItem: FC<PropsType> = ({transaction, showDate}) => {
 
 
   )
-}
+})
 
 export default TransactionListItem

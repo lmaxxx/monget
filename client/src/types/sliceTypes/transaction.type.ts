@@ -4,8 +4,6 @@ import {IUser} from "./user.type";
 
 export interface InitialStateType {
   activeTransactionType: TransactionType
-  incomeTransactions: ITransaction[]
-  expensesTransactions: ITransaction[]
   expensesChartData: DonutSection[],
   incomeChartData: DonutSection[],
   activeTransactionDateRequestType: TransactionDateRequestType
@@ -54,6 +52,7 @@ export interface GetTransactionParamsType {
   transactionDateRequestType?: TransactionDateRequestType
   dateCounter?: number
   range?: DateRangeType
+  page?: number
 }
 
 export enum TransactionDateRequestType {
