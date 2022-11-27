@@ -18,6 +18,7 @@ import {DatePicker} from "@mantine/dates";
 import {IconCalendar} from "@tabler/icons";
 import {ICategory} from "../types/sliceTypes/category.type";
 import HiddenTextStyles from "../assets/hiddenTextStyles";
+import {useLazyGetAccountsQuery} from "../api/accountApi";
 
 const TransactionEditForm = () => {
   const {id: transactionId} = useParams()
@@ -26,12 +27,13 @@ const TransactionEditForm = () => {
     {refetchOnMountOrArgChange: true})
   const [editTransaction, {isLoading: isEditingTransaction}] = useEditTransactionMutation()
   const [deleteTransaction, {isLoading: isDeletingTransaction}] = useDeleteTransactionMutation()
+  const [getAccounts, {isLoading: isGettingAccounts}] = useLazyGetAccountsQuery()
   const navigate = useNavigate()
   const form = useForm<TransactionCreatingFormValues>(TransactionService.getTransactionFormConfig())
   const isMobile = useMediaQuery('(max-width: 600px)')
   const [transactionType, setTransactionType] = useState<TransactionType>(TransactionType.Expenses)
   const [category, setCategory] = useState<ICategory>({} as ICategory)
-  const isLoading = isEditingTransaction || isGettingTransaction
+  const isLoading = isEditingTransaction || isGettingTransaction || isGettingAccounts
     || isDeletingTransaction || !Object.values(category).length
 
   useEffect(() => {
@@ -45,8 +47,6 @@ const TransactionEditForm = () => {
 
 
   const editTransactionSubmit = async (values: TransactionCreatingFormValues) => {
-
-    console.log(values.date)
     if(currentTransaction) {
       const data = {
         ...currentTransaction,
@@ -61,6 +61,7 @@ const TransactionEditForm = () => {
 
   const deleteTransactionSubmit = async () => {
     await deleteTransaction(transactionId!)
+    await getAccounts()
     navigate("/")
   }
 
