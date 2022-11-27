@@ -16,7 +16,7 @@ interface PropsType {
 const CategoryIcon: FC<PropsType> = ({
                                        backgroundColor = "#ccc",
                                        iconName,
-                                       backgroundSize = "2rem",
+                                       backgroundSize = "32px",
                                        iconSize,
                                        color = "#fff",
                                        description,

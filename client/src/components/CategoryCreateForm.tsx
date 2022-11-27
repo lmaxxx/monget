@@ -78,7 +78,7 @@ const CategoryCreateForm = () => {
                 backgroundColor={iconBackgroundColor}
                 iconName={activeIconName}
                 backgroundSize={"3rem"}
-                iconSize={"2rem"}
+                iconSize={"32px"}
               />
               <Button onClick={openModal} color={"violet"} variant={"light"}>Choose icon</Button>
             </Group>

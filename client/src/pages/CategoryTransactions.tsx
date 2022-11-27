@@ -9,7 +9,7 @@ import TransactionList from "../components/TransactionList";
 const CategoryTransactions = () => {
   const location = useLocation()
   const navigate = useNavigate()
-  const {amount, category, transactionType} = location.state
+  const {amount, category} = location.state
   const activeAccount = useAppSelector(state => state.accountSlice.activeAccount)
   const theme = useMantineTheme()
 
@@ -24,7 +24,7 @@ const CategoryTransactions = () => {
       backgroundColor: theme.colors.gray[1]
     }}>
       <Paper sx={{maxWidth: 500, width: "90%", maxHeight: "90vh"}} shadow="xl" radius="md" p="xl">
-        <FormHeader title={`${category.name}(${transactionType})`} goBackPath={"/"}/>
+        <FormHeader title={`${activeAccount.accountName} - ${category.name}`} goBackPath={"/"}/>
         <Text color={"cyan"} align={"center"} my={"sm"} fz={25} fw={500}>
           {AccountService.getFormattedAmount(amount, activeAccount.currency, true)}
         </Text>

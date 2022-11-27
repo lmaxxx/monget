@@ -35,7 +35,7 @@ const HomeCategoriesListItem: FC<PropsType> = ({transactionType, chartSection}) 
       }}>
       <CategoryIcon
         backgroundSize={"3rem"}
-        iconSize={"2rem"}
+        iconSize={"32px"}
         iconName={category.iconName}
         backgroundColor={category.iconBackgroundColor}
       />
