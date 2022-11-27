@@ -21,11 +21,7 @@ export const transactionApi = createApi({
           `/api/transactions/${accountId}`,
         params: TransactionService.getTransactionParams(params)
       }),
-      providesTags: ['Transaction'],
-      async onQueryStarted(id, {dispatch, queryFulfilled}) {
-        const {data} = await queryFulfilled
-        await TransactionService.setTransactions({dispatch, data})
-      }
+      providesTags: ['Transaction']
     }),
     getTransaction: builder.query<ITransaction, string>({
       query: (id) => `/api/transaction/${id}`
@@ -69,6 +65,7 @@ export const transactionApi = createApi({
 export const {
   useGetTransactionQuery,
   useGetTransactionsQuery,
+  useLazyGetTransactionsQuery,
   useCreateTransactionMutation,
   useDeleteTransactionMutation,
   useEditTransactionMutation,

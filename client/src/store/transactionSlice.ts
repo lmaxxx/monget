@@ -3,7 +3,6 @@ import {createSlice} from '@reduxjs/toolkit'
 import {
   DateRangeType, DonutSection,
   InitialStateType,
-  ITransaction,
   TransactionDateRequestType,
   TransactionType
 } from '../types/sliceTypes/transaction.type'
@@ -13,9 +12,7 @@ secondDay.setDate(secondDay.getDate() + 1)
 
 const initialState = {
   activeTransactionType: TransactionType.Expenses,
-  expensesTransactions: [],
   expensesChartData: [],
-  incomeTransactions: [],
   incomeChartData: [],
   activeTransactionDateRequestType: TransactionDateRequestType.Today,
   dateCounter: 1,
@@ -31,12 +28,6 @@ export const transactionSlice = createSlice({
   reducers: {
     setActiveTransactionType: (state, action: PayloadAction<TransactionType>) => {
       state.activeTransactionType = action.payload
-    },
-    setIncomeTransactions: (state, action: PayloadAction<ITransaction[]>) => {
-      state.incomeTransactions = action.payload
-    },
-    setExpensesTransactions: (state, action: PayloadAction<ITransaction[]>) => {
-      state.expensesTransactions = action.payload
     },
     setTransactionDateRequestType: (state, action: PayloadAction<TransactionDateRequestType>) => {
       state.activeTransactionDateRequestType = action.payload
@@ -62,8 +53,6 @@ export const transactionSlice = createSlice({
 
 export const {
   setActiveTransactionType,
-  setExpensesTransactions,
-  setIncomeTransactions,
   setTransactionDateRequestType,
   setRange,
   addDateCounter,

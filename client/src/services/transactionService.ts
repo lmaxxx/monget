@@ -6,31 +6,11 @@ import {
 } from "../types/sliceTypes/transaction.type";
 import {
   setExpensesChartData,
-  setExpensesTransactions, setIncomeChartData,
-  setIncomeTransactions
+  setIncomeChartData,
 } from "../store/transactionSlice";
 import DateService from "./dateService";
 
 class TransactionService {
-  setTransactions({dispatch, data}: {
-    dispatch: ThunkDispatch<any, any, AnyAction>,
-    data: any,
-  }) {
-    if(!data.length) {
-      dispatch(setExpensesTransactions([]))
-      dispatch(setIncomeTransactions([]))
-      return
-    }
-
-    const transactionType = data[0].transactionType
-
-    if(transactionType === TransactionType.Expenses) {
-      dispatch(setExpensesTransactions(data))
-    } else {
-      dispatch(setIncomeTransactions(data))
-    }
-  }
-
   setChartData({dispatch, data}: {
     dispatch: ThunkDispatch<any, any, AnyAction>,
     data: any,
@@ -46,6 +26,7 @@ class TransactionService {
     const defaultParams = this.getDateParams(params.dateCounter, params.transactionDateRequestType, params.range) || {}  as any
 
     if(params.categoryId) defaultParams.categoryId = params.categoryId
+    if(params.page) defaultParams.page = params.page
 
     return defaultParams
   }
