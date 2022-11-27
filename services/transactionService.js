@@ -17,7 +17,7 @@ class TransactionService {
       if(categoryId) findQuery.categoryId = categoryId
     }
 
-    const transactionsDocs = await Transaction.find(findQuery).sort({createdAt: "asc"})
+    const transactionsDocs = await Transaction.find(findQuery).sort({createdAt: "desc"})
       .catch(err => {
         throw new ApiError(400, "There is no transactions in current account")
       })
