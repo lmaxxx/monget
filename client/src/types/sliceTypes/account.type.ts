@@ -23,6 +23,12 @@ export interface AccountCreatingFormValues {
   accountName: string
 }
 
+export interface AccountEditingFormValues {
+  currency: string
+  amount: number
+  accountName: string
+}
+
 export interface AccountCreatingBodyParams extends AccountCreatingFormValues{
   iconName: string
   iconBackgroundColor: string

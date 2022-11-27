@@ -1,7 +1,11 @@
 import {AnyAction, ThunkDispatch} from "@reduxjs/toolkit";
 import {setAccounts} from "../store/accountSlice";
 import getSymbolFromCurrency from "currency-symbol-map";
-import {AccountSelectItemOptions, AccountSelectItemProps} from "../types/sliceTypes/account.type";
+import {
+  AccountCreatingFormValues, AccountEditingFormValues,
+  AccountSelectItemOptions,
+  AccountSelectItemProps
+} from "../types/sliceTypes/account.type";
 import {IAccount} from "../types/sliceTypes/account.type";
 import {UseFormReturnType} from "@mantine/form";
 
@@ -73,13 +77,13 @@ class AccountService {
     })
   }
 
-  setDefaultEditForm(form: UseFormReturnType<any, (values: any) => any>, account: IAccount) {
+  setDefaultEditForm(form: UseFormReturnType<AccountEditingFormValues>, account: IAccount) {
     form.setFieldValue("accountName", account.accountName)
     form.setFieldValue("amount", account.amount)
     form.setFieldValue("currency", account.currency)
   }
 
-  setDefaultCreateForm(form: UseFormReturnType<any, (values: any) => any>, currency: string) {
+  setDefaultCreateForm(form: UseFormReturnType<AccountCreatingFormValues>, currency: string) {
     form.setFieldValue("currency", currency)
   }
 }

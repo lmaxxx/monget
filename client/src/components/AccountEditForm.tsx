@@ -8,7 +8,7 @@ import {useForm} from "@mantine/form";
 import AccountService from "../services/accountService";
 import {useDeleteAccountMutation, useEditAccountMutation, useGetAccountQuery} from "../api/accountApi";
 import {AccountIconType} from "../data/accountIcons";
-import {IAccount} from "../types/sliceTypes/account.type";
+import {AccountEditingFormValues, IAccount} from "../types/sliceTypes/account.type";
 import {useAppSelector} from "../hooks/storeHooks";
 import {useMediaQuery} from "@mantine/hooks";
 import getSymbolFromCurrency from "currency-symbol-map";
@@ -26,7 +26,7 @@ const AccountEditForm = () => {
   const [activeIconName, setActiveIconName] = useState<AccountIconType>(currentAccount?.iconName || "IconCash")
   const accountsAmount = useAppSelector(state => state.accountSlice.accounts.length)
   const navigate = useNavigate()
-  const form = useForm(AccountService.getAccountEditingFormConfig())
+  const form = useForm<AccountEditingFormValues>(AccountService.getAccountEditingFormConfig())
   const isLoading = isEditing || isDeleting || isLoadingQuery
   const isMobile = useMediaQuery('(max-width: 520px)');
 
@@ -40,7 +40,7 @@ const AccountEditForm = () => {
     }
   }, [currentAccount]);
 
-  const editAccountSubmit = async (values: { [key: number]: string }) => {
+  const editAccountSubmit = async (values: AccountEditingFormValues) => {
     const data = {
       ...values,
       iconBackgroundColor,
