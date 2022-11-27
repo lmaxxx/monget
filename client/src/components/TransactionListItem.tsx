@@ -18,7 +18,7 @@ const TransactionListItem: FC<PropsType> = ({transaction, showDate}) => {
   const location = useLocation()
   const {activeAccount, category} = location.state
   const date = new Date(transaction.date).toLocaleDateString("en-US", stringDateOptions)
-
+  const amount = transaction.convertedAmount ? transaction.convertedAmount : transaction.amount
 
   return (
     <>
@@ -49,7 +49,7 @@ const TransactionListItem: FC<PropsType> = ({transaction, showDate}) => {
             {transaction.title}
           </Text>
           <Text fw={500} sx={{justifySelf: "end"}}>
-            {AccountService.getFormattedAmount(transaction.amount, activeAccount.currency)}
+            {AccountService.getFormattedAmount(amount, activeAccount.currency)}
           </Text>
         </Box>
         {transaction.description && <Text sx={{wordWrap: "break-word"}} pl={"4rem"} color={"pink"}>{transaction.description}</Text>}
