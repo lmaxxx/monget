@@ -48,7 +48,7 @@ const TransactionList = () => {
   }
 
   const showDate = (transaction: ITransaction, index: number) =>  (
-    index === 0 || new Date(transaction.date).getUTCDate() !== new Date(transactions![index - 1].date).getUTCDate()
+    index === 0 || new Date(transaction.date).getDate() !== new Date(transactions![index - 1].date).getDate()
   )
 
   if(isLoading) return <Loader width={"100%"} height={"300px"}/>

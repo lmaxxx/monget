@@ -8,7 +8,7 @@ import {
 } from '../types/sliceTypes/transaction.type'
 
 const secondDay = new Date()
-secondDay.setDate(secondDay.getDate() + 1)
+secondDay.setUTCDate(secondDay.getUTCDate() + 1)
 
 const initialState = {
   activeTransactionType: TransactionType.Expenses,

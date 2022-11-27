@@ -14,8 +14,8 @@ class TransactionService {
     if (query) {
       const {start, end, categoryId} = query
 
-      if(start && end) findQuery.date = {$gt: start, $lt: end}
-      if(categoryId) findQuery.categoryId = categoryId
+      if (start && end) findQuery.date = {$gt: start, $lt: end}
+      if (categoryId) findQuery.categoryId = categoryId
     }
 
     const transactionsDocs = await Transaction.find(findQuery, null, options).sort({createdAt: "desc"})
@@ -55,14 +55,15 @@ class TransactionService {
       .catch(err => {
         throw new ApiError(400, "There isn't find any category with current id")
       })
-
+    const oldTransactionDoc = {...DataService.getTransactionFromDoc(transactionDoc)}
     if (!transactionDoc) throw new ApiError(400, "There isn't find any category with current id")
 
     Object.entries(data).forEach(([property, value]) => {
       transactionDoc[property] = value
     })
 
-    transactionDoc.save()
+    await transactionDoc.save()
+    await this.processEditedTransaction(oldTransactionDoc, transactionDoc)
     return DataService.getTransactionFromDoc(transactionDoc)
   }
 
@@ -80,10 +81,11 @@ class TransactionService {
       .catch(err => {
         throw new ApiError(400, "There is no category with current id")
       })
-    const {amount: accountAmount, currency: accountCurrency, _id} = accountDoc
-    const {amount: transactionAmount, currency: transactionCurrency, transactionType} = transactionDoc
 
     if (!accountDoc) throw new ApiError(400, "There is no category with current id")
+
+    const {amount: accountAmount, currency: accountCurrency, _id} = accountDoc
+    const {amount: transactionAmount, currency: transactionCurrency, transactionType} = transactionDoc
 
     if (accountCurrency === transactionCurrency) {
       const newAmount = transactionType === "expenses" ?
@@ -91,21 +93,73 @@ class TransactionService {
         : accountAmount + transactionAmount
 
       await Account.updateOne({_id}, {amount: newAmount})
-    } else {
-      const additionalAmount = await ConverterService.convert({
-        want: accountCurrency,
-        have: transactionCurrency,
-        amount: transactionAmount
-      })
-      const newAmount = transactionType === "expenses" ?
-        accountAmount - additionalAmount
-        : accountAmount + additionalAmount
-      transactionDoc.convertedAmount = additionalAmount
-      transactionDoc.convertingCurrency = accountCurrency
 
-      await transactionDoc.save()
-      await Account.updateOne({_id}, {amount: newAmount})
+      return
     }
+
+    const additionalAmount = await ConverterService.convert({
+      want: accountCurrency,
+      have: transactionCurrency,
+      amount: transactionAmount
+    })
+    const newAmount = transactionType === "expenses" ?
+      accountAmount - additionalAmount
+      : accountAmount + additionalAmount
+    transactionDoc.convertedAmount = additionalAmount
+    transactionDoc.convertingCurrency = accountCurrency
+
+    await transactionDoc.save()
+    await Account.updateOne({_id}, {amount: newAmount})
+  }
+
+  async processEditedTransaction(oldTransaction, newTransactionDoc) {
+    const accountDoc = await Account.findById(newTransactionDoc.accountId)
+      .catch(err => {
+        throw new ApiError(400, "There is no category with current id")
+      })
+
+    if (!accountDoc) throw new ApiError(400, "There is no category with current id")
+
+    const {amount: accountAmount, currency: accountCurrency, _id} = accountDoc
+    const {
+      amount: oldDefaultAmount,
+      convertedAmount: oldConvertedAmount,
+    } = oldTransaction
+    const {
+      amount: newTransactionAmount,
+      currency: newTransactionCurrency,
+      transactionType
+    } = newTransactionDoc
+    const oldTransactionAmount = oldConvertedAmount ? oldConvertedAmount : oldDefaultAmount
+
+    if (accountCurrency === newTransactionCurrency) {
+      const newAmount = transactionType === "expenses" ?
+        accountAmount + oldTransactionAmount - newTransactionAmount
+        : accountAmount - oldTransactionAmount + newTransactionAmount
+
+      newTransactionDoc.convertedAmount = null
+      newTransactionDoc.convertingCurrency = null
+
+      await newTransactionDoc.save()
+      await Account.updateOne({_id}, {amount: newAmount})
+
+      return
+    }
+
+    const additionalAmount = await ConverterService.convert({
+      want: accountCurrency,
+      have: newTransactionCurrency,
+      amount: newTransactionAmount
+    })
+    const newAmount = transactionType === "expenses" ?
+      accountAmount + oldTransactionAmount - additionalAmount
+      : accountAmount - oldTransactionAmount + additionalAmount
+
+    newTransactionDoc.convertedAmount = additionalAmount
+    newTransactionDoc.convertingCurrency = accountCurrency
+
+    await newTransactionDoc.save()
+    await Account.updateOne({_id}, {amount: newAmount})
   }
 
   async processDeletedTransaction(transactionDoc) {
@@ -113,9 +167,12 @@ class TransactionService {
       .catch(err => {
         throw new ApiError(400, "There is no category with current id")
       })
+
+    if (!accountDoc) throw new ApiError(400, "There is no category with current id")
+
     const {amount, convertedAmount} = transactionDoc
 
-    if(transactionDoc.transactionType === "expenses") {
+    if (transactionDoc.transactionType === "expenses") {
       accountDoc.amount += convertedAmount ? convertedAmount : amount
     } else {
       accountDoc.amount -= convertedAmount ? convertedAmount : amount
@@ -161,7 +218,7 @@ class TransactionService {
   validatePageTransactionQuery({page}) {
     page = +page
 
-    if(page) {
+    if (page) {
       return {
         skip: (page - 1) * 10,
         limit: 10
@@ -178,7 +235,7 @@ class TransactionService {
     rangeStart = +rangeStart ? new Date(+rangeStart) : null
     rangeEnd = +rangeEnd ? new Date(+rangeEnd) : null
 
-    if(days || days === 0) {
+    if (days || days === 0) {
       const currentDay = DateService.subtractDays(currentDate, days)
 
       return {
@@ -187,7 +244,7 @@ class TransactionService {
       }
     }
 
-    if(weeks || weeks === 0) {
+    if (weeks || weeks === 0) {
       const weekStartDay = DateService.subtractDays(currentDate, weeks * 7)
       const weekEndDay = DateService.addDays(weekStartDay, 7)
 
@@ -197,7 +254,7 @@ class TransactionService {
       }
     }
 
-    if(months || months === 0) {
+    if (months || months === 0) {
       const monthStartDay = DateService.substractMonths(currentDate, months)
       const monthEndDay = new Date(monthStartDay.getUTCFullYear(), monthStartDay.getUTCMonth() + 1, 0)
 
@@ -209,7 +266,7 @@ class TransactionService {
       }
     }
 
-    if(rangeStart && rangeEnd) {
+    if (rangeStart && rangeEnd) {
       return {
         start: DateService.getStartOfTheDay(rangeStart),
         end: DateService.getEndOfTheDay(rangeEnd),

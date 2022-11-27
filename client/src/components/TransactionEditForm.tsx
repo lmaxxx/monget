@@ -55,6 +55,7 @@ const TransactionEditForm = () => {
       }
 
       await editTransaction(data)
+      await getAccounts()
       navigate("/")
     }
   }

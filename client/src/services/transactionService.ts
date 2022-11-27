@@ -101,7 +101,7 @@ class TransactionService {
 
     if(transactionDateRequestType === TransactionDateRequestType.Month) {
       const monthStartDay = DateService.substractMonths(currentDate, dateCounter)
-      const monthEndDay = new Date(monthStartDay.getFullYear(), monthStartDay.getMonth()+1, 0)
+      const monthEndDay = new Date(monthStartDay.getUTCFullYear(), monthStartDay.getUTCMonth()+1, 0)
 
       monthStartDay.setUTCDate(1)
       const start = DateService.getStartOfTheDay(monthStartDay).toLocaleDateString("en-US", stringDateOptions)
