@@ -11,8 +11,8 @@ const Loader: FC<PropsType> = ({
   height = "100vh"
                 }) => {
   return (
-    <Center style={{width, height, flexDirection: "column", alignItems: "center"}}>
-      <LoaderUiComponent mt={"1rem"} size="xl" />
+    <Center style={{width, height}}>
+      <LoaderUiComponent size="xl" />
     </Center>
   )
 }

@@ -23,9 +23,9 @@ const CategoryTransactions = () => {
       width: "100%",
       backgroundColor: theme.colors.gray[1]
     }}>
-      <Paper sx={{maxWidth: 500, width: "90%"}} shadow="xl" radius="md" p="xl">
+      <Paper sx={{maxWidth: 500, width: "90%", maxHeight: "90vh"}} shadow="xl" radius="md" p="xl">
         <FormHeader title={`${category.name}(${transactionType})`} goBackPath={"/"}/>
-        <Text align={"center"} my={"sm"} fz={25} fw={500} color={"dark"}>
+        <Text color={"cyan"} align={"center"} my={"sm"} fz={25} fw={500}>
           {AccountService.getFormattedAmount(amount, activeAccount.currency, true)}
         </Text>
         <TransactionList/>

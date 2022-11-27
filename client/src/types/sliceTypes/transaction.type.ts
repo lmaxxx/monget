@@ -23,7 +23,7 @@ export interface ITransaction {
   categoryId: string | ICategory,
   amount: number,
   currency: string,
-  date: Date
+  date: string
   id: string
   convertedAmount?: number,
   convertingCurrency?: string

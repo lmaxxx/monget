@@ -23,11 +23,11 @@ const HomeCategoriesListItem: FC<PropsType> = ({transactionType, chartSection}) 
   return (
     <Box
       component={Link}
-      state={{amount: chartSection.value, category, transactionType}}
+      state={{amount: chartSection.value, category, transactionType, activeAccount}}
       to={`/transactions/${activeAccount.id}`}
       sx={{
         display: "grid",
-        gridTemplateColumns: "48px 100px 45px auto",
+        gridTemplateColumns: "3rem 100px 45px auto",
         alignItems: "center",
         gap: "1rem",
         textDecoration: "none",
