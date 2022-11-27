@@ -122,8 +122,6 @@ const AccountEditForm = () => {
           size={"md"}
           mt={"md"}
           fullWidth
-          component={Link}
-          to={"/accounts"}
           color={"red"}
           variant={"outline"}
         >Delete</Button>

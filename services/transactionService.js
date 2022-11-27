@@ -29,7 +29,7 @@ class TransactionService {
   }
 
   async getTransaction(id) {
-    const transactionDoc = await Transaction.findById(id)
+    const transactionDoc = await Transaction.findById(id).populate(["categoryId", "accountId"])
       .catch(err => {
         throw new ApiError(400, "There is no transactions with current id")
       })

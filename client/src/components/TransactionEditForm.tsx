@@ -1,67 +1,68 @@
-import {useGetAllCategoriesQuery} from "../api/categoryApi";
-import {useEffect, useMemo, useState} from "react";
-import {useLocation, useNavigate, useParams} from "react-router-dom";
-import {useForm} from "@mantine/form";
-import CategoryService from "../services/categoryService";
-import {useMediaQuery} from "@mantine/hooks";
+import {useNavigate, useParams} from "react-router-dom";
 import {
-  TransactionCreatingBodyParams,
-  TransactionCreatingFormValues,
-  TransactionType
-} from "../types/sliceTypes/transaction.type";
-import {Box, Button, Group, LoadingOverlay, NumberInput, Textarea, TextInput} from "@mantine/core";
-import TransactionTypeSegmentControl from "./TransactionTypeSegmentControl";
-import CategoryIcon from "./CategoryIcon";
-import {useCreateTransactionMutation} from "../api/transactionApi";
+  useDeleteTransactionMutation,
+  useEditTransactionMutation,
+  useGetTransactionQuery
+} from "../api/transactionApi";
+import {useEffect, useState} from "react";
+import {useForm} from "@mantine/form";
+import {TransactionCreatingFormValues, TransactionType} from "../types/sliceTypes/transaction.type";
 import TransactionService from "../services/transactionService";
+import {useMediaQuery} from "@mantine/hooks";
+import {Box, Button, Group, LoadingOverlay, NumberInput, Textarea, TextInput, Text} from "@mantine/core";
 import CurrencySelect from "./CurrencySelect";
 import getSymbolFromCurrency from "currency-symbol-map";
-import {useAppSelector} from "../hooks/storeHooks";
-import {ICategory} from "../types/sliceTypes/category.type";
-import ChooseCategoryModaL from "./ChooseCategoryModaL";
-import {DatePicker} from '@mantine/dates'
+import TransactionTypeSegmentControl from "./TransactionTypeSegmentControl";
+import CategoryIcon from "./CategoryIcon";
+import {DatePicker} from "@mantine/dates";
 import {IconCalendar} from "@tabler/icons";
-import {useLazyGetAccountsQuery} from "../api/accountApi";
+import {ICategory} from "../types/sliceTypes/category.type";
+import HiddenTextStyles from "../assets/hiddenTextStyles";
 
-const TransactionCreateForm = () => {
-  const location = useLocation()
-  const {transactionType: defaultTransactionType} = location.state
-  const [createTransaction, {isLoading: isCreatingTransaction}] = useCreateTransactionMutation()
-  const [getAccounts, {isLoading: isGettingAccounts}] = useLazyGetAccountsQuery()
-  const {id: accountId} = useParams()
-  const [openedModal, setOpenedModal] = useState<boolean>(false)
-  const {isLoading: isGettingCategoriesLoading} = useGetAllCategoriesQuery()
+const TransactionEditForm = () => {
+  const {id: transactionId} = useParams()
+  const {data: currentTransaction, isLoading: isGettingTransaction, isError} = useGetTransactionQuery(
+    transactionId!,
+    {refetchOnMountOrArgChange: true})
+  const [editTransaction, {isLoading: isEditingTransaction}] = useEditTransactionMutation()
+  const [deleteTransaction, {isLoading: isDeletingTransaction}] = useDeleteTransactionMutation()
   const navigate = useNavigate()
   const form = useForm<TransactionCreatingFormValues>(TransactionService.getTransactionFormConfig())
   const isMobile = useMediaQuery('(max-width: 600px)')
-  const [transactionType, setTransactionType] = useState<TransactionType>(defaultTransactionType)
-  const categories = useAppSelector(state => state.categorySlice[`${transactionType}Categories`])
-  const [activeCategoryId, setActiveCategoryId] = useState<string>(categories[0]?.id)
-  const activeCategory = useMemo<ICategory>(() => (
-    CategoryService.getCategoryById(categories, activeCategoryId)!
-  ), [activeCategoryId])
-  const isLoading = isCreatingTransaction || isGettingCategoriesLoading || isGettingAccounts || !activeCategory
-
+  const [transactionType, setTransactionType] = useState<TransactionType>(TransactionType.Expenses)
+  const [category, setCategory] = useState<ICategory>({} as ICategory)
+  const isLoading = isEditingTransaction || isGettingTransaction
+    || isDeletingTransaction || !Object.values(category).length
 
   useEffect(() => {
-    setActiveCategoryId(categories[0]?.id)
-  }, [transactionType]);
-
-  const createTransactionSubmit = async (values: TransactionCreatingFormValues) => {
-    const data = {
-      ...values,
-      transactionType,
-      categoryId: activeCategoryId,
-      accountId: accountId!
+    if (isError) navigate("/")
+    if(currentTransaction) {
+      TransactionService.setDefaultEditForm(form, currentTransaction)
+      setTransactionType(currentTransaction.transactionType)
+      setCategory(currentTransaction.categoryId as ICategory)
     }
+  }, [currentTransaction]);
 
-    await createTransaction(data)
-    await getAccounts()
-    navigate("/")
+
+  const editTransactionSubmit = async (values: TransactionCreatingFormValues) => {
+
+    console.log(values.date)
+    if(currentTransaction) {
+      const data = {
+        ...currentTransaction,
+        ...values,
+        categoryId: category.id,
+      }
+
+      await editTransaction(data)
+      navigate("/")
+    }
   }
 
-  const openModal = () => setOpenedModal(true)
-  const closeModal = () => setOpenedModal(false)
+  const deleteTransactionSubmit = async () => {
+    await deleteTransaction(transactionId!)
+    navigate("/")
+  }
 
   return (
     <div style={{position: "relative", minHeight: "300px"}}>
@@ -78,7 +79,7 @@ const TransactionCreateForm = () => {
               padding: ".1rem"
             }}>
               <Box
-                id={"categoryTransferForm"}
+                id={"categoryEditForm"}
                 component={"form"}
                 sx={{
                   display: "flex",
@@ -88,7 +89,7 @@ const TransactionCreateForm = () => {
                   width: "100%",
                   gap: "1rem 2rem"
                 }}
-                onSubmit={form.onSubmit(createTransactionSubmit)}
+                onSubmit={form.onSubmit(editTransactionSubmit)}
               >
                 <Box sx={{width: isMobile ? "100%" : "50%"}}>
                   <TextInput
@@ -120,15 +121,16 @@ const TransactionCreateForm = () => {
                     position={isMobile ? "center" : "left"}
                     transactionType={transactionType}
                     onChange={setTransactionType}
+                    disabled
                   />
                   <Group mt={"sm"} position={isMobile ? "center" : "left"}>
                     <CategoryIcon
-                      backgroundColor={activeCategory.iconBackgroundColor}
-                      iconName={activeCategory.iconName}
+                      backgroundColor={category.iconBackgroundColor}
+                      iconName={category.iconName}
                       backgroundSize={"3rem"}
                       iconSize={"32px"}
                     />
-                    <Button onClick={openModal} color={"violet"} variant={"light"}>Choose cateogry</Button>
+                    <Text sx={{...HiddenTextStyles}}>{category.name}</Text>
                   </Group>
                 </Box>
               </Box>
@@ -141,17 +143,19 @@ const TransactionCreateForm = () => {
               placeholder="Pick date"
               {...form.getInputProps("date")}
             />
-            <Button form={"categoryTransferForm"} fullWidth mt={"md"} size={"md"} type="submit">Create</Button>
+            <Button form={"categoryEditForm"} fullWidth mt={"md"} size={"md"} type="submit">Save</Button>
+            <Button
+              onClick={deleteTransactionSubmit}
+              size={"md"}
+              mt={"md"}
+              fullWidth
+              color={"red"}
+              variant={"outline"}
+            >Delete</Button>
           </>
       }
-      <ChooseCategoryModaL
-        opened={openedModal}
-        onClose={closeModal}
-        setActiveCategoryId={setActiveCategoryId}
-        transactionType={transactionType}
-      />
     </div>
   )
 }
 
-export default TransactionCreateForm
+export default TransactionEditForm

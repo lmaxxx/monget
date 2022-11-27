@@ -13,15 +13,15 @@ export interface InitialStateType {
 
 export interface ITransaction {
   title: string,
-  description: string,
+  description?: string,
   ownerId: string | IUser,
   createdAt: number,
   accountId: string | IAccount,
   transactionType: TransactionType,
-  categoryId: string | ICategory,
+  categoryId: ICategory | string,
   amount: number,
   currency: string,
-  date: string
+  date: string | Date
   id: string
   convertedAmount?: number,
   convertingCurrency?: string

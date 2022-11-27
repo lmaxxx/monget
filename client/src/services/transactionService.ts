@@ -1,6 +1,6 @@
 import {AnyAction, ThunkDispatch} from "@reduxjs/toolkit";
 import {
-  DateRangeType,
+  DateRangeType, ITransaction, TransactionCreatingFormValues,
   TransactionDateRequestType,
   TransactionType
 } from "../types/sliceTypes/transaction.type";
@@ -9,6 +9,7 @@ import {
   setIncomeChartData,
 } from "../store/transactionSlice";
 import DateService from "./dateService";
+import {UseFormReturnType} from "@mantine/form";
 
 class TransactionService {
   setChartData({dispatch, data}: {
@@ -44,7 +45,7 @@ class TransactionService {
     }
   }
 
-  getCreateTransactionFormConfig() {
+  getTransactionFormConfig() {
     return {
       initialValues: {
         title: "",
@@ -59,6 +60,14 @@ class TransactionService {
         amount: (value: number) => value > 0 ? null : "Amount should be bigger than 0"
       }
     }
+  }
+
+  setDefaultEditForm(form: UseFormReturnType<TransactionCreatingFormValues>, currentTransaction: ITransaction) {
+    form.setFieldValue("title", currentTransaction.title)
+    form.setFieldValue("description", currentTransaction.description)
+    form.setFieldValue("amount", currentTransaction.amount)
+    form.setFieldValue("date", new Date(currentTransaction.date))
+    form.setFieldValue("currency", currentTransaction.currency)
   }
 
   getDateLabelText(transactionDateRequestType: TransactionDateRequestType, dateCounter: number, range: DateRangeType) {
