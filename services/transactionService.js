@@ -11,8 +11,9 @@ class TransactionService {
     const findQuery = {accountId}
     if (transactionType) findQuery.transactionType = transactionType
     if (query) {
-      const {start, end} = query
+      const {start, end, categoryId} = query
       findQuery.date = {$gt: start, $lt: end}
+      findQuery.categoryId = categoryId
     }
 
     const transactionsDocs = await Transaction.find(findQuery).sort({createdAt: "asc"})

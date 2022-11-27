@@ -5,8 +5,14 @@ class TransactionController {
   async getTransactions(req, res) {
     try {
       const {accountId} = req.params
+      const {categoryId} = req.body
       const validatedQuery = TransactionService.validateGetTransactionQuery(req.query)
+
+      if(categoryId) validatedQuery.categoryId = categoryId
+
       const transactions = await TransactionService.getTransactions(accountId, null, validatedQuery)
+
+
 
       res.json(transactions)
     } catch (err) {
@@ -17,7 +23,11 @@ class TransactionController {
   async getExpensesTransactions(req, res) {
     try {
       const {accountId} = req.params
+      const {categoryId} = req.body
       const validatedQuery = TransactionService.validateGetTransactionQuery(req.query)
+
+      if(categoryId) validatedQuery.categoryId = categoryId
+
       const transactions = await TransactionService.getTransactions(accountId, "expenses", validatedQuery)
 
       res.json(transactions)
@@ -29,7 +39,11 @@ class TransactionController {
   async getIncomeTransactions(req, res) {
     try {
       const {accountId} = req.params
+      const {categoryId} = req.body
       const validatedQuery = TransactionService.validateGetTransactionQuery(req.query)
+
+      if(categoryId) validatedQuery.categoryId = categoryId
+
       const transactions = await TransactionService.getTransactions(accountId, "income", validatedQuery)
 
       res.json(transactions)
