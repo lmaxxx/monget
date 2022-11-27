@@ -45,7 +45,7 @@ class TransactionService {
       ownerId: userId,
       createdAt: new Date().getTime()
     })
-    await this.processNewTransaction(data.accountId, newTransactionDoc)
+    await this.processNewTransaction(newTransactionDoc)
 
     return DataService.getTransactionFromDoc(newTransactionDoc)
   }
@@ -67,14 +67,16 @@ class TransactionService {
   }
 
   async deleteTransaction(id) {
-    await Transaction.findByIdAndDelete(id)
+    const transactionDoc = await Transaction.findByIdAndDelete(id)
       .catch(err => {
         throw new ApiError(400, "There is no transactions with current id")
       })
+
+    await this.processDeletedTransaction(transactionDoc)
   }
 
-  async processNewTransaction(accountId, transactionDoc) {
-    const accountDoc = await Account.findById(accountId)
+  async processNewTransaction(transactionDoc) {
+    const accountDoc = await Account.findById(transactionDoc.accountId)
       .catch(err => {
         throw new ApiError(400, "There is no category with current id")
       })
@@ -104,6 +106,22 @@ class TransactionService {
       await transactionDoc.save()
       await Account.updateOne({_id}, {amount: newAmount})
     }
+  }
+
+  async processDeletedTransaction(transactionDoc) {
+    const accountDoc = await Account.findById(transactionDoc.accountId)
+      .catch(err => {
+        throw new ApiError(400, "There is no category with current id")
+      })
+    const {amount, convertedAmount} = transactionDoc
+
+    if(transactionDoc.transactionType === "expenses") {
+      accountDoc.amount += convertedAmount ? convertedAmount : amount
+    } else {
+      accountDoc.amount -= convertedAmount ? convertedAmount : amount
+    }
+
+    await accountDoc.save()
   }
 
   async getChartData(accountId, transactionType, userId, query) {
@@ -181,7 +199,7 @@ class TransactionService {
 
     if(months || months === 0) {
       const monthStartDay = DateService.substractMonths(currentDate, months)
-      const monthEndDay = new Date(monthStartDay.getFullYear(), monthStartDay.getMonth()+1, 0)
+      const monthEndDay = new Date(monthStartDay.getUTCFullYear(), monthStartDay.getUTCMonth() + 1, 0)
 
       monthStartDay.setUTCDate(1)
 
@@ -199,29 +217,6 @@ class TransactionService {
     }
   }
 
-
-  // async processAfterDeletingTransaction(accountId, transactionDoc) {
-  //   const accountDoc = await Account.findById(accountId)
-  //     .catch(err => {
-  //       throw new ApiError(400, "There is no category with current id")
-  //     })
-  //   const {accountAmount, accountCurrency, _id} = accountDoc
-  //   const {transactionAmount, transactionCurrency} = transactionDoc
-  //
-  //   if(!accountDoc) throw new ApiError(400, "There is no category with current id")
-  //
-  //   if(accountCurrency === transactionCurrency) {
-  //     await Account.updateOne({_id}, {amount: accountAmount - transactionAmount})
-  //   } else {
-  //     const newAmount = ConverterService.convert({
-  //       want: accountCurrency,
-  //       have: transactionCurrency,
-  //       amount: transactionAmount
-  //     })
-  //
-  //     await Account.updateOne({_id}, {amount: accountAmount - newAmount})
-  //   }
-  // }
 }
 
 module.exports = new TransactionService()
