@@ -42,7 +42,15 @@ class TransactionService {
     }
   }
 
-  setDateParams(dateCounter?: number, transactionDateRequestType?: TransactionDateRequestType, range?: DateRangeType) {
+  getTransactionParams(params: any) {
+    const defaultParams = this.getDateParams(params.dateCounter, params.transactionDateRequestType, params.range) || {}  as any
+
+    if(params.categoryId) defaultParams.categoryId = params.categoryId
+
+    return defaultParams
+  }
+
+  getDateParams(dateCounter?: number, transactionDateRequestType?: TransactionDateRequestType, range?: DateRangeType) {
     if(transactionDateRequestType === TransactionDateRequestType.Range && range) {
       return {
         rangeStart: range[0]?.getTime(),

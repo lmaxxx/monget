@@ -14,9 +14,12 @@ export const transactionApi = createApi({
   tagTypes: ["Transaction"],
   endpoints: (builder) => ({
     getTransactions: builder.query<ITransaction[], GetTransactionParamsType>({
-      query: ({accountId, transactionType, dateCounter, transactionDateRequestType, range}) => ( {
-        url: transactionType ? `/api/transactions/${transactionType}/${accountId}` : `/api/transactions/${accountId}`,
-        params: TransactionService.setDateParams(dateCounter, transactionDateRequestType, range)
+      query: ({transactionType, accountId, ...params}) => ( {
+        url: transactionType ?
+          `/api/transactions/${transactionType}/${accountId}`
+          :
+          `/api/transactions/${accountId}`,
+        params: TransactionService.getTransactionParams(params)
       }),
       providesTags: ['Transaction'],
       async onQueryStarted(id, {dispatch, queryFulfilled}) {
@@ -53,7 +56,7 @@ export const transactionApi = createApi({
     getTransactionsChartData: builder.query<DonutSection[], GetTransactionParamsType>({
       query: ({accountId, transactionType, dateCounter, transactionDateRequestType, range}) => ({
         url: `/api/transactions/chart/${transactionType}/${accountId}`,
-        params: TransactionService.setDateParams(dateCounter, transactionDateRequestType, range)
+        params: TransactionService.getDateParams(dateCounter, transactionDateRequestType, range)
       }),
       async onQueryStarted(id, {dispatch, queryFulfilled}) {
         const {data} = await queryFulfilled

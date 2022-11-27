@@ -13,7 +13,6 @@ class TransactionController {
       const transactions = await TransactionService.getTransactions(accountId, null, validatedQuery)
 
 
-
       res.json(transactions)
     } catch (err) {
       res.status(err.status).json({status: err.status, message: err.message})

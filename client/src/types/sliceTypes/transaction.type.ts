@@ -49,6 +49,7 @@ export enum TransactionType {
 
 export interface GetTransactionParamsType {
   accountId: string,
+  categoryId?: string
   transactionType?: TransactionType
   transactionDateRequestType?: TransactionDateRequestType
   dateCounter?: number
