@@ -7,17 +7,18 @@ const DateService = require("../services/dateService")
 const CategoryService = require("../services/categoryService")
 
 class TransactionService {
-  async getTransactions(accountId, transactionType, query) {
+  async getTransactions(accountId, transactionType, query, options) {
     const findQuery = {accountId}
+
     if (transactionType) findQuery.transactionType = transactionType
     if (query) {
       const {start, end, categoryId} = query
-      findQuery.date = {$gt: start, $lt: end}
 
+      if(start && end) findQuery.date = {$gt: start, $lt: end}
       if(categoryId) findQuery.categoryId = categoryId
     }
 
-    const transactionsDocs = await Transaction.find(findQuery).sort({createdAt: "desc"})
+    const transactionsDocs = await Transaction.find(findQuery, null, options).sort({createdAt: "desc"})
       .catch(err => {
         throw new ApiError(400, "There is no transactions in current account")
       })
@@ -139,9 +140,19 @@ class TransactionService {
     return chartData
   }
 
-  validateDateTransactionQuery(query) {
+  validatePageTransactionQuery({page}) {
+    page = +page
+
+    if(page) {
+      return {
+        skip: (page - 1) * 10,
+        limit: 10
+      }
+    }
+  }
+
+  validateDateTransactionQuery({days, weeks, months, rangeStart, rangeEnd}) {
     const currentDate = new Date()
-    let {days, weeks, months, rangeStart, rangeEnd} = query
 
     days = +days
     weeks = +weeks

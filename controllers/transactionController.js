@@ -7,11 +7,11 @@ class TransactionController {
       const {accountId} = req.params
       const {categoryId} = req.query
       const validatedQuery = TransactionService.validateDateTransactionQuery(req.query)
+      const options = TransactionService.validatePageTransactionQuery(req.query)
 
       if(categoryId) validatedQuery.categoryId = categoryId
 
-      const transactions = await TransactionService.getTransactions(accountId, null, validatedQuery)
-
+      const transactions = await TransactionService.getTransactions(accountId, null, validatedQuery, options)
 
       res.json(transactions)
     } catch (err) {
@@ -24,10 +24,11 @@ class TransactionController {
       const {accountId} = req.params
       const {categoryId} = req.query
       const validatedQuery = TransactionService.validateDateTransactionQuery(req.query)
+      const options = TransactionService.validatePageTransactionQuery(req.query)
 
       if(categoryId) validatedQuery.categoryId = categoryId
 
-      const transactions = await TransactionService.getTransactions(accountId, "expenses", validatedQuery)
+      const transactions = await TransactionService.getTransactions(accountId, "expenses", validatedQuery, options)
 
       res.json(transactions)
     } catch (err) {
@@ -40,10 +41,11 @@ class TransactionController {
       const {accountId} = req.params
       const {categoryId} = req.query
       const validatedQuery = TransactionService.validateDateTransactionQuery(req.query)
+      const options = TransactionService.validatePageTransactionQuery(req.query)
 
       if(categoryId) validatedQuery.categoryId = categoryId
 
-      const transactions = await TransactionService.getTransactions(accountId, "income", validatedQuery)
+      const transactions = await TransactionService.getTransactions(accountId, "income", validatedQuery, options)
 
       res.json(transactions)
     } catch (err) {
