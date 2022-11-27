@@ -5,8 +5,8 @@ class TransactionController {
   async getTransactions(req, res) {
     try {
       const {accountId} = req.params
-      const {categoryId} = req.body
-      const validatedQuery = TransactionService.validateGetTransactionQuery(req.query)
+      const {categoryId} = req.query
+      const validatedQuery = TransactionService.validateDateTransactionQuery(req.query)
 
       if(categoryId) validatedQuery.categoryId = categoryId
 
@@ -23,8 +23,8 @@ class TransactionController {
   async getExpensesTransactions(req, res) {
     try {
       const {accountId} = req.params
-      const {categoryId} = req.body
-      const validatedQuery = TransactionService.validateGetTransactionQuery(req.query)
+      const {categoryId} = req.query
+      const validatedQuery = TransactionService.validateDateTransactionQuery(req.query)
 
       if(categoryId) validatedQuery.categoryId = categoryId
 
@@ -39,8 +39,8 @@ class TransactionController {
   async getIncomeTransactions(req, res) {
     try {
       const {accountId} = req.params
-      const {categoryId} = req.body
-      const validatedQuery = TransactionService.validateGetTransactionQuery(req.query)
+      const {categoryId} = req.query
+      const validatedQuery = TransactionService.validateDateTransactionQuery(req.query)
 
       if(categoryId) validatedQuery.categoryId = categoryId
 
@@ -109,7 +109,7 @@ class TransactionController {
     try {
       const {id: userId} = req.user
       const {accountId} = req.params
-      const validatedQuery = TransactionService.validateGetTransactionQuery(req.query)
+      const validatedQuery = TransactionService.validateDateTransactionQuery(req.query)
       const chartData = await TransactionService.getChartData(accountId, "expenses", userId, validatedQuery)
 
       res.json({chartData, transactionType: "expenses"})
@@ -122,7 +122,7 @@ class TransactionController {
     try {
       const {id: userId} = req.user
       const {accountId} = req.params
-      const validatedQuery = TransactionService.validateGetTransactionQuery(req.query)
+      const validatedQuery = TransactionService.validateDateTransactionQuery(req.query)
       const chartData = await TransactionService.getChartData(accountId, "income", userId, validatedQuery)
 
       res.json({chartData, transactionType: "income"})

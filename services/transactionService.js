@@ -13,7 +13,8 @@ class TransactionService {
     if (query) {
       const {start, end, categoryId} = query
       findQuery.date = {$gt: start, $lt: end}
-      findQuery.categoryId = categoryId
+
+      if(categoryId) findQuery.categoryId = categoryId
     }
 
     const transactionsDocs = await Transaction.find(findQuery).sort({createdAt: "asc"})
@@ -138,7 +139,7 @@ class TransactionService {
     return chartData
   }
 
-  validateGetTransactionQuery(query) {
+  validateDateTransactionQuery(query) {
     const currentDate = new Date()
     let {days, weeks, months, rangeStart, rangeEnd} = query
 
