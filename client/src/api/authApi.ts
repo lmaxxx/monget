@@ -1,11 +1,12 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
+import {createApi} from '@reduxjs/toolkit/query/react'
 import {CurrencyRegistrationFormValues, LoginFormValues, RegistrationFormValues} from "../types/sliceTypes/user.type";
 import {AuthResponse, CurrencyUpdateResponse} from "../types/sliceTypes/user.type";
 import AuthService from "../services/authService";
+import baseQueryWithReauth from "./baseQueryWithReauth";
 
 export const authApi = createApi({
   reducerPath: "auth",
-  baseQuery: fetchBaseQuery({baseUrl: process.env.REACT_APP_API_URL, credentials: "include"}),
+  baseQuery: baseQueryWithReauth,
   endpoints: (builder) => ({
     login: builder.mutation<AuthResponse, LoginFormValues>({
       query: (formData) => ({
@@ -50,9 +51,6 @@ export const authApi = createApi({
         url: "/api/auth/updateCurrency",
         method: "PUT",
         body: formData,
-        headers: {
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
       }),
       async onQueryStarted(id, {dispatch, queryFulfilled}) {
         const {data} = await queryFulfilled
