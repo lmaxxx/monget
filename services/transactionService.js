@@ -40,6 +40,12 @@ class TransactionService {
   }
 
   async createTransaction(userId, data) {
+    data.date = new Date(data.date)
+
+    if(data.date.getUTCHours() == 0) {
+      data.date.setUTCHours(data.date.getUTCHours() + 6)
+    }
+
     const newTransactionDoc = await Transaction.create({
       ...data,
       ownerId: userId,

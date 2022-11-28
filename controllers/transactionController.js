@@ -74,7 +74,9 @@ class TransactionController {
 
       res.json(transaction)
     } catch (err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      console.log(err)
+      res.json(err)
+      // res.status(err.status).json({status: err.status, message: err.message})
     }
   }
 

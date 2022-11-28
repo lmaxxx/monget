@@ -42,7 +42,6 @@ const TransactionCreateForm = () => {
   ), [activeCategoryId])
   const isLoading = isCreatingTransaction || isGettingCategoriesLoading || isGettingAccounts || !activeCategory
 
-
   useEffect(() => {
     setActiveCategoryId(categories[0]?.id)
   }, [transactionType]);
