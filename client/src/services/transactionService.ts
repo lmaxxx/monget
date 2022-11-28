@@ -40,7 +40,7 @@ class TransactionService {
       }
     }
 
-    if(dateCounter && transactionDateRequestType) {
+    if((dateCounter || dateCounter === 0) && transactionDateRequestType) {
       return {[transactionDateRequestType]: dateCounter}
     }
   }
