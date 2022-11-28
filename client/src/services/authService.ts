@@ -34,10 +34,10 @@ class AuthService {
     }
   }
 
-  getCurrencyRegistrationFormConfig() {
+  getCurrencyRegistrationFormConfig(defaultCurrency?: string) {
     return {
       initialValues: {
-        currency: ""
+        currency: defaultCurrency || ""
       },
       validate: {
         currency: (value: string) => value.trim().length === 3 ? null : "You need to choose currency"
