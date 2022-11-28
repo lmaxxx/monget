@@ -16,6 +16,7 @@ interface PropsType {
 const HomeSection: FC<PropsType> = ({title}) => {
   const transactionType = title === "Expenses" ? TransactionType.Expenses : TransactionType.Income
   const activeAccountId = useAppSelector(state => state.accountSlice.activeAccount.id)
+  const activeAccountCurrency = useAppSelector(state => state.accountSlice.activeAccount.currency)
   const dateCounter = useAppSelector(state => state.transactionSlice.dateCounter)
   const activeTransactionDateRequestType = useAppSelector(state => state.transactionSlice.activeTransactionDateRequestType)
   const chartData = useAppSelector(state => state.transactionSlice[`${transactionType}ChartData`])
@@ -44,7 +45,7 @@ const HomeSection: FC<PropsType> = ({title}) => {
       <Button
         component={Link}
         to={`/transaction/create/${activeAccountId}`}
-        state={{transactionType: title.toLowerCase()}}
+        state={{transactionType: title.toLowerCase(), accountCurrency: activeAccountCurrency}}
         size={"sm"}
         color={"green"}
         leftIcon={<IconPlus/>}

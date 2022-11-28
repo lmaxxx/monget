@@ -45,12 +45,12 @@ class TransactionService {
     }
   }
 
-  getTransactionFormConfig() {
+  getTransactionFormConfig(defaultCurrency?: string) {
     return {
       initialValues: {
         title: "",
         description: "",
-        currency: "",
+        currency: defaultCurrency || "",
         amount: 0,
         date: new Date(),
       },

@@ -25,14 +25,14 @@ import {useLazyGetAccountsQuery} from "../api/accountApi";
 
 const TransactionCreateForm = () => {
   const location = useLocation()
-  const {transactionType: defaultTransactionType} = location.state
+  const {transactionType: defaultTransactionType, accountCurrency} = location.state
   const [createTransaction, {isLoading: isCreatingTransaction}] = useCreateTransactionMutation()
   const [getAccounts, {isLoading: isGettingAccounts}] = useLazyGetAccountsQuery()
   const {id: accountId} = useParams()
   const [openedModal, setOpenedModal] = useState<boolean>(false)
   const {isLoading: isGettingCategoriesLoading} = useGetAllCategoriesQuery()
   const navigate = useNavigate()
-  const form = useForm<TransactionCreatingFormValues>(TransactionService.getTransactionFormConfig())
+  const form = useForm<TransactionCreatingFormValues>(TransactionService.getTransactionFormConfig(accountCurrency))
   const isMobile = useMediaQuery('(max-width: 600px)')
   const [transactionType, setTransactionType] = useState<TransactionType>(defaultTransactionType)
   const categories = useAppSelector(state => state.categorySlice[`${transactionType}Categories`])
