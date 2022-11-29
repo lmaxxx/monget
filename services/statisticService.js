@@ -121,12 +121,14 @@ class StatisticService {
     const copyData = {...data}
 
     transactions.forEach(transaction => {
+      const amount = transaction.convertedAmount ? transaction.convertedAmount : transaction.amount
+
       if(transaction.transactionType === "expenses")  {
-        copyData.expenses += transaction.amount
+        copyData.expenses += amount
         return
       }
 
-      copyData.income += transaction.amount
+      copyData.income += amount
     })
 
     const profit = copyData.income - copyData.expenses
