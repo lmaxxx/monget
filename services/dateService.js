@@ -58,6 +58,37 @@ class DateService {
   getEndOfTheMonthByIndex(date, months) {
     return new Date(date.getUTCFullYear(), months + 1, 0, 23, 59, 59, 999)
   }
+
+  getWeeksInMonth(monthStartDay) {
+    const firstDay = monthStartDay.getUTCDay()
+    const totalDays = new Date(monthStartDay.getUTCFullYear(), monthStartDay.getUTCMonth() + 1, 0).getUTCDate()
+
+    return Math.ceil( (firstDay + totalDays) / 7);
+  }
+
+  getWeeksBordersInMonth(monthStartDay, monthEndDay) {
+    const result = []
+    const monthStartDayCopy = new Date(monthStartDay)
+    const weeks = this.getWeeksInMonth(monthStartDay)
+    let counter = 0
+
+    for(let i = 0; i < monthEndDay.getUTCDate(); i++) {
+      counter++
+      if(monthStartDayCopy.getUTCDay() === 0 || monthEndDay.getUTCDate() === monthStartDayCopy.getUTCDate()) {
+        const weekBorders = {
+          start: this.getStartOfTheDay(new Date(this.subtractDays(monthStartDayCopy, counter))),
+          end: this.getEndOfTheDay(new Date(monthStartDayCopy))
+        }
+
+        counter = 0
+        result.push(weekBorders)
+
+        if(weeks === result.length) return result
+      }
+
+      monthStartDayCopy.setUTCDate(monthStartDayCopy.getUTCDate() + 1)
+    }
+  }
 }
 
 module.exports = new DateService()

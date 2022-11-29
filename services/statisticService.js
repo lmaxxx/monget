@@ -7,6 +7,7 @@ class StatisticService {
     switch (queryType) {
       case "years": return await this.getYearStatistic(dateCounter, transactionType)
       case "weeks": return await this.getWeekStatistic(dateCounter, transactionType)
+      case "months": return await this.getMonthStatistic(dateCounter, transactionType)
     }
   }
 
@@ -32,25 +33,46 @@ class StatisticService {
         transaction.date.getTime() <= endOfTheMonth.getTime()
       ))
 
-      monthTransactions.forEach(transaction => {
-        if(transaction.transactionType === "expenses")  {
-          monthData.expenses += transaction.amount
-          return
-        }
+      const sectionData = this.processTransactionsStatisticSection(monthTransactions, transactionType, monthData)
+      data.push(sectionData)
+    }
 
-        monthData.income += transaction.amount
-      })
+    return data
+  }
 
-      const profit = monthData.income - monthData.expenses
+  async getMonthStatistic(dateCounter, transactionType) {
+    const data = []
+    const currentDate = new Date()
+    const monthStartDay = DateService.substractMonths(currentDate, dateCounter)
+    const monthEndDay = new Date(monthStartDay.getUTCFullYear(), monthStartDay.getUTCMonth() + 1, 0, 24, 59, 59, 999)
+    monthStartDay.setUTCDate(1)
 
-      if(profit >= 0) {
-        monthData.profit = profit
+    const query = {
+      start: DateService.getStartOfTheDay(monthStartDay),
+      end: DateService.getEndOfTheDay(monthEndDay),
+    }
+
+    const transactions = await TransactionService.getTransactions(null, transactionType, query)
+    const weeksBorders = DateService.getWeeksBordersInMonth(monthStartDay, monthEndDay)
+
+    weeksBorders.forEach(({start, end}) => {
+      const weekTransactions = transactions.filter(transaction => (
+        transaction.date.getTime() >= start.getTime() &&
+        transaction.date.getTime() <= end.getTime()
+      ))
+      let dayName = ""
+
+      if(start.getUTCDate() === end.getUTCDate()) {
+        dayName = start.getUTCDate()
       } else {
-        monthData.loss = Math.abs(profit)
+        dayName = `${start.getUTCDate()} - ${end.getUTCDate()}`
       }
 
-      data.push(monthData)
-    }
+      const weekData = {label: dayName, expenses: 0, income: 0, profit: 0, loss: 0}
+      const sectionData = this.processTransactionsStatisticSection(weekTransactions, transactionType, weekData)
+
+      data.push(sectionData)
+    })
 
     return data
   }
@@ -78,24 +100,8 @@ class StatisticService {
         transaction.date.getTime() <= endOfTheDay.getTime()
       ))
 
-      weekTransactions.forEach(transaction => {
-        if(transaction.transactionType === "expenses")  {
-          weekData.expenses += transaction.amount
-          return
-        }
-
-        weekData.income += transaction.amount
-      })
-
-      const profit = weekData.income - weekData.expenses
-
-      if(profit >= 0) {
-        weekData.profit = profit
-      } else {
-        weekData.loss = Math.abs(profit)
-      }
-
-      data.push(weekData)
+      const sectionData = this.processTransactionsStatisticSection(weekTransactions, transactionType, weekData)
+      data.push(sectionData)
     }
 
     return data
@@ -109,6 +115,29 @@ class StatisticService {
     if(months || months === 0) return {type: "months", dateCounter: months}
 
     throw new ApiError(400, "Bad params")
+  }
+
+  processTransactionsStatisticSection(transactions, transactionType, data) {
+    const copyData = {...data}
+
+    transactions.forEach(transaction => {
+      if(transaction.transactionType === "expenses")  {
+        copyData.expenses += transaction.amount
+        return
+      }
+
+      copyData.income += transaction.amount
+    })
+
+    const profit = copyData.income - copyData.expenses
+
+    if(profit >= 0) {
+      copyData.profit = profit
+    } else {
+      copyData.loss = Math.abs(profit)
+    }
+
+    return copyData
   }
 }
 
