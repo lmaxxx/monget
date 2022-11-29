@@ -15,7 +15,7 @@ const isAuthorized = (req, res, next) => {
     req.user = userData
     next()
   } catch (err) {
-    res.status(err.status).json({status: err.status, message: err.message})
+    ApiError.ErrorBoundary(res, err)
   }
 }
 

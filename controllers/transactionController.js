@@ -15,7 +15,7 @@ class TransactionController {
 
       res.json(transactions)
     } catch (err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 
@@ -32,7 +32,7 @@ class TransactionController {
 
       res.json(transactions)
     } catch (err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 
@@ -49,7 +49,7 @@ class TransactionController {
 
       res.json(transactions)
     } catch (err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 
@@ -60,7 +60,7 @@ class TransactionController {
 
       res.json(transaction)
     } catch (err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 
@@ -74,9 +74,7 @@ class TransactionController {
 
       res.json(transaction)
     } catch (err) {
-      console.log(err)
-      res.json(err)
-      // res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 
@@ -93,9 +91,7 @@ class TransactionController {
 
       res.json(transaction)
     } catch (err) {
-      console.log(err)
-      res.json(err)
-      // res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 
@@ -106,7 +102,7 @@ class TransactionController {
 
       res.json({message: "Success"})
     } catch (err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 
@@ -119,7 +115,7 @@ class TransactionController {
 
       res.json({chartData, transactionType: "expenses"})
     } catch (err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 
@@ -132,7 +128,7 @@ class TransactionController {
 
       res.json({chartData, transactionType: "income"})
     } catch (err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 

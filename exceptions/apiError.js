@@ -13,6 +13,12 @@ class ApiError extends Error {
       throw new ApiError(400, errors[0].msg)
     }
   }
+
+  static ErrorBoundary(res, err) {
+    if(err.status) return res.status(err.status).json({status: err.status, message: err.message})
+
+    res.json(err)
+  }
 }
 
 module.exports = ApiError

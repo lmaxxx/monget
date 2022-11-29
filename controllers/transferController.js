@@ -9,7 +9,7 @@ class TransferController {
 
       res.json(transfers)
     } catch (err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 
@@ -23,7 +23,7 @@ class TransferController {
 
       res.json(transfer)
     } catch (err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 }

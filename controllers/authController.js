@@ -13,7 +13,7 @@ class AuthController {
 
       return res.json(userData)
     } catch(err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 
@@ -28,7 +28,7 @@ class AuthController {
 
       return res.json(userData)
     } catch(err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 
@@ -39,7 +39,7 @@ class AuthController {
 
       res.redirect(process.env.CLIENT_URL)
     } catch (err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 
@@ -52,7 +52,7 @@ class AuthController {
       res.clearCookie("refreshToken")
       return res.sendStatus(200)
     } catch(err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 
@@ -65,7 +65,7 @@ class AuthController {
 
       return res.json(userData)
     } catch(err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 
@@ -80,7 +80,7 @@ class AuthController {
 
       return res.json(userData)
     } catch (err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 }

@@ -10,7 +10,7 @@ class CategoryController {
 
       res.json(categories)
     } catch (err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 
@@ -21,7 +21,7 @@ class CategoryController {
 
       res.json(category)
     } catch (err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 
@@ -34,7 +34,7 @@ class CategoryController {
 
       res.json({message: "Success"})
     } catch (err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 
@@ -49,7 +49,7 @@ class CategoryController {
 
       res.json(category)
     } catch(err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 
@@ -60,7 +60,7 @@ class CategoryController {
 
       res.json({message: "Success"})
     } catch(err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 
@@ -74,7 +74,7 @@ class CategoryController {
 
       res.json(category)
     } catch (err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 
@@ -85,7 +85,7 @@ class CategoryController {
 
       res.json(categories)
     } catch (err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 }

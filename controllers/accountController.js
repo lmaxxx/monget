@@ -9,7 +9,7 @@ class AccountController {
 
       res.json(accounts)
     } catch (err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 
@@ -21,7 +21,7 @@ class AccountController {
 
       res.json(account)
     } catch(err) {
-      res.status(err.status).json({status: err.status, message: err.message})
+      ApiError.ErrorBoundary(res, err)
     }
   }
 
