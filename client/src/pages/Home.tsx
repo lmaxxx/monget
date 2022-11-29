@@ -1,12 +1,12 @@
 import DefaultPageWrapper from "../hoc/DefaultPageWrapper";
 import HomeBar from "../components/HomeBar";
-import HomeSkeleton from "../components/HomeSkeleton";
 import {useAppSelector} from "../hooks/storeHooks";
 import {useGetAccountsQuery} from "../api/accountApi";
 import {Title} from '@mantine/core'
 import AccountService from "../services/accountService";
 import HomeSections from "../components/HomeSections";
 import HomeTransactionDate from "../components/HomeTransactionDate";
+import Loader from "../components/Loader";
 
 const Home = () => {
   useGetAccountsQuery()
@@ -17,7 +17,7 @@ const Home = () => {
   if(!accountLength) {
     return (
       <DefaultPageWrapper>
-        <HomeSkeleton/>
+        <Loader/>
       </DefaultPageWrapper>
     )
   }
@@ -29,9 +29,6 @@ const Home = () => {
       <HomeTransactionDate/>
       <HomeSections/>
     </DefaultPageWrapper>
-  // <DefaultPageWrapper>
-  //   <HomeSkeleton/>
-  // </DefaultPageWrapper>
   )
 }
 
