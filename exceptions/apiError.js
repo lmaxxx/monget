@@ -15,6 +15,8 @@ class ApiError extends Error {
   }
 
   static ErrorBoundary(res, err) {
+    console.log(err)
+
     if(err.status) return res.status(err.status).json({status: err.status, message: err.message})
 
     res.json(err)

@@ -10,7 +10,7 @@ const authRouter = require("./routes/authRouter")
 const transferRouter = require("./routes/transferRouter")
 const categoryRouter = require("./routes/categoryRoute")
 const transactionRouter = require("./routes/transactionRouter")
-const statisticRouter = require("/routes/statisticRouter")
+const statisticRouter = require("./routes/statisticRouter")
 
 app.use(cors({credentials: true, origin: 'http://localhost:3000'}))
 app.use(express.json())

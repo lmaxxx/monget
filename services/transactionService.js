@@ -8,9 +8,10 @@ const CategoryService = require("../services/categoryService")
 
 class TransactionService {
   async getTransactions(accountId, transactionType, query, options) {
-    const findQuery = {accountId}
+    const findQuery = {}
 
     if (transactionType) findQuery.transactionType = transactionType
+    if(accountId) findQuery.accountId = accountId
     if (query) {
       const {start, end, categoryId} = query
 

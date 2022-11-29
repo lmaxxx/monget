@@ -33,6 +33,31 @@ class DateService {
 
     return copyDate
   }
+
+  getStartOfTheYear(date, years) {
+    const copyDate = new Date(date.getTime())
+
+    copyDate.setUTCFullYear(copyDate.getUTCFullYear() - years + 1)
+    copyDate.setUTCMonth(0, 1)
+    copyDate.setUTCHours(0, 0, 0, 0)
+
+    return copyDate
+  }
+
+  getEndOfTheYear(date, years) {
+    return new Date(Date.UTC(date.getUTCFullYear() - years + 1, 11, 31, 23, 59, 59 ,999))
+  }
+
+  getStartOfTheMonthByIndex(date, index) {
+    const copyDate = new Date(date.getTime())
+    copyDate.setUTCMonth(index)
+
+    return copyDate
+  }
+
+  getEndOfTheMonthByIndex(date, months) {
+    return new Date(date.getUTCFullYear(), months + 1, 0, 23, 59, 59, 999)
+  }
 }
 
 module.exports = new DateService()
