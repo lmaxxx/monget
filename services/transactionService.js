@@ -42,9 +42,11 @@ class TransactionService {
 
   async createTransaction(userId, data) {
     data.date = new Date(data.date)
+    const hours = data.date.getUTCHours()
+    const milliseconds = data.date.getUTCMilliseconds()
 
-    if(data.date.getUTCHours() == 0) {
-      data.date.setUTCHours(data.date.getUTCHours() + 6)
+    if(hours > 0 && milliseconds === 0) {
+      data.date.setUTCHours(hours + (25 - hours))
     }
 
     const newTransactionDoc = await Transaction.create({
@@ -63,7 +65,16 @@ class TransactionService {
         throw new ApiError(400, "There isn't find any category with current id")
       })
     const oldTransactionDoc = {...DataService.getTransactionFromDoc(transactionDoc)}
+
     if (!transactionDoc) throw new ApiError(400, "There isn't find any category with current id")
+
+    data.date = new Date(data.date)
+    const hours = data.date.getUTCHours()
+    const milliseconds = data.date.getUTCMilliseconds()
+
+    if(hours > 0 && milliseconds === 0) {
+      data.date.setUTCHours(hours + (25 - hours))
+    }
 
     Object.entries(data).forEach(([property, value]) => {
       transactionDoc[property] = value
