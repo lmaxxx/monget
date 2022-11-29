@@ -59,11 +59,19 @@ export enum TransactionDateRequestType {
   Today = "days", Week = "weeks", Month = "months", Range = "range"
 }
 
+export enum StatisticTransactionType {
+  General = "", Expenses = "expenses", Income = "income"
+}
+
 export interface PieSection {
   id: string,
   value: number
   color: string,
   isEmpty?: boolean
+}
+
+export enum StatisticType {
+  PerWeek = "weeks", PerMonth = "months", PerYear = "years"
 }
 
 export type DateRangeType = [Date | null, Date | null]
