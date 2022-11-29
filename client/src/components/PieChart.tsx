@@ -1,7 +1,7 @@
 import {FC} from 'react'
 import {ComputedDatum, ResponsivePie} from "@nivo/pie";
 import CenteredMetric from "./CenteredMetric";
-import {PieSection} from "../types/sliceTypes/transaction.type";
+import {PieSection, TransactionType} from "../types/sliceTypes/transaction.type";
 import emptyPieChartData from "../data/emptyPieChartData";
 import PieTooltip from "./PieTooltip";
 import {useNavigate} from "react-router-dom";
@@ -10,12 +10,11 @@ import CategoryService from "../services/categoryService";
 
 interface PropsType {
   data: PieSection[]
+  transactionType: TransactionType
 }
 
-const PieChart: FC<PropsType> = ({data}) => {
-  const transactionType = useAppSelector(state => state.transactionSlice.activeTransactionType)
+const PieChart: FC<PropsType> = ({data, transactionType}) => {
   const categories = useAppSelector(state => state.categorySlice[`${transactionType}Categories`])
-
   const activeAccount = useAppSelector(state => state.accountSlice.activeAccount)
   const navigate = useNavigate()
 
@@ -29,7 +28,11 @@ const PieChart: FC<PropsType> = ({data}) => {
   return (
     <ResponsivePie
       data={data.length ? data : emptyPieChartData}
-      tooltip={({datum}) => datum.data.isEmpty ? <></> : <PieTooltip data={datum.data}/>}
+      tooltip={({datum}) =>
+        datum.data.isEmpty ?
+          <></> :
+          <PieTooltip transactionType={transactionType} data={datum.data}/>
+    }
       onClick={onClick}
       enableArcLinkLabels={false}
       enableArcLabels={false}

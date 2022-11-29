@@ -40,7 +40,7 @@ const HomeSection: FC<PropsType> = ({title}) => {
     <Stack align={"center"}>
       <Title align={"center"}>{title}</Title>
       <Stack sx={{height: "45vh", width: "100%"}}>
-        <PieChart data={chartData}/>
+        <PieChart transactionType={transactionType} data={chartData}/>
       </Stack>
       <Button
         component={Link}

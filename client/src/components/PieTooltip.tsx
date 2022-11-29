@@ -1,4 +1,4 @@
-import {PieSection} from "../types/sliceTypes/transaction.type";
+import {PieSection, TransactionType} from "../types/sliceTypes/transaction.type";
 import {FC} from "react";
 import {useAppSelector} from "../hooks/storeHooks";
 import CategoryService from "../services/categoryService";
@@ -7,10 +7,10 @@ import AccountService from "../services/accountService";
 
 interface PropsType {
   data: PieSection
+  transactionType: TransactionType
 }
 
-const PieTooltip: FC<PropsType> = ({data: {id, value, color}}) => {
-  const transactionType = useAppSelector(state => state.transactionSlice.activeTransactionType)
+const PieTooltip: FC<PropsType> = ({data: {id, value, color}, transactionType}) => {
   const categories = useAppSelector(state => state.categorySlice[`${transactionType}Categories`])
   const category = CategoryService.getCategoryById(categories, id)!
   const activeAccountCurrency = useAppSelector(state => state.accountSlice.activeAccount.currency)
