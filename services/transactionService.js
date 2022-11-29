@@ -250,8 +250,8 @@ class TransactionService {
     days = +days
     weeks = +weeks
     months = +months
-    rangeStart = +rangeStart ? new Date(+rangeStart) : null
-    rangeEnd = +rangeEnd ? new Date(+rangeEnd) : null
+    rangeStart = rangeStart ? new Date(+rangeStart) : null
+    rangeEnd = rangeEnd ? new Date(+rangeEnd) : null
 
     if (days || days === 0) {
       const currentDay = DateService.subtractDays(currentDate, days)
@@ -274,7 +274,7 @@ class TransactionService {
 
     if (months || months === 0) {
       const monthStartDay = DateService.substractMonths(currentDate, months)
-      const monthEndDay = new Date(monthStartDay.getUTCFullYear(), monthStartDay.getUTCMonth() + 1, 0)
+      const monthEndDay = new Date(monthStartDay.getUTCFullYear(), monthStartDay.getUTCMonth() + 1)
 
       monthStartDay.setUTCDate(1)
 
@@ -285,6 +285,12 @@ class TransactionService {
     }
 
     if (rangeStart && rangeEnd) {
+      const hours = rangeStart.getUTCHours()
+
+      if(hours > 0) {
+        rangeStart.setUTCHours(hours + (25 - hours))
+        rangeEnd.setUTCHours(hours + (25 - hours))
+      }
       return {
         start: DateService.getStartOfTheDay(rangeStart),
         end: DateService.getEndOfTheDay(rangeEnd),

@@ -131,12 +131,14 @@ class StatisticService {
       copyData.income += amount
     })
 
-    const profit = copyData.income - copyData.expenses
+    let profit = (copyData.income - copyData.expenses)
+
+    if(profit !== parseInt(profit)) profit = Number(profit).toFixed(2)
 
     if(profit >= 0) {
-      copyData.profit = profit
+      copyData.profit = Number(profit)
     } else {
-      copyData.loss = Math.abs(profit)
+      copyData.loss = Math.abs(Number(profit))
     }
 
     return copyData

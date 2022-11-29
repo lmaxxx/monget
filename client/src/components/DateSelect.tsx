@@ -36,6 +36,7 @@ const DateSelect: FC<PropsType> = ({...props}) => {
             variant="subtle"
             color={"gray"}
             onClick={props.addDateCounter}
+            p={0}
           >
             <IconChevronLeft/>
           </Button>
@@ -48,6 +49,7 @@ const DateSelect: FC<PropsType> = ({...props}) => {
             variant="subtle"
             color={"gray"}
             onClick={props.subDateCounter}
+            p={0}
           >
             <IconChevronRight/>
           </Button>
