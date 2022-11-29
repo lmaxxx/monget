@@ -1,5 +1,5 @@
 import {FC} from 'react'
-import {DonutSection, TransactionType} from "../types/sliceTypes/transaction.type";
+import {PieSection, TransactionType} from "../types/sliceTypes/transaction.type";
 import {useAppSelector} from "../hooks/storeHooks";
 import CategoryService from "../services/categoryService";
 import CategoryIcon from "./CategoryIcon";
@@ -10,7 +10,7 @@ import {Link} from "react-router-dom";
 
 interface PropsType {
   transactionType: TransactionType
-  chartSection: DonutSection
+  chartSection: PieSection
 }
 
 const HomeCategoriesListItem: FC<PropsType> = ({transactionType, chartSection}) => {

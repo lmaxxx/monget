@@ -4,8 +4,8 @@ import {IUser} from "./user.type";
 
 export interface InitialStateType {
   activeTransactionType: TransactionType
-  expensesChartData: DonutSection[],
-  incomeChartData: DonutSection[],
+  expensesChartData: PieSection[],
+  incomeChartData: PieSection[],
   activeTransactionDateRequestType: TransactionDateRequestType
   dateCounter: number
   range: DateRangeType
@@ -59,10 +59,11 @@ export enum TransactionDateRequestType {
   Today = "days", Week = "weeks", Month = "months", Range = "range"
 }
 
-export interface DonutSection {
+export interface PieSection {
   id: string,
   value: number
   color: string,
+  isEmpty?: boolean
 }
 
 export type DateRangeType = [Date | null, Date | null]

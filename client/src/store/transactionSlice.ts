@@ -1,7 +1,7 @@
 import type {PayloadAction} from "@reduxjs/toolkit";
 import {createSlice} from '@reduxjs/toolkit'
 import {
-  DateRangeType, DonutSection,
+  DateRangeType, PieSection,
   InitialStateType,
   TransactionDateRequestType,
   TransactionType
@@ -42,10 +42,10 @@ export const transactionSlice = createSlice({
     subDateCounter: (state) => {
       state.dateCounter -= 1
     },
-    setExpensesChartData(state, action: PayloadAction<DonutSection[]>) {
+    setExpensesChartData(state, action: PayloadAction<PieSection[]>) {
       state.expensesChartData = action.payload
     },
-    setIncomeChartData(state, action: PayloadAction<DonutSection[]>) {
+    setIncomeChartData(state, action: PayloadAction<PieSection[]>) {
       state.incomeChartData = action.payload
     },
   }

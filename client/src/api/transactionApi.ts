@@ -1,7 +1,7 @@
 import {createApi} from "@reduxjs/toolkit/query/react";
 import baseQueryWithReauth from "./baseQueryWithReauth";
 import {
-  DonutSection,
+  PieSection,
   GetTransactionParamsType,
   ITransaction,
   TransactionCreatingBodyParams
@@ -49,7 +49,7 @@ export const transactionApi = createApi({
       }),
       invalidatesTags: ["Transaction"]
     }),
-    getTransactionsChartData: builder.query<DonutSection[], GetTransactionParamsType>({
+    getTransactionsChartData: builder.query<PieSection[], GetTransactionParamsType>({
       query: ({accountId, transactionType, dateCounter, transactionDateRequestType, range}) => ({
         url: `/api/transactions/chart/${transactionType}/${accountId}`,
         params: TransactionService.getDateParams(dateCounter, transactionDateRequestType, range)
