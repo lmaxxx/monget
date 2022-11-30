@@ -3,6 +3,7 @@ import userReducer from './userSlice'
 import accountReducer from "./accountSlice";
 import transactionReducer from "./transactionSlice";
 import categoryReducer from './categorySlice'
+import statisticReducer from "./statisticSlice";
 import {authApi} from '../api/authApi'
 import {accountApi} from "../api/accountApi";
 import {transferApi} from "../api/transferApi";
@@ -15,6 +16,7 @@ export const store = configureStore({
     accountSlice: accountReducer,
     transactionSlice: transactionReducer,
     categorySlice: categoryReducer,
+    statisticSlice: statisticReducer,
     [authApi.reducerPath]: authApi.reducer,
     [accountApi.reducerPath]: accountApi.reducer,
     [transferApi.reducerPath]: transferApi.reducer,
