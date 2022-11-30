@@ -43,7 +43,7 @@ class StatisticService {
   async getMonthStatistic(dateCounter, transactionType) {
     const data = []
     const currentDate = new Date()
-    const monthStartDay = DateService.substractMonths(currentDate, dateCounter)
+    const monthStartDay = DateService.subtractMonths(currentDate, dateCounter)
     const monthEndDay = new Date(monthStartDay.getUTCFullYear(), monthStartDay.getUTCMonth() + 1, 0, 24, 59, 59, 999)
     monthStartDay.setUTCDate(1)
 

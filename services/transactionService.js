@@ -273,7 +273,7 @@ class TransactionService {
     }
 
     if (months || months === 0) {
-      const monthStartDay = DateService.substractMonths(currentDate, months)
+      const monthStartDay = DateService.subtractMonths(currentDate, months)
       const monthEndDay = new Date(monthStartDay.getUTCFullYear(), monthStartDay.getUTCMonth() + 1)
 
       monthStartDay.setUTCDate(1)

@@ -27,7 +27,7 @@ class DateService {
     return copyDate
   }
 
-  substractMonths(date, months) {
+  subtractMonths(date, months) {
     const copyDate = new Date(date.getTime())
     copyDate.setUTCMonth(copyDate.getUTCMonth() - months + 1)
 
