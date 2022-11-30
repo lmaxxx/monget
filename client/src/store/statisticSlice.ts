@@ -1,10 +1,16 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {InitialStateType, StatisticDateType, StatisticTransactionType} from "../types/sliceTypes/statistic.type";
+import {
+  InitialStateType,
+  StatisticDateType,
+  StatisticSection,
+  StatisticTransactionType
+} from "../types/sliceTypes/statistic.type";
 
 const initialState = {
   activeStatisticTransactionType: StatisticTransactionType.General,
   statisticDateType: StatisticDateType.PerYear,
-  dateCounter: 1
+  dateCounter: 1,
+  data: []
 } as InitialStateType
 
 export const statisticSlice = createSlice({
@@ -24,6 +30,9 @@ export const statisticSlice = createSlice({
     subStatisticDateCounter: (state) => {
       state.dateCounter -= 1
     },
+    setData: (state, action: PayloadAction<StatisticSection[]>) => {
+      state.data = action.payload
+    }
   }
 })
 
@@ -31,7 +40,8 @@ export const {
   setActiveStatisticTransactionType,
   setStatisticDateType,
   addStatisticDateCounter,
-  subStatisticDateCounter
+  subStatisticDateCounter,
+  setData
 } = statisticSlice.actions
 
 export default statisticSlice.reducer

@@ -8,7 +8,8 @@ const Charts = () => {
   const activeStatisticTransactionType = useAppSelector(state => state.statisticSlice.activeStatisticTransactionType)
   const statisticDateType = useAppSelector(state => state.statisticSlice.statisticDateType)
   const dateCounter = useAppSelector(state => state.statisticSlice.dateCounter)
-  const [getStatistic, {data}] = useLazyGetStatisticQuery()
+  const data = useAppSelector(state => state.statisticSlice.data)
+  const [getStatistic] = useLazyGetStatisticQuery()
 
   useEffect(() => {
     getStatistic({
@@ -16,8 +17,6 @@ const Charts = () => {
       statisticTransactionType: activeStatisticTransactionType
     })
   }, [dateCounter, activeStatisticTransactionType, statisticDateType]);
-
-  console.log(data)
 
   return (
     <DefaultPageWrapper>

@@ -1,7 +1,17 @@
 import DateService from "./dateService";
 import {StatisticDateType} from "../types/sliceTypes/statistic.type";
+import {AnyAction, ThunkDispatch} from "@reduxjs/toolkit";
+import {setData} from "../store/statisticSlice";
 
 class StatisticService {
+  setStatisticData({dispatch, data}: {
+    dispatch: ThunkDispatch<any, any, AnyAction>,
+    data: any,
+  }) {
+      dispatch(setData(data))
+  }
+
+
   getDateLabelText(statisticDateType: StatisticDateType, dateCounter: number) {
     const currentDate = new Date()
     const stringWeekDateOptions: Intl.DateTimeFormatOptions = {year: 'numeric', month: 'short', day: 'numeric' };

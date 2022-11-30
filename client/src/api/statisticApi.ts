@@ -1,6 +1,7 @@
 import {createApi} from "@reduxjs/toolkit/query/react";
 import baseQueryWithReauth from "./baseQueryWithReauth";
 import {GetStatisticQueryParams, StatisticSection} from "../types/sliceTypes/statistic.type";
+import StatisticService from "../services/statisticService";
 
 export const statisticApi = createApi({
   reducerPath: "statisticApi",
@@ -13,7 +14,11 @@ export const statisticApi = createApi({
           :
           `/api/statistics/`,
         params: {...statisticDateType}
-      })
+      }),
+      async onQueryStarted(id, {dispatch, queryFulfilled}) {
+        const {data} = await queryFulfilled
+        await StatisticService.setStatisticData({dispatch, data})
+      }
     })
   })
 })

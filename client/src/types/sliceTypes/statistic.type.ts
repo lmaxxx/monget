@@ -2,6 +2,7 @@ export interface InitialStateType {
   activeStatisticTransactionType: StatisticTransactionType
   statisticDateType: StatisticDateType
   dateCounter: number
+  data: StatisticSection[]
 }
 
 export enum StatisticTransactionType {
