@@ -1,9 +1,10 @@
-import {Group, Select} from "@mantine/core";
+import {Group, Select, Text} from "@mantine/core";
 import StatisticTransactionSegmentControl from "./StatisticTransactionSegmentControl";
 import {useAppSelector} from "../hooks/storeHooks";
 import {useDispatch} from "react-redux";
 import {setActiveStatisticTransactionType, setStatisticDateType} from "../store/statisticSlice";
 import {StatisticDateType, StatisticTransactionType} from "../types/sliceTypes/statistic.type";
+import StatisticDateLabel from "./StatisticDateLabel";
 
 
 const ChartsNavbar = () => {
@@ -20,11 +21,12 @@ const ChartsNavbar = () => {
   }
 
   return (
-    <Group position={"apart"}>
+    <Group position={"center"}>
       <StatisticTransactionSegmentControl
         onChange={setStatisticTransactionTypeDispatch}
         statisticTransactionType={activeStatisticTransactionType}
       />
+      <StatisticDateLabel/>
       <Select
         placeholder="Statistic period"
         value={statisticDateType}

@@ -3,7 +3,7 @@ import {InitialStateType, StatisticDateType, StatisticTransactionType} from "../
 
 const initialState = {
   activeStatisticTransactionType: StatisticTransactionType.General,
-  statisticDateType: StatisticDateType.PerWeek,
+  statisticDateType: StatisticDateType.PerYear,
   dateCounter: 1
 } as InitialStateType
 
@@ -16,6 +16,7 @@ export const statisticSlice = createSlice({
     },
     setStatisticDateType: (state, action: PayloadAction<StatisticDateType>) => {
       state.statisticDateType = action.payload
+      state.dateCounter = 1
     },
     addStatisticDateCounter: (state) => {
       state.dateCounter += 1

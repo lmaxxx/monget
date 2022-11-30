@@ -27,13 +27,19 @@ class DateService {
     return copyDate
   }
 
-  substractMonths(date: Date, months: number) {
+  subtractMonths(date: Date, months: number) {
     const copyDate = new Date(date.getTime())
     copyDate.setUTCMonth(copyDate.getUTCMonth() - months + 1)
 
     return copyDate
   }
 
+  subtractYears(date: Date, years: number) {
+    const copyDate = new Date(date.getTime())
+    copyDate.setUTCFullYear(copyDate.getUTCFullYear() - years + 1)
+
+    return copyDate
+  }
 }
 
 export default new DateService()
