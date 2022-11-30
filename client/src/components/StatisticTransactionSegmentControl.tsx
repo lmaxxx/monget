@@ -1,6 +1,6 @@
 import {FC} from 'react'
 import {Group, GroupPosition, SegmentedControl} from "@mantine/core";
-import {StatisticTransactionType} from "../types/sliceTypes/transaction.type";
+import {StatisticTransactionType} from "../types/sliceTypes/statistic.type";
 
 interface PropsType {
   disabled?: boolean
