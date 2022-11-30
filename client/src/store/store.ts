@@ -9,6 +9,7 @@ import {accountApi} from "../api/accountApi";
 import {transferApi} from "../api/transferApi";
 import {categoryApi} from "../api/categoryApi";
 import {transactionApi} from '../api/transactionApi'
+import {statisticApi} from "../api/statisticApi";
 
 export const store = configureStore({
   reducer: {
@@ -21,7 +22,8 @@ export const store = configureStore({
     [accountApi.reducerPath]: accountApi.reducer,
     [transferApi.reducerPath]: transferApi.reducer,
     [categoryApi.reducerPath]: categoryApi.reducer,
-    [transactionApi.reducerPath]: transactionApi.reducer
+    [transactionApi.reducerPath]: transactionApi.reducer,
+    [statisticApi.reducerPath]: statisticApi.reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({serializableCheck: false}).concat(
@@ -29,7 +31,8 @@ export const store = configureStore({
       accountApi.middleware,
       transferApi.middleware,
       categoryApi.middleware,
-      transactionApi.middleware
+      transactionApi.middleware,
+      statisticApi.middleware
     ),
 })
 
