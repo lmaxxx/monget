@@ -5,6 +5,7 @@ const Account = require("../models/Account");
 const ConverterService = require("../services/converterService")
 const DateService = require("../services/dateService")
 const CategoryService = require("../services/categoryService")
+const AccountService = require("../services/accountService");
 
 class TransactionService {
   async getTransactions(accountId, transactionType, query, options) {
@@ -298,6 +299,32 @@ class TransactionService {
     }
   }
 
+  async getAccountsFromTransactions(transactions) {
+    let result = []
+
+    if(!transactions.length) return result
+
+    const userId = transactions[0].ownerId.toString()
+    const accounts = await AccountService.getAccounts(userId, "ownerId")
+
+    transactions.forEach(transaction => {
+      result.push(transaction.accountId.toString())
+    })
+
+    result = [...new Set(result)]
+
+    return result.map(accountId => this.getAccountById(accountId, accounts))
+  }
+
+  getAccountById(id, accounts) {
+    return accounts.find(account => account.id.toString() === id)
+  }
+
+  getTransactionsFromAccount(accountId, transactions) {
+    if(transactions.length === 0 || transactions === undefined) return []
+
+    return transactions.filter(transaction => transaction.accountId.toString() === accountId)
+  }
 }
 
 module.exports = new TransactionService()

@@ -26,8 +26,8 @@ class AccountService {
     return DataService.getAccountFormDoc(accountDoc)
   }
 
-  async getAccounts(userId) {
-    const accountsDocs = await Account.find({ownerId: userId})
+  async getAccounts(userId, populate) {
+    const accountsDocs = await Account.find({ownerId: userId}).populate(populate)
     const accounts = DataService.getAccountsFromDocs(accountsDocs)
 
     return accounts

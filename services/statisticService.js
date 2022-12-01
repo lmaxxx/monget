@@ -1,6 +1,7 @@
 const DateService = require("../services/dateService");
 const TransactionService = require("../services/transactionService");
 const ApiError = require("../exceptions/apiError");
+const ConverterService = require("../services/converterService")
 
 class StatisticService {
   async getStatistics(queryType, dateCounter, transactionType) {
@@ -21,7 +22,8 @@ class StatisticService {
       end: endOfTheYear
     }
 
-    const transactions = await TransactionService.getTransactions(null, transactionType, query)
+    let transactions = await TransactionService.getTransactions(null, transactionType, query)
+    transactions = await this.convertTransactionsAmount(transactions)
 
     for(let i = 0; i < 12; i++) {
       const startOfTheMonth = DateService.getStartOfTheMonthByIndex(startOfTheYear, i)
@@ -33,7 +35,7 @@ class StatisticService {
         transaction.date.getTime() <= endOfTheMonth.getTime()
       ))
 
-      const sectionData = this.processTransactionsStatisticSection(monthTransactions, transactionType, monthData)
+      const sectionData = await this.processTransactionsStatisticSection(monthTransactions, transactionType, monthData)
       data.push(sectionData)
     }
 
@@ -52,10 +54,11 @@ class StatisticService {
       end: DateService.getEndOfTheDay(monthEndDay),
     }
 
-    const transactions = await TransactionService.getTransactions(null, transactionType, query)
+    let transactions = await TransactionService.getTransactions(null, transactionType, query)
+    transactions = await this.convertTransactionsAmount(transactions)
     const weeksBorders = DateService.getWeeksBordersInMonth(monthStartDay, monthEndDay)
 
-    weeksBorders.forEach(({start, end}) => {
+    for(const {start, end} of weeksBorders) {
       const weekTransactions = transactions.filter(transaction => (
         transaction.date.getTime() >= start.getTime() &&
         transaction.date.getTime() <= end.getTime()
@@ -63,16 +66,16 @@ class StatisticService {
       let dayName = ""
 
       if(start.getUTCDate() === end.getUTCDate()) {
-        dayName = start.getUTCDate()
+        dayName = start.getUTCDate() + ""
       } else {
         dayName = `${start.getUTCDate()} - ${end.getUTCDate()}`
       }
 
       const weekData = {label: dayName, expenses: 0, income: 0, profit: 0, loss: 0}
-      const sectionData = this.processTransactionsStatisticSection(weekTransactions, transactionType, weekData)
+      const sectionData = await this.processTransactionsStatisticSection(weekTransactions, transactionType, weekData)
 
       data.push(sectionData)
-    })
+    }
 
     return data
   }
@@ -88,7 +91,8 @@ class StatisticService {
       end: DateService.getEndOfTheDay(weekEndDay),
     }
 
-    const transactions = await TransactionService.getTransactions(null, transactionType, query)
+    let transactions = await TransactionService.getTransactions(null, transactionType, query)
+    transactions = await this.convertTransactionsAmount(transactions)
 
     for (let i = 0; i < 7; i++) {
       const startOfTheDay = DateService.addDays(query.start, i + 1)
@@ -100,7 +104,7 @@ class StatisticService {
         transaction.date.getTime() <= endOfTheDay.getTime()
       ))
 
-      const sectionData = this.processTransactionsStatisticSection(weekTransactions, transactionType, weekData)
+      const sectionData = await this.processTransactionsStatisticSection(weekTransactions, transactionType, weekData)
       data.push(sectionData)
     }
 
@@ -117,7 +121,9 @@ class StatisticService {
     throw new ApiError(400, "Bad params")
   }
 
-  processTransactionsStatisticSection(transactions, transactionType, data) {
+  async processTransactionsStatisticSection(transactions, transactionType, data) {
+    if(!transactions.length) return data
+
     const copyData = {...data}
 
     transactions.forEach(transaction => {
@@ -142,6 +148,36 @@ class StatisticService {
     }
 
     return copyData
+  }
+
+  async convertTransactionsAmount(allTransactions) {
+    const result = []
+    const accounts = await TransactionService.getAccountsFromTransactions(allTransactions)
+
+    if(!accounts.length) return []
+
+    for(const account of accounts) {
+      const transactions = TransactionService.getTransactionsFromAccount(account.id.toString(), allTransactions)
+      if(account.currency === account.ownerId.currency) {
+        result.push(...transactions)
+        continue
+      }
+
+      const currencyPrice = await ConverterService.convert({
+        amount: 1,
+        have: account.currency,
+        want: account.ownerId.currency
+      })
+
+      transactions.forEach(transaction => {
+        const amount = transaction.convertedAmount ? transaction.convertedAmount : transaction.amount
+        transaction.convertedAmount = currencyPrice * amount
+
+        result.push(transaction)
+      })
+    }
+
+    return result
   }
 }
 

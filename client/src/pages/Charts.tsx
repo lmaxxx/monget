@@ -18,6 +18,8 @@ const Charts = () => {
     })
   }, [dateCounter, activeStatisticTransactionType, statisticDateType]);
 
+  console.log(data)
+
   return (
     <DefaultPageWrapper>
       <ChartsNavbar/>
