@@ -95,13 +95,6 @@ class TransactionService {
     await this.processDeletedTransaction(transactionDoc)
   }
 
-  async deleteTransactionsByAccount(accountId) {
-    await Transaction.deleteMany({accountId})
-      .catch(err => {
-        throw new ApiError(400, "There is no account with current id")
-      })
-  }
-
   async processNewTransaction(transactionDoc) {
     const accountDoc = await Account.findById(transactionDoc.accountId)
       .catch(err => {

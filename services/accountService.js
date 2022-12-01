@@ -1,7 +1,7 @@
 const Account = require("../models/Account");
 const DataService = require("../services/dataService")
 const ApiError = require("../exceptions/apiError");
-const TransactionService = require("../services/transactionService");
+const Transaction = require("../models/Transaction");
 
 class AccountService {
   async createAccount(userData, data) {
@@ -62,7 +62,10 @@ class AccountService {
       throw new ApiError(400, "There is no account with current id")
     })
 
-    await TransactionService.deleteTransactionsByAccount(id)
+    await Transaction.deleteMany({accountId: id})
+      .catch(err => {
+        throw new ApiError(400, "There is no account with current id")
+      })
   }
 }
 
