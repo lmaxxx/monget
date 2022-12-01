@@ -6,7 +6,7 @@ import {useMediaQuery} from "@mantine/hooks";
 import {Box, Button, ColorPicker, Group, LoadingOverlay, TextInput} from "@mantine/core";
 import colorsForPicker from "../data/colorsForPicker.json";
 import {useDeleteCategoryMutation, useEditCategoryMutation, useGetCategoryQuery} from "../api/categoryApi";
-import {ICategory} from "../types/sliceTypes/category.type";
+import {CategoryCreatingFormValues, ICategory} from "../types/sliceTypes/category.type";
 import CategoryService from "../services/categoryService";
 import {TransactionIconType} from "../data/transactionIcons";
 import CategoryIcon from "./CategoryIcon";
@@ -26,7 +26,7 @@ const CategoryEditForm = () => {
   const [openedModal, setOpenedModal] = useState<boolean>(false)
   const categoriesAmount = useAppSelector(state => state.categorySlice[`${currentCategory?.transactionType || "expenses"}Categories`].length)
   const navigate = useNavigate()
-  const form = useForm(CategoryService.getCategoryFormConfig())
+  const form = useForm<CategoryCreatingFormValues>(CategoryService.getCategoryFormConfig())
   const isLoading = isEditing || isDeleting || isLoadingQuery
   const isMobile = useMediaQuery('(max-width: 520px)');
 
@@ -40,7 +40,7 @@ const CategoryEditForm = () => {
     }
   }, [currentCategory]);
 
-  const editCategorySubmit = async (values: { [key: number]: string }) => {
+  const editCategorySubmit = async (values: CategoryCreatingFormValues) => {
     const data = {
       ...values,
       iconBackgroundColor,

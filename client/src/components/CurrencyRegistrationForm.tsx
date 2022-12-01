@@ -9,7 +9,7 @@ import {CurrencyRegistrationFormValues} from "../types/sliceTypes/user.type";
 import CurrencySelect from "./CurrencySelect";
 
 const CurrencyRegistrationForm = () => {
-  const form = useForm(AuthService.getCurrencyRegistrationFormConfig());
+  const form = useForm<CurrencyRegistrationFormValues>(AuthService.getCurrencyRegistrationFormConfig());
   const [updateCurrency, {error, isLoading}] = useUpdateCurrencyMutation()
 
   useEffect(() => {

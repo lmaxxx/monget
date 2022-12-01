@@ -55,8 +55,8 @@ class TransactionService {
         date: new Date(),
       },
       validate: {
-        title: (value: string) => value.trim().length ? null : "Title must be least 3 chars long",
-        currency: (value: string) => value.trim().length ? null : "You need to choose currency",
+        title: (value: string) => value.trim().length > 2 ? null : "Title must be least 3 chars long",
+        currency: (value: string) => value.trim().length == 3 ? null : "You need to choose currency",
         amount: (value: number) => value > 0 ? null : "Amount should be bigger than 0"
       }
     }

@@ -8,7 +8,7 @@ router.get("/accounts", isAuthorized, AccountController.getAccounts)
 router.get("/account/:id", isAuthorized, AccountController.getAccount)
 router.post("/account",
   body("currency").isLength({min: 3}).withMessage("Choose currency"),
-  body("accountName").isLength({min: 1}).withMessage("Account name must be at least 1 char long"),
+  body("accountName").isLength({min: 3}).withMessage("Account name must be at least 1 char long"),
   body("iconName").isLength({min: 1}).withMessage("Choose icon"),
   body("iconBackgroundColor").isLength({min: 7}).withMessage("Choose icon background color"),
   body("amount").isNumeric().withMessage("Amount must be a number"),

@@ -19,8 +19,8 @@ class AccountService {
       },
       validate: {
         currency: (value: string) => value.trim().length === 3 ? null : "You need to choose currency",
-        amount: (value: number) => value !== undefined ? null: "You need to type an amount",
-        accountName:  (value: string) => value.trim().length ? null : "You need to type an account name"
+        amount: (value: number) => value ? null: "You need to type an amount",
+        accountName:  (value: string) => value.trim().length > 2 ? null : "You need to type an account name"
       }
     }
   }
@@ -34,7 +34,7 @@ class AccountService {
       },
       validate: {
         currency: (value: string) => value.trim().length === 3 ? null : "You need to choose currency",
-        amount: (value: number) => value !== undefined ? null: "You need to type an amount",
+        amount: (value: number) => value ? null: "You need to type an amount",
         accountName:  (value: string) => value.trim().length ? null : "You need to type an account name"
       }
     }
