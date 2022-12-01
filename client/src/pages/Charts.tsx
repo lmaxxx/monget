@@ -3,12 +3,12 @@ import ChartsNavbar from "../components/ChartsNavbar";
 import {useLazyGetStatisticQuery} from "../api/statisticApi";
 import {useEffect} from "react";
 import {useAppSelector} from "../hooks/storeHooks";
+import BarChart from "../components/BarChart";
 
 const Charts = () => {
   const activeStatisticTransactionType = useAppSelector(state => state.statisticSlice.activeStatisticTransactionType)
   const statisticDateType = useAppSelector(state => state.statisticSlice.statisticDateType)
   const dateCounter = useAppSelector(state => state.statisticSlice.dateCounter)
-  const data = useAppSelector(state => state.statisticSlice.data)
   const [getStatistic] = useLazyGetStatisticQuery()
 
   useEffect(() => {
@@ -18,11 +18,10 @@ const Charts = () => {
     })
   }, [dateCounter, activeStatisticTransactionType, statisticDateType]);
 
-  console.log(data)
-
   return (
     <DefaultPageWrapper>
       <ChartsNavbar/>
+      <BarChart/>
     </DefaultPageWrapper>
   )
 }

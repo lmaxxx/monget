@@ -1,5 +1,10 @@
 import DateService from "./dateService";
-import {StatisticDateType} from "../types/sliceTypes/statistic.type";
+import {
+  BarChartKey,
+  StatisticDateType,
+  StatisticSection,
+  StatisticTransactionType
+} from "../types/sliceTypes/statistic.type";
 import {AnyAction, ThunkDispatch} from "@reduxjs/toolkit";
 import {setData} from "../store/statisticSlice";
 
@@ -10,7 +15,6 @@ class StatisticService {
   }) {
       dispatch(setData(data))
   }
-
 
   getDateLabelText(statisticDateType: StatisticDateType, dateCounter: number) {
     const currentDate = new Date()
@@ -36,6 +40,27 @@ class StatisticService {
 
       return `${start} - ${end}`
     }
+  }
+
+  getBarChartKeys(statisticTransactionType: StatisticTransactionType) {
+    const keys = {
+      [StatisticTransactionType.General]: ['expenses', 'income', 'profit', 'loss'],
+      [StatisticTransactionType.Income]: ['income'],
+      [StatisticTransactionType.Expenses]: ['expenses']
+    }
+
+    return keys[statisticTransactionType]
+  }
+
+  getBarChartColor(key: BarChartKey) {
+    const colors = {
+      income: "#38d9a9",
+      expenses: "#ffa94d",
+      profit: "#74c0fc",
+      loss: "#ff6b6b"
+    }
+
+    return colors[key]
   }
 }
 

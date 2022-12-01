@@ -69,5 +69,5 @@ export const {
   useCreateTransactionMutation,
   useDeleteTransactionMutation,
   useEditTransactionMutation,
-  useLazyGetTransactionsChartDataQuery
+  useLazyGetTransactionsChartDataQuery,
 } = transactionApi

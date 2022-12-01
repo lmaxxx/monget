@@ -22,8 +22,10 @@ export interface GetStatisticQueryParams {
 
 export interface StatisticSection {
   label: string
-  expenses: number
-  income: number
-  profit: number
-  loss: number
+  expenses?: number
+  income?: number
+  profit?: number
+  loss?: number
 }
+
+export type BarChartKey = "expenses" | "income" | "loss" | "profit"
