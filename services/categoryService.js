@@ -224,13 +224,13 @@ class CategoryService {
   }
 
   async createCategory(userId, data) {
-    const amountOfCategoris = await Category.countDocuments({transactionType: data.transactionType})
+    const amountOfCategories = await Category.countDocuments({transactionType: data.transactionType})
 
     const categoryDoc = await Category.create({
       ...data,
       ownerId: userId,
       createdAt: new Date().getTime(),
-      order: amountOfCategoris + 1
+      order: amountOfCategories + 1
     })
 
     return DataService.getCategoryFromDoc(categoryDoc)

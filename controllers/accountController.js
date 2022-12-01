@@ -30,7 +30,7 @@ class AccountController {
       const {id} = req.params
       const data = req.body
 
-      if(!data) throw new ApiError(400, "There aren't any new properties")
+      if(!Object.values(data).length) throw new ApiError(400, "There aren't any new properties")
 
       const account = await AccountService.editAccount(id, data)
 

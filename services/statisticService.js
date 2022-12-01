@@ -97,8 +97,8 @@ class StatisticService {
     for (let i = 0; i < 7; i++) {
       const startOfTheDay = DateService.addDays(query.start, i + 1)
       const endOfTheDay = DateService.getEndOfTheDay(startOfTheDay)
-      const dayName = startOfTheDay.toLocaleString('en-US', {weekday: 'short'})
-      const weekData = {label: dayName, expenses: 0, income: 0, profit: 0, loss: 0}
+      const label = startOfTheDay.toLocaleString('en-US', {weekday: 'short', day: "numeric"})
+      const weekData = {label, expenses: 0, income: 0, profit: 0, loss: 0}
       const weekTransactions = transactions.filter(transaction => (
         transaction.date.getTime() >= startOfTheDay.getTime() &&
         transaction.date.getTime() <= endOfTheDay.getTime()

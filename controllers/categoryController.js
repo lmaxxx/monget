@@ -43,7 +43,7 @@ class CategoryController {
       const {id} = req.params
       const data = req.body
 
-      if(!data) throw new ApiError(400, "There aren't any new properties")
+      if(!Object.values(data).length) throw new ApiError(400, "There aren't any new properties")
 
       const category = await CategoryService.editCategory(id, data)
 
