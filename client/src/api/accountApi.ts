@@ -3,6 +3,7 @@ import {IAccount} from "../types/sliceTypes/account.type";
 import baseQueryWithReauth from "./baseQueryWithReauth";
 import {AccountCreatingBodyParams} from "../types/sliceTypes/account.type";
 import AccountService from "../services/accountService";
+import {RootState} from "../store/store";
 
 export const accountApi = createApi({
   reducerPath: "accountsApi",
@@ -41,6 +42,11 @@ export const accountApi = createApi({
         url: `/api/account/${id}`,
         method: "DELETE"
       }),
+      async onQueryStarted(id, {dispatch, getState}) {
+        const state = getState() as RootState
+
+        await AccountService.setNewActiveAccount({dispatch, accounts: state.accountSlice.accounts, deletedId: id})
+      },
       invalidatesTags: ["Account"]
     })
   })

@@ -1,5 +1,5 @@
 import {AnyAction, ThunkDispatch} from "@reduxjs/toolkit";
-import {setAccounts} from "../store/accountSlice";
+import {setAccounts, setActiveAccount} from "../store/accountSlice";
 import getSymbolFromCurrency from "currency-symbol-map";
 import {
   AccountCreatingFormValues, AccountEditingFormValues,
@@ -45,6 +45,16 @@ class AccountService {
     data: any,
   }) {
     dispatch(setAccounts(data))
+  }
+
+  setNewActiveAccount({dispatch, accounts, deletedId}: {
+    dispatch: ThunkDispatch<any, any, AnyAction>,
+    accounts: IAccount[]
+    deletedId: string
+  }) {
+    const nextActiveAccount = accounts.find(account => account.id !== deletedId)
+
+    dispatch(setActiveAccount(nextActiveAccount!.id))
   }
 
   getFormattedAmount(amount?: number | string, currency?: string, disableAbbreviation?: boolean) {
