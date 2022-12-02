@@ -51,7 +51,9 @@ const TransactionCreateForm = () => {
       ...values,
       transactionType,
       categoryId: activeCategoryId,
-      accountId: accountId!
+      accountId: accountId!,
+      title: values.title.trim(),
+      description: values.description?.trim()
     }
 
     await createTransaction(data)

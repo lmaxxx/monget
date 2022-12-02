@@ -45,7 +45,8 @@ const AccountEditForm = () => {
       ...values,
       iconBackgroundColor,
       iconName: activeIconName,
-      id
+      id,
+      accountName: values.accountName.trim()
     } as IAccount
 
     await editAccount(data)

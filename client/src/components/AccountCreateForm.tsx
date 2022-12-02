@@ -30,7 +30,8 @@ const AccountCreateForm = () => {
     const data = {
       ...values,
       iconBackgroundColor,
-      iconName: activeIconName
+      iconName: activeIconName,
+      accountName: values.accountName.trim()
     }
 
     await createAccount(data)

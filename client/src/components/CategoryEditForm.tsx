@@ -45,7 +45,8 @@ const CategoryEditForm = () => {
       ...values,
       iconBackgroundColor,
       iconName: activeIconName,
-      id
+      id,
+      name: values.name.trim()
     } as ICategory
 
     await editCategory(data)

@@ -28,7 +28,8 @@ const CategoryCreateForm = () => {
       ...values,
       iconBackgroundColor,
       iconName: activeIconName,
-      transactionType
+      transactionType,
+      name: values.name.trim()
     }
 
     await createCategory(data)

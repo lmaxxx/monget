@@ -52,6 +52,8 @@ const TransactionEditForm = () => {
         ...currentTransaction,
         ...values,
         categoryId: category.id,
+        title: values.title.trim(),
+        description: values.description?.trim()
       }
 
       await editTransaction(data)
