@@ -1,9 +1,16 @@
 import {Center, Button} from "@mantine/core";
 import OverlookCarousel from "../components/OverlookCarousel";
 import {useNavigate} from "react-router-dom";
+import {useAppSelector} from "../hooks/storeHooks";
+import {useEffect} from "react";
 
 const Overlook = () => {
   const navigate = useNavigate()
+  const isAuth = useAppSelector(state => state.userSlice.isAuth)
+
+  useEffect(() => {
+    if(isAuth) navigate("/")
+  }, [isAuth]);
 
   const redirectToRegistration = () => {
     navigate("/registration")

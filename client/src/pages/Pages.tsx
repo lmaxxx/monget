@@ -25,7 +25,7 @@ const Pages = () => {
       <Route path={"/overlook"} element={<Overlook/>}/>
       <Route path={"/login"} element={<Login/>}/>
       <Route path={"/registration"} element={<Registration/>}/>
-      <Route path={"/currencyRegistration"} element={<CurrencyRegistration/>}/>
+      <Route path={"/currency/registration"} element={<CurrencyRegistration/>}/>
       <Route path={"/"} element={<Home/>}/>
       <Route path={"/accounts"} element={<Accounts/>}/>
       <Route path={"/account/:id"} element={<AccountEdit/>}/>
