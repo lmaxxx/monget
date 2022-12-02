@@ -29,7 +29,7 @@ class AuthService {
         email: (value: string) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
         name: (value: string) => value.trim().length >= 3 ? null : "Name must be least 3 chars long",
         password: (value: string) => value.trim().length >= 8 ? null : "Password must be least 8 chars long",
-        repeatPassword: (value: string) => value === passportInputRef?.current?.value ? null : "Passports must be the same"
+        repeatPassword: (value: string) => value === passportInputRef?.current?.value ? null : "Passwords must be the same"
       }
     }
   }

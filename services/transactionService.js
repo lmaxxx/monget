@@ -22,10 +22,10 @@ class TransactionService {
 
     const transactionsDocs = await Transaction.find(findQuery, null, options).sort({createdAt: "desc"})
       .catch(err => {
-        throw new ApiError(400, "There is no transactions in current account")
+        throw new ApiError(400, "There are no transactions in current account")
       })
 
-    if (!transactionsDocs) throw new ApiError(400, "There is no transactions in current account")
+    if (!transactionsDocs) throw new ApiError(400, "There are no transactions in current account")
 
     return DataService.getTransactionsFromDocs(transactionsDocs)
   }
@@ -33,10 +33,10 @@ class TransactionService {
   async getTransaction(id) {
     const transactionDoc = await Transaction.findById(id).populate(["categoryId", "accountId"])
       .catch(err => {
-        throw new ApiError(400, "There is no transactions with current id")
+        throw new ApiError(400, "There are no transactions with current id")
       })
 
-    if (!transactionDoc) throw new ApiError(400, "There is no transactions with current id")
+    if (!transactionDoc) throw new ApiError(400, "There are no transactions with current id")
 
     return DataService.getTransactionFromDoc(transactionDoc)
   }
@@ -63,11 +63,11 @@ class TransactionService {
   async editTransaction(id, data) {
     const transactionDoc = await Transaction.findById(id)
       .catch(err => {
-        throw new ApiError(400, "There isn't find any category with current id")
+        throw new ApiError(400, "Transaction with this id doesn't exist")
       })
     const oldTransactionDoc = {...DataService.getTransactionFromDoc(transactionDoc)}
 
-    if (!transactionDoc) throw new ApiError(400, "There isn't find any category with current id")
+    if (!transactionDoc) throw new ApiError(400, "There is no category with current id")
 
     data.date = new Date(data.date)
     const hours = data.date.getUTCHours()
@@ -89,7 +89,7 @@ class TransactionService {
   async deleteTransaction(id) {
     const transactionDoc = await Transaction.findByIdAndDelete(id)
       .catch(err => {
-        throw new ApiError(400, "There is no transactions with current id")
+        throw new ApiError(400, "There are no transactions with current id")
       })
 
     await this.processDeletedTransaction(transactionDoc)

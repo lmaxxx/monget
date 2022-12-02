@@ -173,10 +173,10 @@ class CategoryService {
   async getCategory(id) {
     const categoryDoc = await Category.findById(id)
       .catch(err => {
-        throw new ApiError(400, "There isn't find any category with current id")
+        throw new ApiError(400, "There is no category with current id")
       })
 
-    if(!categoryDoc) throw new ApiError(400, "There isn't find any category with current id")
+    if(!categoryDoc) throw new ApiError(400, "There is no category with current id")
 
     return DataService.getCategoryFromDoc(categoryDoc)
   }
@@ -198,7 +198,7 @@ class CategoryService {
   async deleteCategory(id) {
     const deletedCategoryDoc = await Category.findByIdAndDelete(id)
       .catch(err => {
-        throw new ApiError(400, "There isn't find any category with current id")
+        throw new ApiError(400, "There is no category with current id")
       })
     const {ownerId, transactionType} = deletedCategoryDoc
     const categoriesDocs = await Category.find({ownerId, transactionType}).sort({order: "asc"})
@@ -210,10 +210,10 @@ class CategoryService {
   async editCategory(id, data) {
     const categoryDoc = await Category.findById(id)
       .catch(err => {
-        throw new ApiError(400, "There isn't find any category with current id")
+        throw new ApiError(400, "There is no category with current id")
       })
 
-    if(!categoryDoc) throw new ApiError(400, "There isn't find any category with current id")
+    if(!categoryDoc) throw new ApiError(400, "There is no category with current id")
 
     Object.entries(data).forEach(([property, value]) => {
       categoryDoc[property] = value
