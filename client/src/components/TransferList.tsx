@@ -1,4 +1,4 @@
-import { Box, Text } from "@mantine/core";
+import {Box, Stack, Text} from "@mantine/core";
 import {useLazyGetTransfersQuery} from "../api/transferApi";
 import Loader from "./Loader";
 import TransferListItem from "./TransferListItem";
@@ -30,23 +30,23 @@ const TransferList = () => {
     setPage(prevPage => prevPage + 1)
   }
 
-  // const showDate = (transaction: ITransaction, index: number) =>  (
-  //   index === 0 || new Date(transaction.date).getDate() !== new Date(transactions![index - 1].date).getDate()
-  // )
+  const showDate = (transfer: ITransfer, index: number) =>  (
+    index === 0 || new Date(transfer.createdAt).getDate() !== new Date(transfers![index - 1].createdAt).getDate()
+  )
 
   if(isLoading) return <Loader height={"300px"}/>
 
   return (
-    <Box mt={"md"} style={{overflowY: "auto", maxHeight: "80vh"}}>
+    <Stack mt={"md"} style={{overflowY: "auto", maxHeight: "80vh"}}>
       <LazyLoader loadMore={loadMore} fetch={fetch}>
         {
-          transfers?.map(transfer => (
-            <TransferListItem key={transfer.id} transfer={transfer}/>
+          transfers?.map((transfer, index) => (
+            <TransferListItem showDate={showDate(transfer, index)} key={transfer.id} transfer={transfer}/>
           ))
         }
       </LazyLoader>
       {!transfers?.length && <Text align={"center"} mt={"md"}>There aren't any transfers</Text>}
-    </Box>
+    </Stack>
   )
 }
 

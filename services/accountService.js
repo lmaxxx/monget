@@ -2,6 +2,7 @@ const Account = require("../models/Account");
 const DataService = require("../services/dataService")
 const ApiError = require("../exceptions/apiError");
 const Transaction = require("../models/Transaction");
+const Transfer = require("../models/Transfer");
 
 class AccountService {
   async createAccount(userData, data) {
@@ -62,10 +63,13 @@ class AccountService {
       throw new ApiError(400, "There is no account with current id")
     })
 
-    await Transaction.deleteMany({accountId: id})
-      .catch(err => {
+    await Transaction.deleteMany({accountId: id}).catch(err => {
         throw new ApiError(400, "There is no account with current id")
-      })
+    })
+
+    await Transfer.deleteMany({$or: [{from: id}, {to: id}]}).catch(err => {
+      throw new ApiError(400, "There is no account with current id")
+    })
   }
 }
 

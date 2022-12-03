@@ -1,45 +1,54 @@
 import {forwardRef} from "react"
 import {ITransfer} from "../types/sliceTypes/transfer.type";
-import {Group, Stack, Text} from "@mantine/core";
+import {Text, Box, NumberInput} from "@mantine/core";
+import {IconArrowRight} from "@tabler/icons"
 import AccountIcon from "./AccountIcon";
 import AccountService from "../services/accountService";
+import HiddenTextStyles from '../assets/hiddenTextStyles'
+import getSymbolFromCurrency from "currency-symbol-map";
 
 interface PropsType {
   transfer: ITransfer
+  showDate?: boolean
 }
 
-const TransferListItem = forwardRef<HTMLDivElement, PropsType>(({transfer}, ref) => {
+const TransferListItem = forwardRef<HTMLDivElement, PropsType>(({transfer, showDate}, ref) => {
   const {from, to, amount, createdAt} = transfer
   const date = new Date(createdAt)
-  const options: Intl.DateTimeFormatOptions = {weekday: 'long', year: 'numeric', month: 'short', day: 'numeric'}
+  const options: Intl.DateTimeFormatOptions = {year: 'numeric', month: 'short', day: 'numeric'}
 
   return (
-    <Stack ref={ref} style={{borderBottom: "1px solid #ccc"}} p={"sm"}>
-      <Group noWrap>
-        <Text>From:</Text>
-        <AccountIcon iconName={from.iconName} backgroundColor={from.iconBackgroundColor}/>
-        <Text
-          style={{
-            textOverflow: "ellipsis",
-            overflow: "hidden",
-            whiteSpace: "nowrap"
-          }}
-        >{from.accountName}</Text>
-      </Group>
-      <Group noWrap>
-        <Text>To:</Text>
-        <AccountIcon iconName={to.iconName} backgroundColor={to.iconBackgroundColor}/>
-        <Text
-          style={{
-            textOverflow: "ellipsis",
-            overflow: "hidden",
-            whiteSpace: "nowrap"
-          }}
-        >{to.accountName}</Text>
-      </Group>
-      <Text>Amount: {AccountService.getFormattedAmount(amount, from.currency)}</Text>
-      <Text color={"gray"}>{date.toLocaleDateString("en-US", options)}</Text>
-    </Stack>
+    <Box ref={ref} pt={"sm"}>
+      {showDate && <Text mb={"xs"} color={"gray"}>{date.toLocaleDateString("en-US", options)}</Text>}
+      <Box sx={{
+        display: "grid",
+        gridTemplateColumns: "40% 24px 40%",
+        alignItems: "center",
+        gridColumnGap: ".5rem"
+      }}>
+        <Box sx={{display: "flex", alignItems: "center", gap: ".5rem"}}>
+          <AccountIcon iconName={from.iconName} backgroundColor={from.iconBackgroundColor}/>
+          <Text
+            sx={{...HiddenTextStyles}}
+          >{from.accountName}</Text>
+        </Box>
+        <IconArrowRight/>
+        <Box sx={{display: "flex", alignItems: "center", gap: ".5rem"}}>
+          <AccountIcon iconName={to.iconName} backgroundColor={to.iconBackgroundColor}/>
+          <Text
+            sx={{...HiddenTextStyles}}
+          >{to.accountName}</Text>
+        </Box>
+      </Box>
+      <NumberInput
+        mt={"xs"}
+        precision={2}
+        rightSection={getSymbolFromCurrency(from.currency)}
+        value={amount}
+        readOnly
+        variant={"filled"}
+      />
+    </Box>
   )
 })
 

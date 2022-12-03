@@ -12,7 +12,7 @@ router.get("/transactions/chart/income/:accountId", isAuthorized, TransactionCon
 router.get("/transaction/:id", isAuthorized, TransactionController.getTransaction)
 router.post("/transaction",
   body("title").isLength({min: 3}).withMessage("Title must be at least 3 char long"),
-  body("amount").isInt({min: 1}).withMessage("Amount must be bigger than 0"),
+  body("amount").isNumeric().withMessage("Amount must be bigger than 0"),
   body("currency").isLength({min: 1}).withMessage("Choose currency"),
   body("transactionType").isLength({min: 1}).withMessage("Choose transactionType"),
   body("accountId").isLength({min: 7}).withMessage("Choose account"),
