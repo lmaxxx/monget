@@ -51,8 +51,7 @@ class AccountService {
         compactDisplay: "short"
       })
     }
-
-    if(amount !== parseInt(amount.toString())) amount = Number(amount).toFixed(2)
+    else if(amount !== parseInt(amount.toString())) amount = Number(amount).toFixed(2)
 
     return amount + getSymbolFromCurrency(currency)
   }
