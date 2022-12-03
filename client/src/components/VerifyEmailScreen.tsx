@@ -1,9 +1,16 @@
-import {Center, Image, Text, Title} from "@mantine/core";
+import {Center, Image, Text, Title, Button} from "@mantine/core";
 import MailSent from "../assets/mailSent.svg";
 import {useAppSelector} from "../hooks/storeHooks";
+import {useState} from "react";
+import UpdateEmailForm from "./UpdateEmailForm";
 
 const VerifyEmailScreen = () => {
   const user = useAppSelector(state => state.userSlice.user)
+  const [showUpdateEmailForm, setShowUpdateEmailForm] = useState<boolean>(false)
+
+  const openUpdateEmailForm = () => {
+    setShowUpdateEmailForm(true)
+  }
 
   return (
     <Center style={{
@@ -17,6 +24,8 @@ const VerifyEmailScreen = () => {
         To continue using Monget, please verify your email address:
       </Text>
       <Text color={"#2089E5"} align={"center"} weight={"600"}>{user?.email}</Text>
+      <Button disabled={showUpdateEmailForm} mt={"sm"} color={"gray"} onClick={openUpdateEmailForm}>Resend to another email</Button>
+        {showUpdateEmailForm && <UpdateEmailForm/>}
     </Center>
   )
 }

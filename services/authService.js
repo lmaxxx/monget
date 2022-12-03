@@ -28,7 +28,7 @@ class AuthService {
     const tokens = TokenService.generateTokens(userData)
 
     await TokenService.saveToken(userData.id, tokens.refreshToken)
-    // await MailService.sendActivationMail(userData.email, `${process.env.API_URL}/api/auth/activate/${activationLink}`, userData.name)
+    await MailService.sendActivationMail(userData.email, `${process.env.API_URL}/api/auth/activate/${activationLink}`, userData.name)
     await CategoryService.createBaseCategories(userData.id)
 
     return {...tokens, user: userData}
@@ -91,6 +91,20 @@ class AuthService {
     await user.save()
 
     const userData = DataService.getUserFromDoc(user)
+    return {user: userData}
+  }
+
+  async updateEmail(userId, email) {
+    const userDoc = await User.findById(userId)
+    const candidate = await User.findOne({email})
+
+    if(candidate) throw new ApiError(400, "Email is already in use")
+
+    userDoc.email = email
+    await userDoc.save()
+    await MailService.sendActivationMail(userDoc.email, `${process.env.API_URL}/api/auth/activate/${userDoc.activationLink}`, userDoc.name)
+
+    const userData = DataService.getUserFromDoc(userDoc)
     return {user: userData}
   }
 }

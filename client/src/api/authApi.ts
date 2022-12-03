@@ -1,5 +1,10 @@
 import {createApi} from '@reduxjs/toolkit/query/react'
-import {CurrencyRegistrationFormValues, LoginFormValues, RegistrationFormValues} from "../types/sliceTypes/user.type";
+import {
+  CurrencyRegistrationFormValues, IUser,
+  LoginFormValues,
+  RegistrationFormValues,
+  UpdateEmailFromValues
+} from "../types/sliceTypes/user.type";
 import {AuthResponse, CurrencyUpdateResponse} from "../types/sliceTypes/user.type";
 import AuthService from "../services/authService";
 import baseQueryWithReauth from "./baseQueryWithReauth";
@@ -48,12 +53,24 @@ export const authApi = createApi({
     }),
     updateCurrency: builder.mutation<CurrencyUpdateResponse, CurrencyRegistrationFormValues>({
       query: (formData) => ({
-        url: "/api/auth/updateCurrency",
+        url: "/api/auth/currency",
         method: "PUT",
         body: formData,
       }),
       async onQueryStarted(id, {dispatch, queryFulfilled}) {
         const {data} = await queryFulfilled
+        await AuthService.updateUserData({dispatch, data, isNewUser: false})
+      }
+    }),
+    updateEmail: builder.mutation<IUser, UpdateEmailFromValues>({
+      query: ({email}) => ({
+        url: "/api/auth/email",
+        method: "PUT",
+        body: {email},
+      }),
+      async onQueryStarted(id, {dispatch, queryFulfilled}) {
+        const {data} = await queryFulfilled
+        console.log(data)
         await AuthService.updateUserData({dispatch, data, isNewUser: false})
       }
     })
@@ -65,5 +82,6 @@ export const {
   useRegistrationMutation,
   useCheckAuthMutation,
   useLogoutMutation,
-  useUpdateCurrencyMutation
+  useUpdateCurrencyMutation,
+  useUpdateEmailMutation
 } = authApi

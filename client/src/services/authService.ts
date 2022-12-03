@@ -11,7 +11,8 @@ class AuthService {
         password: '',
       },
       validate: {
-        email: (value: string) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+        email: (value: string) => (/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(value)
+          ? null : 'Invalid email'),
         password: (value: string) => value.trim().length >= 8 ? null : "Password must be least 8 chars long"
       }
     }
@@ -26,10 +27,28 @@ class AuthService {
         repeatPassword: ''
       },
       validate: {
-        email: (value: string) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+        email: (value: string) => (/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(value)
+          ? null : 'Invalid email'),
         name: (value: string) => value.trim().length >= 3 ? null : "Name must be least 3 chars long",
         password: (value: string) => value.trim().length >= 8 ? null : "Password must be least 8 chars long",
         repeatPassword: (value: string) => value === passportInputRef?.current?.value ? null : "Passwords must be the same"
+      }
+    }
+  }
+
+  getUpdatingEmailFormConfig(activeEmail: string) {
+    return {
+      initialValues: {
+        email: ""
+      },
+      validate: {
+        email: (value: string) => {
+          if(value === activeEmail) return "You should type new email"
+          if(!/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(value))
+            return "InvalidEmail"
+
+          return null
+        }
       }
     }
   }
@@ -51,6 +70,8 @@ class AuthService {
     isNewUser: boolean
   }) {
     try {
+      console.log(data.user)
+
       dispatch(setUser(data.user))
       dispatch(setAuth(true))
 

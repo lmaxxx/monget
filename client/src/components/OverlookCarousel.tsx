@@ -27,7 +27,7 @@ const OverlookCarousel = () => {
       styles={{indicator: indicatorStyles}}
     >
       <OverlookCarouselSlide
-        text={"We are a community, together helping people to control their budget"}
+        text={"We are a community, together we are helping people to control their budget"}
         imageWidth={"100%"}
         image={LogoWithName}
       />

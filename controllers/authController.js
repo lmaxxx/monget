@@ -78,6 +78,21 @@ class AuthController {
 
       const userData = await AuthService.updateCurrency(id, currency)
 
+      res.json(userData)
+    } catch (err) {
+      ApiError.ErrorBoundary(res, err)
+    }
+  }
+
+  async updateEmail(req, res) {
+    try {
+      ApiError.validationRequest(req)
+
+      const {email} = req.body
+      const {id} = req.user
+
+      const userData = await AuthService.updateEmail(id, email)
+
       return res.json(userData)
     } catch (err) {
       ApiError.ErrorBoundary(res, err)
