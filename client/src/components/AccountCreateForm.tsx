@@ -45,7 +45,6 @@ const AccountCreateForm = () => {
         overflow: "auto",
         height: "90%",
         maxHeight: "70vh",
-        position: "relative",
         padding: ".1rem"
       }}>
         <Box

@@ -4,11 +4,7 @@ import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useForm} from "@mantine/form";
 import CategoryService from "../services/categoryService";
 import {useMediaQuery} from "@mantine/hooks";
-import {
-  TransactionCreatingBodyParams,
-  TransactionCreatingFormValues,
-  TransactionType
-} from "../types/sliceTypes/transaction.type";
+import {TransactionCreatingFormValues, TransactionType} from "../types/sliceTypes/transaction.type";
 import {Box, Button, Group, LoadingOverlay, NumberInput, Textarea, TextInput} from "@mantine/core";
 import TransactionTypeSegmentControl from "./TransactionTypeSegmentControl";
 import CategoryIcon from "./CategoryIcon";
@@ -64,87 +60,87 @@ const TransactionCreateForm = () => {
   const openModal = () => setOpenedModal(true)
   const closeModal = () => setOpenedModal(false)
 
+  if(isLoading) {
+    return (
+      <div style={{position: "relative", minHeight: "300px"}}>
+        <LoadingOverlay visible={true} overlayBlur={2}/>
+      </div>
+    )
+  }
+
   return (
     <div style={{position: "relative", minHeight: "300px"}}>
-      {
-        isLoading ?
-          <LoadingOverlay visible={true} overlayBlur={2}/>
-          :
-          <>
-            <Group mt={"md"} sx={{
-              overflow: "auto",
-              height: "90%",
-              maxHeight: "70vh",
-              position: "relative",
-              padding: ".1rem"
-            }}>
-              <Box
-                id={"categoryTransferForm"}
-                component={"form"}
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  flexDirection: isMobile ? "column" : "initial",
-                  alignItems: isMobile ? "center" : "initial",
-                  width: "100%",
-                  gap: "1rem 2rem"
-                }}
-                onSubmit={form.onSubmit(createTransactionSubmit)}
-              >
-                <Box sx={{width: isMobile ? "100%" : "50%"}}>
-                  <TextInput
-                    mb={"sm"}
-                    label="Title"
-                    placeholder="Bought a new book"
-                    {...form.getInputProps("title")}
-                  />
-                  <CurrencySelect label={"Currency"} form={form}/>
-                  <NumberInput
-                    mt={"sm"}
-                    placeholder="1251"
-                    label="Amount"
-                    precision={2}
-                    rightSection={getSymbolFromCurrency(form.values.currency)}
-                    {...form.getInputProps("amount")}
-                  />
-                </Box>
-                <Box sx={{width: isMobile ? "100%" : "50%"}}>
-                  <Textarea
-                    label="Description"
-                    description={"Not required"}
-                    placeholder={"Nice description..."}
-                    maxRows={2}
-                    mb={"sm"}
-                    {...form.getInputProps("description")}
-                  />
-                  <TransactionTypeSegmentControl
-                    position={isMobile ? "center" : "left"}
-                    transactionType={transactionType}
-                    onChange={setTransactionType}
-                  />
-                  <Group mt={"sm"} position={isMobile ? "center" : "left"}>
-                    <CategoryIcon
-                      backgroundColor={activeCategory.iconBackgroundColor}
-                      iconName={activeCategory.iconName}
-                      backgroundSize={"3rem"}
-                      iconSize={"32px"}
-                    />
-                    <Button onClick={openModal} color={"violet"} variant={"light"}>Choose cateogry</Button>
-                  </Group>
-                </Box>
-              </Box>
-            </Group>
-            <DatePicker
-              icon={<IconCalendar size={16} />}
-              mt={"sm"}
-              dropdownType="modal"
-              clearable={false}
-              placeholder="Pick date"
-              {...form.getInputProps("date")}
+      <Group mt={"md"} sx={{
+        overflow: "auto",
+        height: "90%",
+        maxHeight: "70vh",
+        padding: ".1rem"
+      }}>
+        <Box
+          id={"categoryTransferForm"}
+          component={"form"}
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            flexDirection: isMobile ? "column" : "initial",
+            alignItems: isMobile ? "center" : "initial",
+            width: "100%",
+            gap: "1rem 2rem"
+          }}
+          onSubmit={form.onSubmit(createTransactionSubmit)}
+        >
+          <Box sx={{width: isMobile ? "100%" : "50%"}}>
+            <TextInput
+              mb={"sm"}
+              label="Title"
+              placeholder="Bought a new book"
+              {...form.getInputProps("title")}
             />
-            <Button form={"categoryTransferForm"} fullWidth mt={"md"} size={"md"} type="submit">Create</Button>
-          </>
-      }
+            <CurrencySelect label={"Currency"} form={form}/>
+            <NumberInput
+              mt={"sm"}
+              placeholder="1251"
+              label="Amount"
+              precision={2}
+              rightSection={getSymbolFromCurrency(form.values.currency)}
+              {...form.getInputProps("amount")}
+            />
+          </Box>
+          <Box sx={{width: isMobile ? "100%" : "50%"}}>
+            <Textarea
+              label="Description"
+              description={"Not required"}
+              placeholder={"Nice description..."}
+              maxRows={2}
+              mb={"sm"}
+              {...form.getInputProps("description")}
+            />
+            <TransactionTypeSegmentControl
+              position={isMobile ? "center" : "left"}
+              transactionType={transactionType}
+              onChange={setTransactionType}
+            />
+            <Group mt={"sm"} position={isMobile ? "center" : "left"}>
+              <CategoryIcon
+                backgroundColor={activeCategory.iconBackgroundColor}
+                iconName={activeCategory.iconName}
+                backgroundSize={"3rem"}
+                iconSize={"32px"}
+              />
+              <Button onClick={openModal} color={"violet"} variant={"light"}>Choose cateogry</Button>
+            </Group>
+          </Box>
+        </Box>
+      </Group>
+      <DatePicker
+        icon={<IconCalendar size={16}/>}
+        mt={"sm"}
+        dropdownType="modal"
+        clearable={false}
+        placeholder="Pick date"
+        {...form.getInputProps("date")}
+      />
+      <Button form={"categoryTransferForm"} fullWidth mt={"md"} size={"md"} type="submit">Create</Button>
       <ChooseCategoryModaL
         opened={openedModal}
         onClose={closeModal}

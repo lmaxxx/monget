@@ -1,15 +1,11 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {
-  useDeleteTransactionMutation,
-  useEditTransactionMutation,
-  useGetTransactionQuery
-} from "../api/transactionApi";
+import {useDeleteTransactionMutation, useEditTransactionMutation, useGetTransactionQuery} from "../api/transactionApi";
 import {useEffect, useState} from "react";
 import {useForm} from "@mantine/form";
 import {TransactionCreatingFormValues, TransactionType} from "../types/sliceTypes/transaction.type";
 import TransactionService from "../services/transactionService";
 import {useMediaQuery} from "@mantine/hooks";
-import {Box, Button, Group, LoadingOverlay, NumberInput, Textarea, TextInput, Text} from "@mantine/core";
+import {Box, Button, Group, LoadingOverlay, NumberInput, Text, Textarea, TextInput} from "@mantine/core";
 import CurrencySelect from "./CurrencySelect";
 import getSymbolFromCurrency from "currency-symbol-map";
 import TransactionTypeSegmentControl from "./TransactionTypeSegmentControl";
@@ -38,7 +34,7 @@ const TransactionEditForm = () => {
 
   useEffect(() => {
     if (isError) navigate("/")
-    if(currentTransaction) {
+    if (currentTransaction) {
       TransactionService.setDefaultEditForm(form, currentTransaction)
       setTransactionType(currentTransaction.transactionType)
       setCategory(currentTransaction.categoryId as ICategory)
@@ -47,7 +43,7 @@ const TransactionEditForm = () => {
 
 
   const editTransactionSubmit = async (values: TransactionCreatingFormValues) => {
-    if(currentTransaction) {
+    if (currentTransaction) {
       const data = {
         ...currentTransaction,
         ...values,
@@ -68,96 +64,96 @@ const TransactionEditForm = () => {
     navigate("/")
   }
 
+  if (isLoading) {
+    return (
+      <div style={{position: "relative", minHeight: "300px"}}>
+        <LoadingOverlay visible={true} overlayBlur={2}/>
+      </div>
+    )
+  }
+
   return (
     <div style={{position: "relative", minHeight: "300px"}}>
-      {
-        isLoading ?
-          <LoadingOverlay visible={true} overlayBlur={2}/>
-          :
-          <>
-            <Group mt={"md"} sx={{
-              overflow: "auto",
-              height: "90%",
-              maxHeight: "70vh",
-              position: "relative",
-              padding: ".1rem"
-            }}>
-              <Box
-                id={"categoryEditForm"}
-                component={"form"}
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  flexDirection: isMobile ? "column" : "initial",
-                  alignItems: isMobile ? "center" : "initial",
-                  width: "100%",
-                  gap: "1rem 2rem"
-                }}
-                onSubmit={form.onSubmit(editTransactionSubmit)}
-              >
-                <Box sx={{width: isMobile ? "100%" : "50%"}}>
-                  <TextInput
-                    mb={"sm"}
-                    label="Title"
-                    placeholder="Bought a new book"
-                    {...form.getInputProps("title")}
-                  />
-                  <CurrencySelect label={"Currency"} form={form}/>
-                  <NumberInput
-                    mt={"sm"}
-                    placeholder="1251"
-                    label="Amount"
-                    precision={2}
-                    rightSection={getSymbolFromCurrency(form.values.currency)}
-                    {...form.getInputProps("amount")}
-                  />
-                </Box>
-                <Box sx={{width: isMobile ? "100%" : "50%"}}>
-                  <Textarea
-                    label="Description"
-                    description={"Not required"}
-                    placeholder={"Nice description..."}
-                    maxRows={2}
-                    mb={"sm"}
-                    {...form.getInputProps("description")}
-                  />
-                  <TransactionTypeSegmentControl
-                    position={isMobile ? "center" : "left"}
-                    transactionType={transactionType}
-                    onChange={setTransactionType}
-                    disabled
-                  />
-                  <Group mt={"sm"} position={isMobile ? "center" : "left"}>
-                    <CategoryIcon
-                      backgroundColor={category.iconBackgroundColor}
-                      iconName={category.iconName}
-                      backgroundSize={"3rem"}
-                      iconSize={"32px"}
-                    />
-                    <Text sx={{...HiddenTextStyles}}>{category.name}</Text>
-                  </Group>
-                </Box>
-              </Box>
-            </Group>
-            <DatePicker
-              icon={<IconCalendar size={16} />}
-              mt={"sm"}
-              dropdownType="modal"
-              clearable={false}
-              placeholder="Pick date"
-              {...form.getInputProps("date")}
+      <Group mt={"md"} sx={{
+        overflow: "auto",
+        height: "90%",
+        maxHeight: "70vh",
+        padding: ".1rem"
+      }}>
+        <Box
+          id={"categoryEditForm"}
+          component={"form"}
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            flexDirection: isMobile ? "column" : "initial",
+            alignItems: isMobile ? "center" : "initial",
+            width: "100%",
+            gap: "1rem 2rem"
+          }}
+          onSubmit={form.onSubmit(editTransactionSubmit)}
+        >
+          <Box sx={{width: isMobile ? "100%" : "50%"}}>
+            <TextInput
+              mb={"sm"}
+              label="Title"
+              placeholder="Bought a new book"
+              {...form.getInputProps("title")}
             />
-            <Button form={"categoryEditForm"} fullWidth mt={"md"} size={"md"} type="submit">Save</Button>
-            <Button
-              onClick={deleteTransactionSubmit}
-              size={"md"}
-              mt={"md"}
-              fullWidth
-              color={"red"}
-              variant={"outline"}
-            >Delete</Button>
-          </>
-      }
+            <CurrencySelect label={"Currency"} form={form}/>
+            <NumberInput
+              mt={"sm"}
+              placeholder="1251"
+              label="Amount"
+              precision={2}
+              rightSection={getSymbolFromCurrency(form.values.currency)}
+              {...form.getInputProps("amount")}
+            />
+          </Box>
+          <Box sx={{width: isMobile ? "100%" : "50%"}}>
+            <Textarea
+              label="Description"
+              description={"Not required"}
+              placeholder={"Nice description..."}
+              maxRows={2}
+              mb={"sm"}
+              {...form.getInputProps("description")}
+            />
+            <TransactionTypeSegmentControl
+              position={isMobile ? "center" : "left"}
+              transactionType={transactionType}
+              onChange={setTransactionType}
+              disabled
+            />
+            <Group mt={"sm"} position={isMobile ? "center" : "left"}>
+              <CategoryIcon
+                backgroundColor={category.iconBackgroundColor}
+                iconName={category.iconName}
+                backgroundSize={"3rem"}
+                iconSize={"32px"}
+              />
+              <Text sx={{...HiddenTextStyles}}>{category.name}</Text>
+            </Group>
+          </Box>
+        </Box>
+      </Group>
+      <DatePicker
+        icon={<IconCalendar size={16}/>}
+        mt={"sm"}
+        dropdownType="modal"
+        clearable={false}
+        placeholder="Pick date"
+        {...form.getInputProps("date")}
+      />
+      <Button form={"categoryEditForm"} fullWidth mt={"md"} size={"md"} type="submit">Save</Button>
+      <Button
+        onClick={deleteTransactionSubmit}
+        size={"md"}
+        mt={"md"}
+        fullWidth
+        color={"red"}
+        variant={"outline"}
+      >Delete</Button>
     </div>
   )
 }
