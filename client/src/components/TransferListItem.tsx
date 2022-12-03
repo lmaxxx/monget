@@ -1,4 +1,4 @@
-import {FC} from "react"
+import {forwardRef} from "react"
 import {ITransfer} from "../types/sliceTypes/transfer.type";
 import {Group, Stack, Text} from "@mantine/core";
 import AccountIcon from "./AccountIcon";
@@ -8,13 +8,13 @@ interface PropsType {
   transfer: ITransfer
 }
 
-const TransferListItem: FC<PropsType> = ({transfer}) => {
+const TransferListItem = forwardRef<HTMLDivElement, PropsType>(({transfer}, ref) => {
   const {from, to, amount, createdAt} = transfer
   const date = new Date(createdAt)
   const options: Intl.DateTimeFormatOptions = {weekday: 'long', year: 'numeric', month: 'short', day: 'numeric'}
 
   return (
-    <Stack style={{borderBottom: "1px solid #ccc"}} p={"sm"}>
+    <Stack ref={ref} style={{borderBottom: "1px solid #ccc"}} p={"sm"}>
       <Group noWrap>
         <Text>From:</Text>
         <AccountIcon iconName={from.iconName} backgroundColor={from.iconBackgroundColor}/>
@@ -41,6 +41,6 @@ const TransferListItem: FC<PropsType> = ({transfer}) => {
       <Text color={"gray"}>{date.toLocaleDateString("en-US", options)}</Text>
     </Stack>
   )
-}
+})
 
 export default TransferListItem

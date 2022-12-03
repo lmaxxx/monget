@@ -1,6 +1,6 @@
 import {createApi} from "@reduxjs/toolkit/query/react";
 import baseQueryWithReauth from "./baseQueryWithReauth";
-import {ITransfer} from "../types/sliceTypes/transfer.type";
+import {GetTransfersParamsType, ITransfer} from "../types/sliceTypes/transfer.type";
 import {TransferCreatingFormValues} from "../types/sliceTypes/transfer.type";
 
 export const transferApi = createApi({
@@ -8,12 +8,9 @@ export const transferApi = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ["Transfer"],
   endpoints: (builder) => ({
-    getTransfers: builder.query<ITransfer[], void>({
-      query: () => "/api/transfers",
-      providesTags: (result, error, arg) =>
-        result
-          ? [...result.map(({ id }) => ({ type: 'Transfer' as const, id })), 'Transfer']
-          : ['Transfer'],
+    getTransfers: builder.query<ITransfer[], GetTransfersParamsType>({
+      query: ({page}) => page ? `/api/transfers?page=${page}` : "/api/transfers",
+      providesTags: ['Transfer'],
     }),
     createTransfer: builder.mutation<ITransfer, TransferCreatingFormValues>({
       query: (formData) => ({
@@ -26,4 +23,4 @@ export const transferApi = createApi({
   })
 })
 
-export const {useGetTransfersQuery, useCreateTransferMutation} = transferApi
+export const {useGetTransfersQuery, useCreateTransferMutation, useLazyGetTransfersQuery} = transferApi

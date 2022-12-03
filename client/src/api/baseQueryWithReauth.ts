@@ -23,6 +23,8 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
     if (refreshResult.data) {
       localStorage.setItem("token", refreshResult.data.accessToken)
       result = await baseQuery(args, api, extraOptions)
+    } else {
+      localStorage.removeItem("token")
     }
   }
 

@@ -14,3 +14,7 @@ export interface TransferCreatingFormValues {
   to: string
   amount: number
 }
+
+export interface GetTransfersParamsType {
+  page?: number
+}
