@@ -234,17 +234,6 @@ class TransactionService {
     return chartData
   }
 
-  validatePageTransactionQuery({page}) {
-    page = +page
-
-    if (page) {
-      return {
-        skip: (page - 1) * 10,
-        limit: 10
-      }
-    }
-  }
-
   validateDateTransactionQuery({days, weeks, months, rangeStart, rangeEnd}) {
     const currentDate = new Date()
 

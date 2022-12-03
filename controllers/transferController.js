@@ -1,11 +1,13 @@
 const TransferService = require("../services/transferService")
 const ApiError = require("../exceptions/apiError");
+const DataService = require("../services/dataService");
 
 class TransferController {
   async getTransfers(req, res) {
     try {
       const {id} = req.user
-      const transfers = await TransferService.getTransfers(id)
+      const options = DataService.validatePageTransactionQuery(req.query)
+      const transfers = await TransferService.getTransfers(id, options)
 
       res.json(transfers)
     } catch (err) {

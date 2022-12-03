@@ -4,8 +4,10 @@ const Account = require("../models/Account")
 const ConverterService = require("../services/converterService")
 
 class TransferService {
-  async getTransfers(userId) {
-    const transfersDocs = await Transfer.find({userId}).sort({createdAt: 'desc'}).populate(["from", "to"])
+  async getTransfers(userId, options) {
+    const transfersDocs = await Transfer.find({userId}, null, options)
+      .sort({createdAt: 'desc'})
+      .populate(["from", "to"])
 
     return DataService.getTransfersFromDocs(transfersDocs)
   }

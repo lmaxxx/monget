@@ -86,6 +86,17 @@ class DataService {
   getTransactionsFromDocs(transactions) {
     return transactions.map(transaction => this.getTransactionFromDoc(transaction))
   }
+
+  validatePageTransactionQuery({page}) {
+    page = +page
+
+    if (page) {
+      return {
+        skip: (page - 1) * 10,
+        limit: 10
+      }
+    }
+  }
 }
 
 module.exports = new DataService()

@@ -1,4 +1,5 @@
 const TransactionService = require("../services/transactionService")
+const DataService = require("../services/dataService")
 const ApiError = require("../exceptions/apiError");
 
 class TransactionController {
@@ -7,7 +8,7 @@ class TransactionController {
       const {accountId} = req.params
       const {categoryId} = req.query
       const validatedQuery = TransactionService.validateDateTransactionQuery(req.query)
-      const options = TransactionService.validatePageTransactionQuery(req.query)
+      const options = DataService.validatePageTransactionQuery(req.query)
 
       if(categoryId) validatedQuery.categoryId = categoryId
 
@@ -24,7 +25,7 @@ class TransactionController {
       const {accountId} = req.params
       const {categoryId} = req.query
       const validatedQuery = TransactionService.validateDateTransactionQuery(req.query)
-      const options = TransactionService.validatePageTransactionQuery(req.query)
+      const options = DataService.validatePageTransactionQuery(req.query)
 
       if(categoryId) validatedQuery.categoryId = categoryId
 
@@ -41,7 +42,7 @@ class TransactionController {
       const {accountId} = req.params
       const {categoryId} = req.query
       const validatedQuery = TransactionService.validateDateTransactionQuery(req.query)
-      const options = TransactionService.validatePageTransactionQuery(req.query)
+      const options = DataService.validatePageTransactionQuery(req.query)
 
       if(categoryId) validatedQuery.categoryId = categoryId
 
