@@ -52,10 +52,10 @@ class AuthService {
   }) {
     try {
       dispatch(setUser(data.user))
+      dispatch(setAuth(true))
 
       if(isNewUser) {
         localStorage.setItem("token", data.accessToken)
-        dispatch(setAuth(true))
       }
     } catch (err) {} // catch errors in component
   }

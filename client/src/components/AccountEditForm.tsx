@@ -26,7 +26,7 @@ const AccountEditForm = () => {
   const [activeIconName, setActiveIconName] = useState<AccountIconType>(currentAccount?.iconName || "IconCash")
   const accountsAmount = useAppSelector(state => state.accountSlice.accounts.length)
   const navigate = useNavigate()
-  const form = useForm<AccountEditingFormValues>(AccountService.getAccountEditingFormConfig())
+  const form = useForm<AccountEditingFormValues>(AccountService.getAccountFormConfig())
   const isLoading = isEditing || isDeleting || isLoadingQuery
   const isMobile = useMediaQuery('(max-width: 520px)');
 

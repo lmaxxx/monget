@@ -19,7 +19,7 @@ router.put("/updateCurrency",
   body("currency").isLength({min: 3}).withMessage("Currency didn't choose"),
   isAuthorized, AuthController.updateCurrency)
 
-router.post("/logout", isAuthorized, AuthController.logout)
+router.post("/logout", AuthController.logout)
 router.get("/activate/:link", AuthController.activate)
 router.get("/refresh", AuthController.refresh)
 

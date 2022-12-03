@@ -17,7 +17,7 @@ const AccountCreateForm = () => {
   const userCurrency = useAppSelector(state => state.userSlice.user.currency)
   const [iconBackgroundColor, setIconBackgroundColor] = useState<string>(colorsForPicker[1])
   const [activeIconName, setActiveIconName] = useState<AccountIconType>("IconCash")
-  const form = useForm<AccountCreatingFormValues>(AccountService.getAccountCreatingFormConfig())
+  const form = useForm<AccountCreatingFormValues>(AccountService.getAccountFormConfig())
   const [createAccount, {isLoading}] = useCreateAccountMutation()
   const navigate = useNavigate()
   const isMobile = useMediaQuery('(max-width: 520px)');

@@ -10,32 +10,17 @@ import {IAccount} from "../types/sliceTypes/account.type";
 import {UseFormReturnType} from "@mantine/form";
 
 class AccountService {
-  getAccountCreatingFormConfig() {
-    return {
-      initialValues: {
-        accountName: "",
-        amount: 0,
-        currency: ""
-      },
-      validate: {
-        currency: (value: string) => value.trim().length === 3 ? null : "You need to choose currency",
-        amount: (value: number) => value ? null: "You need to type an amount",
-        accountName:  (value: string) => value.trim().length > 2 ? null : "You need to type an account name"
-      }
-    }
-  }
-
-  getAccountEditingFormConfig(initialValues?: any) {
+  getAccountFormConfig(initialValues?: AccountEditingFormValues) {
     return {
       initialValues: initialValues || {
         currency: "",
-        amount: "",
+        amount: 0,
         accountName: ""
       },
       validate: {
         currency: (value: string) => value.trim().length === 3 ? null : "You need to choose currency",
-        amount: (value: number) => value ? null: "You need to type an amount",
-        accountName:  (value: string) => value.trim().length ? null : "You need to type an account name"
+        amount: (value: number) => value !== undefined ? null: "You need to type an amount",
+        accountName:  (value: string) => value.trim().length > 2 ? null : "You need to type an account name"
       }
     }
   }

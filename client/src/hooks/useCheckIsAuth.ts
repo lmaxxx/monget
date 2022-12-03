@@ -17,13 +17,7 @@ const useCheckIsAuth = () => {
   }
 
   useEffect(() => {
-    console.log(isAuth && !user?.currency)
-
     if(isAuth && !user?.currency) return navigate("/currency/registration")
-
-    if(isAuth && !user?.currency) {
-      console.log("hello")
-    }
 
     if(isAuth && location.pathname.startsWith("/registration") ||
       location.pathname.startsWith("/login")) {
@@ -36,7 +30,8 @@ const useCheckIsAuth = () => {
       return navigate("/overlook")
     }
 
-    if(!isAuth || !localStorage.getItem("token"))  navigate("/registration")
+    if(isAuth === false || !localStorage.getItem("token")) navigate("/registration")
+
   }, [isAuth, user])
 
   return {checkIsAuth, isLoading}
