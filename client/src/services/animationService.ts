@@ -33,17 +33,13 @@ class AnimationService {
       },
     }
   }
-  slideInRight({delay = 0, duration = .3}): Variants {
+  navbarSlide(): Variants {
     return {
       animate: {
         x: 0,
-        transition: {
-          delay,
-          duration
-        }
       },
       initial: {
-        x: -10
+        x: "-100vw",
       },
     }
   }

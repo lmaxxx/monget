@@ -1,4 +1,4 @@
-import {FC, ReactNode, useState} from 'react'
+import {FC, ReactNode, useEffect, useState} from 'react'
 import {
   AppShell,
   Header,
@@ -10,6 +10,7 @@ import {useAppSelector} from "../hooks/storeHooks"
 import VerifyEmailScreen from "../components/VerifyEmailScreen"
 import NavigationBar from "../components/NavigationBar";
 import LogoWithName from '../assets/logoWithName.png'
+import {useMediaQuery} from "@mantine/hooks";
 
 interface PropsType {
   children: ReactNode
@@ -17,8 +18,13 @@ interface PropsType {
 
 const DefaultPageWrapper: FC<PropsType> = ({children}) => {
   const [opened, setOpened] = useState(false)
+  const isMobile = useMediaQuery('(max-width: 768px)');
   const user = useAppSelector(state => state.userSlice.user)
   const isAuth = useAppSelector(state => state.userSlice.isAuth)
+
+  useEffect(() => {
+    isMobile && opened ? setOpened(false) : setOpened(true)
+  }, [isMobile]);
 
   if(!user?.isActivated && isAuth) return <VerifyEmailScreen/>
 
