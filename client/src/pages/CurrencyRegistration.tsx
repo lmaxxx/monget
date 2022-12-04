@@ -4,11 +4,14 @@ import CurrencyRegistrationForm from "../components/CurrencyRegistrationForm";
 import {useAppSelector} from "../hooks/storeHooks";
 import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
+import AnimationService from "../services/animationService";
+import AnimatedWrapper from "../hoc/AnimatedWrapper";
 
 const CurrencyRegistration = () => {
   const navigate = useNavigate()
   const userCurrency = useAppSelector(state => state.userSlice.user.currency)
   const isAuth = useAppSelector(state => state.userSlice.isAuth)
+  const animationsVariants = AnimationService.fadeInDown({})
 
   useEffect(() => {
     if(userCurrency && isAuth) return navigate("/")
@@ -22,9 +25,11 @@ const CurrencyRegistration = () => {
       background: `url(${AuthBackground}) no-repeat center`,
       backgroundSize: "cover"
     }}>
-      <Paper m={"1rem"} shadow="xl" radius="md" p="xl">
-        <CurrencyRegistrationForm/>
-      </Paper>
+      <AnimatedWrapper whileInView={"whileInView"} initial={"initial"} variants={animationsVariants}>
+        <Paper m={"1rem"} shadow="xl" radius="md" p="xl">
+          <CurrencyRegistrationForm/>
+        </Paper>
+      </AnimatedWrapper>
     </Center>
   )
 }
