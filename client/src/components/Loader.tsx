@@ -1,4 +1,4 @@
-import { Center, Loader as LoaderUiComponent } from "@mantine/core"
+import {Center, Loader as LoaderUiComponent} from "@mantine/core"
 import {FC} from "react";
 
 interface PropsType {
@@ -7,12 +7,12 @@ interface PropsType {
 }
 
 const Loader: FC<PropsType> = ({
-  width = "100%",
-  height = "100vh"
-                }) => {
+                                 width = "100%",
+                                 height = "100vh"
+                               }) => {
   return (
     <Center style={{width, height}}>
-      <LoaderUiComponent size="xl" />
+      <LoaderUiComponent size="xl"/>
     </Center>
   )
 }

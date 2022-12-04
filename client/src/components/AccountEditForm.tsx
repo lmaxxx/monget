@@ -2,7 +2,7 @@ import {Box, Button, ColorPicker, Group, LoadingOverlay, NumberInput, TextInput}
 import CurrencySelect from "./CurrencySelect";
 import colorsForPicker from "../data/colorsForPicker.json";
 import AccountIconList from "./AccountIconList";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {useForm} from "@mantine/form";
 import AccountService from "../services/accountService";

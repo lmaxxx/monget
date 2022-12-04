@@ -8,7 +8,7 @@ const AccountList = () => {
   const {isLoading} = useGetAccountsQuery()
   const accounts = useAppSelector(state => state.accountSlice.accounts)
 
-  if(isLoading) return <AccountsSkeleton/>
+  if (isLoading) return <AccountsSkeleton/>
 
   return (
     <Group py={"xs"} mt={"lg"}>

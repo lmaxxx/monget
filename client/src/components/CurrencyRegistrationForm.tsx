@@ -13,7 +13,7 @@ const CurrencyRegistrationForm = () => {
   const [updateCurrency, {error, isLoading}] = useUpdateCurrencyMutation()
 
   useEffect(() => {
-    if(error) NotificationService.sendErrorNotification(error as ApiError)
+    if (error) NotificationService.sendErrorNotification(error as ApiError)
   }, [error]);
 
   const submit = async (values: CurrencyRegistrationFormValues) => {
@@ -27,7 +27,7 @@ const CurrencyRegistrationForm = () => {
       <Text mb={"1rem"} align={"center"} weight={"300"}>
         Choose your main currency before start
       </Text>
-      <CurrencySelect form={form} />
+      <CurrencySelect form={form}/>
       <Group position="center" mt="1rem">
         <Button size={"md"} type="submit">Choose</Button>
       </Group>

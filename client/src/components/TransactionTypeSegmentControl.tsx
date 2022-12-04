@@ -1,4 +1,4 @@
-import {Group, SegmentedControl, GroupPosition} from "@mantine/core";
+import {Group, GroupPosition, SegmentedControl} from "@mantine/core";
 import {TransactionType} from "../types/sliceTypes/transaction.type";
 import {FC} from "react";
 
@@ -17,8 +17,8 @@ const TransactionTypeSegmentControl: FC<PropsType> = ({disabled, transactionType
         value={transactionType}
         onChange={onChange}
         data={[
-          { label: 'Expenses', value:  TransactionType.Expenses},
-          { label: 'Income', value: TransactionType.Income },
+          {label: 'Expenses', value: TransactionType.Expenses},
+          {label: 'Income', value: TransactionType.Income},
         ]}
       />
     </Group>

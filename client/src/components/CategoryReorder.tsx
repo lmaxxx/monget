@@ -22,13 +22,13 @@ const CategoryReorder: FC<PropsType> = ({transactionType, categoriesNewOrder, se
   }, [wrapperWidth])
 
   const getWidthFromRef = (data: any) => {
-    if(!data) return
+    if (!data) return
     setWrapperWidth(data.clientWidth)
   }
 
   const handleResize = () => {
     const newAmountOfCategories = CategoryService.calculateSuitableAmountOfCategories(wrapperWidth, 80)
-    if(newAmountOfCategories !== categoriesPerRow) setCategoriesPerRow(newAmountOfCategories)
+    if (newAmountOfCategories !== categoriesPerRow) setCategoriesPerRow(newAmountOfCategories)
   }
 
   const changeOrder = (sourceId: string, sourceIndex: number, targetIndex: number) => {

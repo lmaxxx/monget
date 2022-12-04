@@ -12,7 +12,7 @@ const Transfers = () => {
       backgroundColor: theme.colors.gray[1]
     }}>
       <Paper sx={{maxWidth: 400, width: "90%"}} shadow="xl" radius="md" p="xl">
-        <FormHeader title={"Transfers"} goBackPath={"/accounts"} />
+        <FormHeader title={"Transfers"} goBackPath={"/accounts"}/>
         <TransferList/>
       </Paper>
     </Center>

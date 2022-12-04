@@ -1,5 +1,5 @@
 const Category = require("../models/Category")
-const DataService = require("../services/dataService")
+const DataService = require("./dataService")
 const ApiError = require("../exceptions/apiError");
 
 class CategoryService {
@@ -159,7 +159,7 @@ class CategoryService {
   async getCategories(transactionType, userId) {
     let categoriesDocs
 
-    if(transactionType) {
+    if (transactionType) {
       categoriesDocs = await Category.find({ownerId: userId, transactionType}).sort({order: "asc"})
     } else {
       categoriesDocs = await Category.find({ownerId: userId}).sort({order: "asc"})
@@ -176,7 +176,7 @@ class CategoryService {
         throw new ApiError(400, "There is no category with current id")
       })
 
-    if(!categoryDoc) throw new ApiError(400, "There is no category with current id")
+    if (!categoryDoc) throw new ApiError(400, "There is no category with current id")
 
     return DataService.getCategoryFromDoc(categoryDoc)
   }
@@ -213,7 +213,7 @@ class CategoryService {
         throw new ApiError(400, "There is no category with current id")
       })
 
-    if(!categoryDoc) throw new ApiError(400, "There is no category with current id")
+    if (!categoryDoc) throw new ApiError(400, "There is no category with current id")
 
     Object.entries(data).forEach(([property, value]) => {
       categoryDoc[property] = value

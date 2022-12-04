@@ -1,9 +1,8 @@
 import {forwardRef} from "react"
 import {ITransfer} from "../types/sliceTypes/transfer.type";
-import {Text, Box, NumberInput} from "@mantine/core";
+import {Box, NumberInput, Text} from "@mantine/core";
 import {IconArrowRight} from "@tabler/icons"
 import AccountIcon from "./AccountIcon";
-import AccountService from "../services/accountService";
 import HiddenTextStyles from '../assets/hiddenTextStyles'
 import getSymbolFromCurrency from "currency-symbol-map";
 

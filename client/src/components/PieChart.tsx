@@ -19,10 +19,17 @@ const PieChart: FC<PropsType> = ({data, transactionType}) => {
   const navigate = useNavigate()
 
   const onClick = (node: ComputedDatum<PieSection>) => {
-    if(node.data.isEmpty) return
+    if (node.data.isEmpty) return
 
     const category = CategoryService.getCategoryById(categories, node.data.id)!
-    navigate(`/transactions/${activeAccount.id}`, {state: {amount: node.data.value, category, transactionType, activeAccount}})
+    navigate(`/transactions/${activeAccount.id}`, {
+      state: {
+        amount: node.data.value,
+        category,
+        transactionType,
+        activeAccount
+      }
+    })
   }
 
   return (
@@ -32,12 +39,12 @@ const PieChart: FC<PropsType> = ({data, transactionType}) => {
         datum.data.isEmpty ?
           <></> :
           <PieTooltip transactionType={transactionType} data={datum.data}/>
-    }
+      }
       onClick={onClick}
       enableArcLinkLabels={false}
       enableArcLabels={false}
-      colors={{ datum: 'data.color'}}
-      margin={{ top: 10, bottom: 10, right: 10, left: 10}}
+      colors={{datum: 'data.color'}}
+      margin={{top: 10, bottom: 10, right: 10, left: 10}}
       innerRadius={0.8}
       padAngle={0.7}
       cornerRadius={3}

@@ -1,5 +1,5 @@
 import {Children, cloneElement, FC, ReactElement, ReactNode, useEffect} from 'react'
-import { useInView } from 'react-intersection-observer';
+import {useInView} from 'react-intersection-observer';
 
 interface PropsType {
   children: ReactNode
@@ -14,7 +14,7 @@ const LazyLoader: FC<PropsType> = ({children, loadMore, fetch}) => {
   });
 
   useEffect(() => {
-    if(loadMore && inView) fetch()
+    if (loadMore && inView) fetch()
   }, [inView]);
 
   return (
@@ -23,7 +23,7 @@ const LazyLoader: FC<PropsType> = ({children, loadMore, fetch}) => {
         Children.map(items, (child, index) => {
           const isLast = index === items.length - 1
 
-          return cloneElement(child as ReactElement, isLast ? {ref}: {})
+          return cloneElement(child as ReactElement, isLast ? {ref} : {})
         })
       }
     </>

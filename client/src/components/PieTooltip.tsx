@@ -2,7 +2,7 @@ import {PieSection, TransactionType} from "../types/sliceTypes/transaction.type"
 import {FC} from "react";
 import {useAppSelector} from "../hooks/storeHooks";
 import CategoryService from "../services/categoryService";
-import {Group, Box, Text} from '@mantine/core'
+import {Box, Group, Text} from '@mantine/core'
 import AccountService from "../services/accountService";
 
 interface PropsType {

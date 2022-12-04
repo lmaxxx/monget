@@ -1,11 +1,13 @@
 import {createApi} from '@reduxjs/toolkit/query/react'
 import {
-  CurrencyRegistrationFormValues, IUser,
+  AuthResponse,
+  CurrencyRegistrationFormValues,
+  CurrencyUpdateResponse,
+  IUser,
   LoginFormValues,
   RegistrationFormValues,
   UpdateEmailFromValues
 } from "../types/sliceTypes/user.type";
-import {AuthResponse, CurrencyUpdateResponse} from "../types/sliceTypes/user.type";
 import AuthService from "../services/authService";
 import baseQueryWithReauth from "./baseQueryWithReauth";
 

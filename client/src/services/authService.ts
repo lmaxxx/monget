@@ -43,8 +43,8 @@ class AuthService {
       },
       validate: {
         email: (value: string) => {
-          if(value === activeEmail) return "You should type new email"
-          if(!/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(value))
+          if (value === activeEmail) return "You should type new email"
+          if (!/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(value))
             return "InvalidEmail"
 
           return null
@@ -73,10 +73,11 @@ class AuthService {
       dispatch(setUser(data.user))
       dispatch(setAuth(true))
 
-      if(isNewUser) {
+      if (isNewUser) {
         localStorage.setItem("token", data.accessToken)
       }
-    } catch (err) {} // catch errors in component
+    } catch (err) {
+    } // catch errors in component
   }
 
   async deleteUserData(dispatch: ThunkDispatch<any, any, AnyAction>) {
@@ -84,7 +85,8 @@ class AuthService {
       localStorage.removeItem("token")
       dispatch(setUser({} as IUser))
       dispatch(setAuth(false))
-    } catch (err) {} // catch errors in component
+    } catch (err) {
+    } // catch errors in component
   }
 }
 

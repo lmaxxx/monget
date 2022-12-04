@@ -18,7 +18,7 @@ const UpdateEmailForm = () => {
   }
 
   useEffect(() => {
-    if(error) NotificationService.sendErrorNotification(error as ApiError)
+    if (error) NotificationService.sendErrorNotification(error as ApiError)
   }, [error]);
 
   return (

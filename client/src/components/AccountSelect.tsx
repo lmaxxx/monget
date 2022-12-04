@@ -11,16 +11,17 @@ interface PropsType {
   width?: string
   data: AccountSelectItemProps[]
   placeholder?: string
+
   [x: string]: any
 }
 
 const AccountSelect: FC<PropsType> = ({
-  setActiveAccountId,
-  activeAccountId,
-  width,
-  data,
-  ...others
-}) => {
+                                        setActiveAccountId,
+                                        activeAccountId,
+                                        width,
+                                        data,
+                                        ...others
+                                      }) => {
   const accounts = useAppSelector(state => state.accountSlice.accounts)
   const activeAccount = accounts.find(account => account.id === activeAccountId)
 

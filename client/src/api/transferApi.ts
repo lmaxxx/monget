@@ -1,7 +1,6 @@
 import {createApi} from "@reduxjs/toolkit/query/react";
 import baseQueryWithReauth from "./baseQueryWithReauth";
-import {GetTransfersParamsType, ITransfer} from "../types/sliceTypes/transfer.type";
-import {TransferCreatingFormValues} from "../types/sliceTypes/transfer.type";
+import {GetTransfersParamsType, ITransfer, TransferCreatingFormValues} from "../types/sliceTypes/transfer.type";
 
 export const transferApi = createApi({
   reducerPath: "transferApi",

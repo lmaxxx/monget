@@ -45,7 +45,7 @@ class DateService {
   }
 
   getEndOfTheYear(date, years) {
-    return new Date(Date.UTC(date.getUTCFullYear() - years + 1, 11, 31, 23, 59, 59 ,999))
+    return new Date(Date.UTC(date.getUTCFullYear() - years + 1, 11, 31, 23, 59, 59, 999))
   }
 
   getStartOfTheMonthByIndex(date, index) {
@@ -63,7 +63,7 @@ class DateService {
     const firstDay = monthStartDay.getUTCDay()
     const totalDays = new Date(monthStartDay.getUTCFullYear(), monthStartDay.getUTCMonth() + 1, 0).getUTCDate()
 
-    return Math.ceil( (firstDay + totalDays) / 7);
+    return Math.ceil((firstDay + totalDays) / 7);
   }
 
   getWeeksBordersInMonth(monthStartDay, monthEndDay) {
@@ -72,9 +72,9 @@ class DateService {
     const weeks = this.getWeeksInMonth(monthStartDay)
     let counter = 0
 
-    for(let i = 0; i < monthEndDay.getUTCDate(); i++) {
+    for (let i = 0; i < monthEndDay.getUTCDate(); i++) {
       counter++
-      if(monthStartDayCopy.getUTCDay() === 0 || monthEndDay.getUTCDate() === monthStartDayCopy.getUTCDate()) {
+      if (monthStartDayCopy.getUTCDay() === 0 || monthEndDay.getUTCDate() === monthStartDayCopy.getUTCDate()) {
         const weekBorders = {
           start: this.getStartOfTheDay(new Date(this.subtractDays(monthStartDayCopy, counter))),
           end: this.getEndOfTheDay(new Date(monthStartDayCopy))
@@ -83,7 +83,7 @@ class DateService {
         counter = 0
         result.push(weekBorders)
 
-        if(weeks === result.length) return result
+        if (weeks === result.length) return result
       }
 
       monthStartDayCopy.setUTCDate(monthStartDayCopy.getUTCDate() + 1)

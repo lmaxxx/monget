@@ -1,18 +1,18 @@
 const Transaction = require("../models/Transaction");
 const ApiError = require("../exceptions/apiError");
-const DataService = require("../services/dataService")
+const DataService = require("./dataService")
 const Account = require("../models/Account");
-const ConverterService = require("../services/converterService")
-const DateService = require("../services/dateService")
-const CategoryService = require("../services/categoryService")
-const AccountService = require("../services/accountService");
+const ConverterService = require("./converterService")
+const DateService = require("./dateService")
+const CategoryService = require("./categoryService")
+const AccountService = require("./accountService");
 
 class TransactionService {
   async getTransactions(accountId, transactionType, query, options) {
     const findQuery = {}
 
     if (transactionType) findQuery.transactionType = transactionType
-    if(accountId) findQuery.accountId = accountId
+    if (accountId) findQuery.accountId = accountId
     if (query) {
       const {start, end, categoryId} = query
 
@@ -265,7 +265,7 @@ class TransactionService {
     if (rangeStart && rangeEnd) {
       const hours = rangeStart.getUTCHours()
 
-      if(hours > 0) {
+      if (hours > 0) {
         rangeStart.setUTCHours(hours + (25 - hours))
         rangeEnd.setUTCHours(hours + (25 - hours))
       }
@@ -279,7 +279,7 @@ class TransactionService {
   async getAccountsFromTransactions(transactions) {
     let result = []
 
-    if(!transactions.length) return result
+    if (!transactions.length) return result
 
     const userId = transactions[0].ownerId.toString()
     const accounts = await AccountService.getAccounts(userId, "ownerId")
@@ -298,7 +298,7 @@ class TransactionService {
   }
 
   getTransactionsFromAccount(accountId, transactions) {
-    if(transactions.length === 0 || transactions === undefined) return []
+    if (transactions.length === 0 || transactions === undefined) return []
 
     return transactions.filter(transaction => transaction.accountId.toString() === accountId)
   }

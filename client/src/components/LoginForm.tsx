@@ -1,6 +1,6 @@
 import {Box, Button, Group, LoadingOverlay, PasswordInput, Text, TextInput, Title} from '@mantine/core'
 import {useForm} from '@mantine/form'
-import {useRef, useEffect} from "react";
+import {useEffect, useRef} from "react";
 import {Link} from 'react-router-dom';
 import {LoginFormValues} from "../types/sliceTypes/user.type";
 import {useLoginMutation} from "../api/authApi";
@@ -14,7 +14,7 @@ const LoginForm = () => {
   const form = useForm<LoginFormValues>(AuthService.getLoginFormConfig());
 
   useEffect(() => {
-    if(error) NotificationService.sendErrorNotification(error as ApiError)
+    if (error) NotificationService.sendErrorNotification(error as ApiError)
   }, [error]);
 
   const submit = async (values: LoginFormValues) => {

@@ -14,7 +14,7 @@ const Home = () => {
   const activeAccount = useAppSelector(state => state.accountSlice.activeAccount)
   const formattedAmount = AccountService.getFormattedAmount(activeAccount.amount, activeAccount.currency, true)
 
-  if(!accountLength) {
+  if (!accountLength) {
     return (
       <DefaultPageWrapper>
         <Loader/>

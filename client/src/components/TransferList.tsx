@@ -1,4 +1,4 @@
-import {Box, Stack, Text} from "@mantine/core";
+import {Stack, Text} from "@mantine/core";
 import {useLazyGetTransfersQuery} from "../api/transferApi";
 import Loader from "./Loader";
 import TransferListItem from "./TransferListItem";
@@ -17,12 +17,12 @@ const TransferList = () => {
   }, []);
 
   useEffect(() => {
-    if(newTransfers?.length) {
+    if (newTransfers?.length) {
       setTransfers(oldTransfers => [...oldTransfers, ...newTransfers])
       return
     }
 
-    if(transfers.length) setLoadMore(false)
+    if (transfers.length) setLoadMore(false)
   }, [newTransfers]);
 
   const fetch = () => {
@@ -30,11 +30,11 @@ const TransferList = () => {
     setPage(prevPage => prevPage + 1)
   }
 
-  const showDate = (transfer: ITransfer, index: number) =>  (
+  const showDate = (transfer: ITransfer, index: number) => (
     index === 0 || new Date(transfer.createdAt).getDate() !== new Date(transfers![index - 1].createdAt).getDate()
   )
 
-  if(isLoading) return <Loader height={"300px"}/>
+  if (isLoading) return <Loader height={"300px"}/>
 
   return (
     <Stack mt={"md"} style={{overflowY: "auto", maxHeight: "80vh"}}>

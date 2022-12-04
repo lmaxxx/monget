@@ -1,4 +1,4 @@
-import {BaseQueryFn, FetchArgs, FetchBaseQueryError, fetchBaseQuery} from "@reduxjs/toolkit/query";
+import {BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError} from "@reduxjs/toolkit/query";
 
 const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
   args,

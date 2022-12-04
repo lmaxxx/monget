@@ -11,26 +11,26 @@ const useCheckIsAuth = () => {
   const location = useLocation()
 
   const checkIsAuth = async () => {
-    if(localStorage.getItem("token")) {
+    if (localStorage.getItem("token")) {
       await getUserFromDb()
     }
   }
 
   useEffect(() => {
-    if(isAuth && !user?.currency) return navigate("/currency/registration")
+    if (isAuth && !user?.currency) return navigate("/currency/registration")
 
-    if(isAuth && location.pathname.startsWith("/registration") ||
+    if (isAuth && location.pathname.startsWith("/registration") ||
       location.pathname.startsWith("/login")) {
 
       return navigate("/")
     }
 
-    if(!JSON.parse(localStorage.getItem("visited")!)) {
+    if (!JSON.parse(localStorage.getItem("visited")!)) {
       localStorage.setItem("visited", "true")
       return navigate("/overlook")
     }
 
-    if(isAuth === false || !localStorage.getItem("token")) navigate("/registration")
+    if (isAuth === false || !localStorage.getItem("token")) navigate("/registration")
 
   }, [isAuth, user])
 

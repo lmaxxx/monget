@@ -14,7 +14,7 @@ const NavigationLink: FC<PropsType> = ({link}) => {
   return (
     <Button
       leftIcon={link.icon}
-      variant={isActive ? "filled": "subtle"}
+      variant={isActive ? "filled" : "subtle"}
       fullWidth
       key={link.label}
       component={Link}

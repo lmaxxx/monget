@@ -1,9 +1,9 @@
 import {createApi} from "@reduxjs/toolkit/query/react";
 import baseQueryWithReauth from "./baseQueryWithReauth";
 import {
-  PieSection,
   GetTransactionParamsType,
   ITransaction,
+  PieSection,
   TransactionCreatingBodyParams
 } from "../types/sliceTypes/transaction.type";
 import TransactionService from "../services/transactionService";
@@ -14,7 +14,7 @@ export const transactionApi = createApi({
   tagTypes: ["Transaction"],
   endpoints: (builder) => ({
     getTransactions: builder.query<ITransaction[], GetTransactionParamsType>({
-      query: ({transactionType, accountId, ...params}) => ( {
+      query: ({transactionType, accountId, ...params}) => ({
         url: transactionType ?
           `/api/transactions/${transactionType}/${accountId}`
           :

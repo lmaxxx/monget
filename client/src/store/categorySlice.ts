@@ -1,5 +1,5 @@
-import {createSlice} from '@reduxjs/toolkit'
 import type {PayloadAction} from "@reduxjs/toolkit";
+import {createSlice} from '@reduxjs/toolkit'
 import {TransactionType} from '../types/sliceTypes/transaction.type'
 import {ICategory, InitialStateType} from '../types/sliceTypes/category.type'
 

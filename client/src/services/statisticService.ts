@@ -1,10 +1,5 @@
 import DateService from "./dateService";
-import {
-  BarChartKey,
-  StatisticDateType,
-  StatisticSection,
-  StatisticTransactionType
-} from "../types/sliceTypes/statistic.type";
+import {BarChartKey, StatisticDateType, StatisticTransactionType} from "../types/sliceTypes/statistic.type";
 import {AnyAction, ThunkDispatch} from "@reduxjs/toolkit";
 import {setData} from "../store/statisticSlice";
 
@@ -13,27 +8,27 @@ class StatisticService {
     dispatch: ThunkDispatch<any, any, AnyAction>,
     data: any,
   }) {
-      dispatch(setData(data))
+    dispatch(setData(data))
   }
 
   getDateLabelText(statisticDateType: StatisticDateType, dateCounter: number) {
     const currentDate = new Date()
-    const stringWeekDateOptions: Intl.DateTimeFormatOptions = {year: 'numeric', month: 'short', day: 'numeric' };
+    const stringWeekDateOptions: Intl.DateTimeFormatOptions = {year: 'numeric', month: 'short', day: 'numeric'};
 
-    if(statisticDateType === StatisticDateType.PerYear) {
+    if (statisticDateType === StatisticDateType.PerYear) {
       const year = DateService.subtractYears(currentDate, dateCounter)
 
       return `${year.getUTCFullYear()}`
     }
 
-    if(statisticDateType === StatisticDateType.PerMonth) {
+    if (statisticDateType === StatisticDateType.PerMonth) {
       const monthStartDay = DateService.subtractMonths(currentDate, dateCounter)
       const monthName = monthStartDay.toLocaleDateString("en-US", {month: 'short'})
 
       return `${monthName}, ${monthStartDay.getUTCFullYear()}`
     }
 
-    if(statisticDateType === StatisticDateType.PerWeek) {
+    if (statisticDateType === StatisticDateType.PerWeek) {
       const weekStartDay = DateService.subtractDays(currentDate, dateCounter * 7)
       const start = DateService.getStartOfTheDay(weekStartDay).toLocaleDateString("en-US", stringWeekDateOptions)
       const end = DateService.addDays(weekStartDay, 7).toLocaleDateString("en-US", stringWeekDateOptions)

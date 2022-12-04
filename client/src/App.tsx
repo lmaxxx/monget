@@ -6,9 +6,11 @@ import Loader from "./components/Loader";
 function App() {
   const {checkIsAuth, isLoading} = useCheckIsAuth()
 
-  useEffect(() => {checkIsAuth()}, [])
+  useEffect(() => {
+    checkIsAuth()
+  }, [])
 
-  if(isLoading) return <Loader />
+  if (isLoading) return <Loader/>
 
   return (
     <Pages/>

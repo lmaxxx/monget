@@ -2,11 +2,12 @@ import {AnyAction, ThunkDispatch} from "@reduxjs/toolkit";
 import {setAccounts, setActiveAccount} from "../store/accountSlice";
 import getSymbolFromCurrency from "currency-symbol-map";
 import {
-  AccountCreatingFormValues, AccountEditingFormValues,
+  AccountCreatingFormValues,
+  AccountEditingFormValues,
   AccountSelectItemOptions,
-  AccountSelectItemProps
+  AccountSelectItemProps,
+  IAccount
 } from "../types/sliceTypes/account.type";
-import {IAccount} from "../types/sliceTypes/account.type";
 import {UseFormReturnType} from "@mantine/form";
 
 class AccountService {
@@ -19,8 +20,8 @@ class AccountService {
       },
       validate: {
         currency: (value: string) => value.trim().length === 3 ? null : "You need to choose currency",
-        amount: (value: number) => value !== undefined ? null: "You need to type an amount",
-        accountName:  (value: string) => value.trim().length > 2 ? null : "You need to type an account name"
+        amount: (value: number) => value !== undefined ? null : "You need to type an amount",
+        accountName: (value: string) => value.trim().length > 2 ? null : "You need to type an account name"
       }
     }
   }
@@ -43,15 +44,14 @@ class AccountService {
   }
 
   getFormattedAmount(amount?: number | string, currency?: string, disableAbbreviation?: boolean) {
-    if(amount === undefined || currency === undefined) return null
+    if (amount === undefined || currency === undefined) return null
 
-    if(amount.toString().length > 5 && !disableAbbreviation) {
+    if (amount.toString().length > 5 && !disableAbbreviation) {
       amount = amount.toLocaleString('en-US', {
         notation: "compact",
         compactDisplay: "short"
       })
-    }
-    else if(amount !== parseInt(amount.toString())) amount = Number(amount).toFixed(2)
+    } else if (amount !== parseInt(amount.toString())) amount = Number(amount).toFixed(2)
 
     return amount + getSymbolFromCurrency(currency)
   }
@@ -65,7 +65,7 @@ class AccountService {
         iconBackgroundColor: account.iconBackgroundColor,
       }
 
-      if(options?.disabled.includes(account.id)) selectItemProps.disabled = true
+      if (options?.disabled.includes(account.id)) selectItemProps.disabled = true
 
       return selectItemProps
     })

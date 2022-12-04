@@ -9,7 +9,7 @@ class ApiError extends Error {
   static validationRequest(req) {
     const errors = validationResult(req).array()
 
-    if(errors.length) {
+    if (errors.length) {
       throw new ApiError(400, errors[0].msg)
     }
   }
@@ -17,7 +17,7 @@ class ApiError extends Error {
   static ErrorBoundary(res, err) {
     console.log(err)
 
-    if(err.status) return res.status(err.status).json({status: err.status, message: err.message})
+    if (err.status) return res.status(err.status).json({status: err.status, message: err.message})
 
     res.json(err)
   }

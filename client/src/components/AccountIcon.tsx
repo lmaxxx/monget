@@ -9,19 +9,20 @@ interface PropsType {
   iconSize?: string
   isActive?: boolean
   color?: string
+
   [other: string]: any
 }
 
 const AccountIcon: FC<PropsType> = ({
-                                      iconName ,
+                                      iconName,
                                       backgroundColor,
                                       backgroundSize = "2rem",
                                       iconSize,
                                       isActive,
-                                      color= "#fff",
+                                      color = "#fff",
                                       ...other
-}) => {
-  if(!iconName || !backgroundColor) {
+                                    }) => {
+  if (!iconName || !backgroundColor) {
     return (
       <Box
         p={".2rem"}
@@ -46,7 +47,7 @@ const AccountIcon: FC<PropsType> = ({
         borderRadius: ".5rem",
         height: backgroundSize,
         width: backgroundSize,
-        border: isActive ? "3px solid #238BE6": ""
+        border: isActive ? "3px solid #238BE6" : ""
       }}
       {...other}
     >

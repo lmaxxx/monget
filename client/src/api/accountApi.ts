@@ -1,7 +1,6 @@
 import {createApi} from "@reduxjs/toolkit/query/react";
-import {IAccount} from "../types/sliceTypes/account.type";
+import {AccountCreatingBodyParams, IAccount} from "../types/sliceTypes/account.type";
 import baseQueryWithReauth from "./baseQueryWithReauth";
-import {AccountCreatingBodyParams} from "../types/sliceTypes/account.type";
 import AccountService from "../services/accountService";
 import {RootState} from "../store/store";
 
@@ -38,7 +37,7 @@ export const accountApi = createApi({
       invalidatesTags: ["Account"]
     }),
     deleteAccount: builder.mutation<void, string>({
-      query: (id) =>  ({
+      query: (id) => ({
         url: `/api/account/${id}`,
         method: "DELETE"
       }),

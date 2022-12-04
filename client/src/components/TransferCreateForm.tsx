@@ -1,4 +1,4 @@
-import {Box, Button, LoadingOverlay, NumberInput, ActionIcon, Group} from "@mantine/core";
+import {ActionIcon, Box, Button, Group, LoadingOverlay, NumberInput} from "@mantine/core";
 import {useNavigate} from "react-router-dom";
 import {useAppSelector} from "../hooks/storeHooks";
 import {useState} from "react";
@@ -64,7 +64,7 @@ const TransferCreateForm = () => {
           />
           <Group position={"center"}>
             <ActionIcon onClick={swap} color="teal" size="lg" radius="xl" variant="light">
-              <IconArrowsExchange size={26} />
+              <IconArrowsExchange size={26}/>
             </ActionIcon>
           </Group>
           <AccountSelect

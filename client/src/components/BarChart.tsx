@@ -17,10 +17,10 @@ const BarChart = () => {
         colors={({id}) => StatisticService.getBarChartColor(id as BarChartKey)}
         keys={StatisticService.getBarChartKeys(activeStatisticTransactionType)}
         indexBy="label"
-        margin={{ top: 20, bottom: 50, left: 50 }}
+        margin={{top: 20, bottom: 50, left: 50}}
         padding={0.3}
-        valueScale={{ type: 'linear' }}
-        indexScale={{ type: 'band', round: true }}
+        valueScale={{type: 'linear'}}
+        indexScale={{type: 'band', round: true}}
         legends={[
           {
             anchor: 'bottom',

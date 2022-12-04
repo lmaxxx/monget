@@ -74,7 +74,7 @@ const CategoryCreateForm = () => {
               transactionType={transactionType}
               onChange={setTransactionType}
             />
-            <Group mt={"sm"} position={isMobile ? "center": "left"}>
+            <Group mt={"sm"} position={isMobile ? "center" : "left"}>
               <CategoryIcon
                 backgroundColor={iconBackgroundColor}
                 iconName={activeIconName}

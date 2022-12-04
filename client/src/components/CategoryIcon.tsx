@@ -1,5 +1,5 @@
 import {cloneElement, FC} from 'react'
-import {Group, Text, Box} from "@mantine/core"
+import {Box, Group, Text} from "@mantine/core"
 import {transactionIconsObject, TransactionIconType} from "../data/transactionIcons";
 import HiddenTextStyles from "../assets/hiddenTextStyles";
 
@@ -10,6 +10,7 @@ interface PropsType {
   iconSize?: string
   color?: string
   description?: string
+
   [x: string]: any
 }
 

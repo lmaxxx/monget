@@ -97,7 +97,7 @@ const CategoryEditForm = () => {
               variant={"filled"}
               defaultValue={currentCategory?.transactionType}
             />
-            <Group mt={"sm"} position={isMobile ? "center": "left"}>
+            <Group mt={"sm"} position={isMobile ? "center" : "left"}>
               <CategoryIcon
                 backgroundColor={iconBackgroundColor}
                 iconName={activeIconName}

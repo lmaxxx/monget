@@ -1,4 +1,4 @@
-import {Routes, Route} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import Registration from "./Registration";
 import Login from "./Login";
 import Overlook from "./Overlook";

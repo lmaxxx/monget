@@ -35,7 +35,7 @@ export interface TransactionCreatingFormValues {
   date: Date
 }
 
-export interface TransactionCreatingBodyParams extends TransactionCreatingFormValues{
+export interface TransactionCreatingBodyParams extends TransactionCreatingFormValues {
   transactionType: TransactionType
   accountId: string
   categoryId: string

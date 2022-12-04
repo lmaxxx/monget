@@ -10,7 +10,7 @@ class TransactionController {
       const validatedQuery = TransactionService.validateDateTransactionQuery(req.query)
       const options = DataService.validatePageTransactionQuery(req.query)
 
-      if(categoryId) validatedQuery.categoryId = categoryId
+      if (categoryId) validatedQuery.categoryId = categoryId
 
       const transactions = await TransactionService.getTransactions(accountId, null, validatedQuery, options)
 
@@ -27,7 +27,7 @@ class TransactionController {
       const validatedQuery = TransactionService.validateDateTransactionQuery(req.query)
       const options = DataService.validatePageTransactionQuery(req.query)
 
-      if(categoryId) validatedQuery.categoryId = categoryId
+      if (categoryId) validatedQuery.categoryId = categoryId
 
       const transactions = await TransactionService.getTransactions(accountId, "expenses", validatedQuery, options)
 
@@ -44,7 +44,7 @@ class TransactionController {
       const validatedQuery = TransactionService.validateDateTransactionQuery(req.query)
       const options = DataService.validatePageTransactionQuery(req.query)
 
-      if(categoryId) validatedQuery.categoryId = categoryId
+      if (categoryId) validatedQuery.categoryId = categoryId
 
       const transactions = await TransactionService.getTransactions(accountId, "income", validatedQuery, options)
 
@@ -86,7 +86,7 @@ class TransactionController {
       const data = req.body
       const {id} = req.params
 
-      if(!Object.values(data).length) throw new ApiError(400, "There aren't any new properties")
+      if (!Object.values(data).length) throw new ApiError(400, "There aren't any new properties")
 
       const transaction = await TransactionService.editTransaction(id, data)
 

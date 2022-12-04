@@ -8,7 +8,7 @@ class TransferService {
       },
       validate: {
         to: (value: string) => value.trim().length ? null : "You need to choose FROM account",
-        amount: (value: number) => value > 0  ? null: "Amount should be more than 0",
+        amount: (value: number) => value > 0 ? null : "Amount should be more than 0",
         from: (value: string) => value.trim().length ? null : "You need to choose TO account"
       }
     }

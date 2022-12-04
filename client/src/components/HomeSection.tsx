@@ -25,14 +25,14 @@ const HomeSection: FC<PropsType> = ({title}) => {
   useGetCategoriesQuery(transactionType)
 
   useEffect(() => {
-    if(activeAccountId && transactionType && activeTransactionDateRequestType && range[0] && range[1]) {
-        getChartData({
-          accountId: activeAccountId,
-          transactionType,
-          dateCounter,
-          transactionDateRequestType: activeTransactionDateRequestType,
-          range
-        })
+    if (activeAccountId && transactionType && activeTransactionDateRequestType && range[0] && range[1]) {
+      getChartData({
+        accountId: activeAccountId,
+        transactionType,
+        dateCounter,
+        transactionDateRequestType: activeTransactionDateRequestType,
+        range
+      })
     }
   }, [activeAccountId, transactionType, dateCounter, activeTransactionDateRequestType, range[1]]);
 

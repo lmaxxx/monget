@@ -15,7 +15,7 @@ const ChooseCategoryModaL: FC<PropsType> = ({
                                               onClose,
                                               setActiveCategoryId,
                                               transactionType
-}) => {
+                                            }) => {
   const theme = useMantineTheme()
   const setIconAndClose = (id: string) => {
     setActiveCategoryId(id)

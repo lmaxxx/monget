@@ -7,7 +7,7 @@ const AccountsSkeleton = () => {
     <Container px={0} py={"xs"} mt={"lg"}>
       {
         arrForSkeletonRendering.map((_, index) => (
-          <Skeleton radius={"md"} mb={"md"} height={"58px"} key={index} />
+          <Skeleton radius={"md"} mb={"md"} height={"58px"} key={index}/>
         ))
       }
     </Container>

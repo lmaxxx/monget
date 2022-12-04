@@ -14,8 +14,8 @@ const CurrencyRegistration = () => {
   const animationsVariants = AnimationService.fadeInDown({})
 
   useEffect(() => {
-    if(userCurrency && isAuth) return navigate("/")
-    if(!userCurrency && !isAuth) return navigate("/registration")
+    if (userCurrency && isAuth) return navigate("/")
+    if (!userCurrency && !isAuth) return navigate("/registration")
   }, [userCurrency]);
 
   return (

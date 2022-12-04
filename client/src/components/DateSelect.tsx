@@ -3,7 +3,7 @@ import {DateRangeType, TransactionDateRequestType} from "../types/sliceTypes/tra
 import ChooseDateModal from "./ChooseDateModal";
 import {Button, Group} from '@mantine/core'
 import TransactionService from "../services/transactionService";
-import {IconChevronRight, IconChevronLeft} from "@tabler/icons";
+import {IconChevronLeft, IconChevronRight} from "@tabler/icons";
 
 interface PropsType {
   setActiveTransactionDateRequestType: (newValue: TransactionDateRequestType) => void

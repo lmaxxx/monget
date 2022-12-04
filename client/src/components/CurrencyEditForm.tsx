@@ -13,7 +13,7 @@ const CurrencyEditForm = () => {
   const [updateCurrency, {isLoading}] = useUpdateCurrencyMutation()
 
   useEffect(() => {
-    if(!form.values.currency) {
+    if (!form.values.currency) {
       form.setFieldValue("currency", userCurrency)
     }
   }, [userCurrency]);
@@ -25,15 +25,15 @@ const CurrencyEditForm = () => {
   return (
     <Box sx={{maxWidth: "400px", width: "100%"}} p={"1rem"} style={{position: "relative"}}>
       <LoadingOverlay visible={isLoading} overlayBlur={2}/>
-        <Box
-          id={"changeCurrency"}
-          component={"form"}
-          onSubmit={form.onSubmit(updateCurrencySubmit)}
-        >
-          <Title mb={"md"} align={"center"}>Update your main currency</Title>
-          <CurrencySelect label={"Currency"} form={form}/>
-          <Button form={"changeCurrency"} mt={"md"} fullWidth size={"sm"} type="submit">Update</Button>
-        </Box>
+      <Box
+        id={"changeCurrency"}
+        component={"form"}
+        onSubmit={form.onSubmit(updateCurrencySubmit)}
+      >
+        <Title mb={"md"} align={"center"}>Update your main currency</Title>
+        <CurrencySelect label={"Currency"} form={form}/>
+        <Button form={"changeCurrency"} mt={"md"} fullWidth size={"sm"} type="submit">Update</Button>
+      </Box>
     </Box>
   )
 }

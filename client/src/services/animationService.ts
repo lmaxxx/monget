@@ -17,6 +17,7 @@ class AnimationService {
       },
     }
   }
+
   fadeInRight({delay = 0, duration = .3}): Variants {
     return {
       whileInView: {
@@ -33,8 +34,9 @@ class AnimationService {
       },
     }
   }
+
   navbarSlide(isMobile: boolean): Variants {
-    if(isMobile) {
+    if (isMobile) {
       return {animate: {x: 0}, initial: {x: "-100vw"}}
     }
 

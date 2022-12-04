@@ -1,4 +1,4 @@
-import {FC, useEffect} from 'react'
+import {FC} from 'react'
 import {Group, Text, useMantineTheme} from "@mantine/core";
 import CategoryIcon from "./CategoryIcon";
 import {TransactionIconType} from "../data/transactionIcons";
@@ -20,17 +20,17 @@ const CategoryIconsSection: FC<PropsType> = ({section, icons, iconProps}) => {
       <Group position={"center"}>
         {
           iconNames.map((iconName) =>
-              <CategoryIcon
-                key={iconName}
-                m={"0.5"}
-                backgroundSize={"4rem"}
-                iconSize={"80%"}
-                iconName={iconName as TransactionIconType}
-                style={{cursor: "pointer"}}
-                {...iconProps}
-                onClick={hasOnClickEvent ? iconProps.onClick.bind(this, iconName) : null}
-              />
-            )
+            <CategoryIcon
+              key={iconName}
+              m={"0.5"}
+              backgroundSize={"4rem"}
+              iconSize={"80%"}
+              iconName={iconName as TransactionIconType}
+              style={{cursor: "pointer"}}
+              {...iconProps}
+              onClick={hasOnClickEvent ? iconProps.onClick.bind(this, iconName) : null}
+            />
+          )
         }
       </Group>
     </>

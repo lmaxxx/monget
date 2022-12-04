@@ -1,4 +1,4 @@
-import {Group, Select, Text} from "@mantine/core";
+import {Group, Select} from "@mantine/core";
 import StatisticTransactionSegmentControl from "./StatisticTransactionSegmentControl";
 import {useAppSelector} from "../hooks/storeHooks";
 import {useDispatch} from "react-redux";

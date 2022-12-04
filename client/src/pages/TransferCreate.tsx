@@ -1,4 +1,4 @@
-import {Center, Paper, Title, useMantineTheme} from "@mantine/core";
+import {Center, Paper, useMantineTheme} from "@mantine/core";
 import TransferCreateForm from "../components/TransferCreateForm";
 import FormHeader from "../components/FormHeader";
 import AnimationService from "../services/animationService";

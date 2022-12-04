@@ -12,11 +12,11 @@ const HomeAccountSelect = () => {
   const [activeAccountId, setActiveAccountId] = useState<string | null>(null)
 
   useEffect(() => {
-    !Object.values(activeAccount).length ? setActiveAccountId(accounts[0].id): setActiveAccountId(activeAccount.id)
+    !Object.values(activeAccount).length ? setActiveAccountId(accounts[0].id) : setActiveAccountId(activeAccount.id)
   }, [])
 
   useEffect(() => {
-    if(activeAccountId) dispatch(setActiveAccount(activeAccountId))
+    if (activeAccountId) dispatch(setActiveAccount(activeAccountId))
   }, [activeAccountId])
 
   return (

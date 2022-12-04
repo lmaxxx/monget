@@ -1,12 +1,12 @@
 const Account = require("../models/Account");
-const DataService = require("../services/dataService")
+const DataService = require("./dataService")
 const ApiError = require("../exceptions/apiError");
 const Transaction = require("../models/Transaction");
 const Transfer = require("../models/Transfer");
 
 class AccountService {
   async createAccount(userData, data) {
-    if(!data) {
+    if (!data) {
       const accountDoc = await Account.create({
         currency: userData.currency,
         ownerId: userData.id,
@@ -40,7 +40,7 @@ class AccountService {
       throw new ApiError(400, "There is no account with current id")
     })
 
-    if(!accountDoc) throw new ApiError(400, "Account with this id doesn't exist")
+    if (!accountDoc) throw new ApiError(400, "Account with this id doesn't exist")
 
     Object.entries(data).forEach(([property, value]) => {
       accountDoc[property] = value
@@ -64,7 +64,7 @@ class AccountService {
     })
 
     await Transaction.deleteMany({accountId: id}).catch(err => {
-        throw new ApiError(400, "There is no account with current id")
+      throw new ApiError(400, "There is no account with current id")
     })
 
     await Transfer.deleteMany({$or: [{from: id}, {to: id}]}).catch(err => {

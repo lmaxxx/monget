@@ -1,7 +1,7 @@
 import {useAppSelector} from "../hooks/storeHooks";
 import AccountService from "../services/accountService";
 
-const CenteredMetric = ({ dataWithArc, centerX, centerY }: any) => {
+const CenteredMetric = ({dataWithArc, centerX, centerY}: any) => {
   const isEmpty = dataWithArc[0].data.isEmpty
   const currency = useAppSelector(state => state.accountSlice.activeAccount.currency)
 
@@ -19,10 +19,10 @@ const CenteredMetric = ({ dataWithArc, centerX, centerY }: any) => {
       textAnchor="middle"
       dominantBaseline="central"
       style={isEmpty ? {
-        color:"#FFFFFF",
+        color: "#FFFFFF",
         fontSize: '1.2rem',
       } : {
-        color:"#FFFFFF",
+        color: "#FFFFFF",
         fontSize: '1.9rem',
         fontWeight: 600
       }}

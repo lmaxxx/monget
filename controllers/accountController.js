@@ -20,7 +20,7 @@ class AccountController {
       const account = await AccountService.createAccount(req.user, req.body)
 
       res.json(account)
-    } catch(err) {
+    } catch (err) {
       ApiError.ErrorBoundary(res, err)
     }
   }
@@ -30,12 +30,12 @@ class AccountController {
       const {id} = req.params
       const data = req.body
 
-      if(!Object.values(data).length) throw new ApiError(400, "There aren't any new properties")
+      if (!Object.values(data).length) throw new ApiError(400, "There aren't any new properties")
 
       const account = await AccountService.editAccount(id, data)
 
       res.json(account)
-    } catch(err) {
+    } catch (err) {
       res.status(err.status || 500).json({status: err.status, message: err.message})
     }
   }

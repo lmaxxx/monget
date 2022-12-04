@@ -60,7 +60,7 @@ const TransactionCreateForm = () => {
   const openModal = () => setOpenedModal(true)
   const closeModal = () => setOpenedModal(false)
 
-  if(isLoading) {
+  if (isLoading) {
     return (
       <div style={{position: "relative", minHeight: "300px"}}>
         <LoadingOverlay visible={true} overlayBlur={2}/>

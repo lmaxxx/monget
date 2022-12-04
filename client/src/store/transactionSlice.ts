@@ -1,8 +1,9 @@
 import type {PayloadAction} from "@reduxjs/toolkit";
 import {createSlice} from '@reduxjs/toolkit'
 import {
-  DateRangeType, PieSection,
+  DateRangeType,
   InitialStateType,
+  PieSection,
   TransactionDateRequestType,
   TransactionType
 } from '../types/sliceTypes/transaction.type'

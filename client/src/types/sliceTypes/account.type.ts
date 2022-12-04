@@ -29,7 +29,7 @@ export interface AccountEditingFormValues {
   accountName: string
 }
 
-export interface AccountCreatingBodyParams extends AccountCreatingFormValues{
+export interface AccountCreatingBodyParams extends AccountCreatingFormValues {
   iconName: string
   iconBackgroundColor: string
 }

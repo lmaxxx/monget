@@ -6,7 +6,7 @@ import colorsForPicker from "../data/colorsForPicker.json"
 import {useEffect, useState} from "react";
 import AccountService from "../services/accountService";
 import {useCreateAccountMutation} from "../api/accountApi";
-import {AccountCreatingBodyParams, AccountCreatingFormValues} from "../types/sliceTypes/account.type"
+import {AccountCreatingFormValues} from "../types/sliceTypes/account.type"
 import AccountIconList from "./AccountIconList";
 import {AccountIconType} from "../data/accountIcons";
 import {useAppSelector} from "../hooks/storeHooks";
@@ -77,15 +77,15 @@ const AccountCreateForm = () => {
               {...form.getInputProps("amount")}
             />
           </Box>
-            <ColorPicker
-              mt={"sm"}
-              size={isMobile ? "xs" : "md"}
-              swatchesPerRow={6}
-              format="hex"
-              value={iconBackgroundColor}
-              onChange={setIconBackgroundColor}
-              swatches={colorsForPicker}
-            />
+          <ColorPicker
+            mt={"sm"}
+            size={isMobile ? "xs" : "md"}
+            swatchesPerRow={6}
+            format="hex"
+            value={iconBackgroundColor}
+            onChange={setIconBackgroundColor}
+            swatches={colorsForPicker}
+          />
         </Box>
         <AccountIconList
           activeIconName={activeIconName}

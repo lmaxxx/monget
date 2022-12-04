@@ -1,15 +1,15 @@
 import {
-  IconCash,
-  IconWallet,
-  IconPig,
-  IconCurrencyDollar,
-  IconCurrencyPound,
-  IconCurrencyEuro,
   IconBrandPaypal,
   IconBuildingBank,
+  IconCash,
   IconCreditCard,
+  IconCurrencyDollar,
+  IconCurrencyEuro,
+  IconCurrencyPound,
+  IconPig,
   IconReceiptTax,
-  IconShieldLock
+  IconShieldLock,
+  IconWallet
 } from "@tabler/icons"
 
 const accountIcons = {

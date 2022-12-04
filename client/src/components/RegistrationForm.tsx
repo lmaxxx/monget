@@ -1,4 +1,4 @@
-import {Box, Button, Group, LoadingOverlay, PasswordInput, TextInput, Title, Text} from '@mantine/core'
+import {Box, Button, Group, LoadingOverlay, PasswordInput, Text, TextInput, Title} from '@mantine/core'
 import {useForm} from '@mantine/form'
 import {useEffect, useRef} from "react";
 import {Link} from 'react-router-dom';
@@ -14,7 +14,7 @@ const RegistrationForm = () => {
   const form = useForm<RegistrationFormValues>(AuthService.getRegistrationFormConfig(passportInputRef))
 
   useEffect(() => {
-    if(error) NotificationService.sendErrorNotification(error as ApiError)
+    if (error) NotificationService.sendErrorNotification(error as ApiError)
   }, [error]);
 
   const submit = async (values: RegistrationFormValues) => {

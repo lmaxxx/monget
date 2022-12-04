@@ -1,10 +1,9 @@
 import {Box, Text} from "@mantine/core"
-import {FC, forwardRef, Ref} from 'react'
+import {forwardRef} from 'react'
 import {ITransaction} from "../types/sliceTypes/transaction.type";
-import {Link, useLocation, useParams} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import CategoryIcon from "./CategoryIcon";
 import HiddenTextStyles from "../assets/hiddenTextStyles";
-import CategoryService from "../services/categoryService";
 import AccountService from "../services/accountService";
 
 
@@ -14,7 +13,7 @@ interface PropsType {
 }
 
 const TransactionListItem = forwardRef<HTMLAnchorElement, PropsType>(({transaction, showDate}, ref) => {
-  const stringDateOptions: Intl.DateTimeFormatOptions = {year: 'numeric', month: 'short', day: 'numeric' };
+  const stringDateOptions: Intl.DateTimeFormatOptions = {year: 'numeric', month: 'short', day: 'numeric'};
   const location = useLocation()
   const {activeAccount, category} = location.state
   const date = new Date(transaction.date).toLocaleDateString("en-US", stringDateOptions)
@@ -53,7 +52,8 @@ const TransactionListItem = forwardRef<HTMLAnchorElement, PropsType>(({transacti
             {AccountService.getFormattedAmount(amount, activeAccount.currency)}
           </Text>
         </Box>
-        {transaction.description && <Text sx={{wordWrap: "break-word"}} pl={"4rem"} color={"pink"}>{transaction.description}</Text>}
+        {transaction.description &&
+          <Text sx={{wordWrap: "break-word"}} pl={"4rem"} color={"pink"}>{transaction.description}</Text>}
       </Box>
     </>
 

@@ -1,18 +1,18 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const uuid = require("uuid")
-const TokenService = require("../services/tokenService")
-const MailService = require("../services/mailService")
-const DataService = require("../services/dataService")
+const TokenService = require("./tokenService")
+const MailService = require("./mailService")
+const DataService = require("./dataService")
 const ApiError = require("../exceptions/apiError");
-const AccountService = require("../services/accountService")
-const CategoryService = require("../services/categoryService")
+const AccountService = require("./accountService")
+const CategoryService = require("./categoryService")
 
 class AuthService {
   async registration(email, password, name) {
     const candidate = await User.findOne({email})
 
-    if(candidate) throw new ApiError(400, "Email is already in use")
+    if (candidate) throw new ApiError(400, "Email is already in use")
 
     const hashPassword = await bcrypt.hash(password, 4)
     const activationLink = uuid.v4()
@@ -41,7 +41,7 @@ class AuthService {
 
     const isPasswordEquals = await bcrypt.compare(password, user.password)
 
-    if(!isPasswordEquals) throw new ApiError(400, "Password is incorrect")
+    if (!isPasswordEquals) throw new ApiError(400, "Password is incorrect")
 
     const userData = DataService.getUserFromDoc(user)
     const tokens = TokenService.generateTokens(userData)
@@ -53,7 +53,7 @@ class AuthService {
   async activate(activationLink) {
     const user = await User.findOne({activationLink})
 
-    if(!user) throw new ApiError(400, "Activation link is incorrect")
+    if (!user) throw new ApiError(400, "Activation link is incorrect")
 
     user.isActivated = true
     await user.save()
@@ -64,12 +64,12 @@ class AuthService {
   }
 
   async refresh(refreshToken) {
-    if(!refreshToken) throw new ApiError(401, "User is unauthorized")
+    if (!refreshToken) throw new ApiError(401, "User is unauthorized")
 
     const userData = TokenService.validateRefreshToken(refreshToken)
     const tokenFromDb = await TokenService.findToken(refreshToken)
 
-    if(!userData || !tokenFromDb) throw new ApiError(401, "User is unauthorized")
+    if (!userData || !tokenFromDb) throw new ApiError(401, "User is unauthorized")
 
     const user = await User.findById(userData.id)
     const newUserData = DataService.getUserFromDoc(user)
@@ -82,7 +82,7 @@ class AuthService {
   async updateCurrency(userId, currency) {
     const user = await User.findById(userId)
 
-    if(!user.currency) {
+    if (!user.currency) {
       user.currency = currency
       await AccountService.createAccount(DataService.getUserFromDoc(user))
     }
@@ -98,7 +98,7 @@ class AuthService {
     const userDoc = await User.findById(userId)
     const candidate = await User.findOne({email})
 
-    if(candidate) throw new ApiError(400, "Email is already in use")
+    if (candidate) throw new ApiError(400, "Email is already in use")
 
     userDoc.email = email
     await userDoc.save()

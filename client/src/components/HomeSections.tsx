@@ -1,4 +1,4 @@
-import {SimpleGrid, Box} from "@mantine/core";
+import {Box, SimpleGrid} from "@mantine/core";
 import HomeSection from "./HomeSection";
 import HomeSectionSwitch from "./HomeSectionSwitch";
 import {useMediaQuery} from "@mantine/hooks";

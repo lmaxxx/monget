@@ -1,4 +1,4 @@
-import { IconDashboard, IconWallet, IconChartBar, IconCategory, IconCash } from '@tabler/icons';
+import {IconCash, IconCategory, IconChartBar, IconDashboard, IconWallet} from '@tabler/icons';
 
 export default [
   {

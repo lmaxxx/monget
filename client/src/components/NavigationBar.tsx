@@ -1,5 +1,5 @@
 import {createStyles, Navbar} from '@mantine/core';
-import {FC, useEffect, useState} from "react";
+import {FC, useEffect} from "react";
 import NavigationLinks from "./NavigationLinks";
 import BottomNavigationSection from "./BottomNavigationSection";
 import AnimatedWrapper from "../hoc/AnimatedWrapper";

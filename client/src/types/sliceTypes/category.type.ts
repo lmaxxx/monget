@@ -22,7 +22,7 @@ export interface CategoryCreatingFormValues {
   name: string
 }
 
-export interface CategoryCreatingBodyParams extends CategoryCreatingFormValues{
+export interface CategoryCreatingBodyParams extends CategoryCreatingFormValues {
   iconName: TransactionIconType
   transactionType: TransactionType
   iconBackgroundColor: string

@@ -22,7 +22,7 @@ app.use("/api", accountRouter, transferRouter, categoryRouter, transactionRouter
 
 try {
   connectDB()
-  app.listen(port,() => console.log(`Server is listening to port ${port}`))
+  app.listen(port, () => console.log(`Server is listening to port ${port}`))
 } catch (err) {
   console.log(err)
 }

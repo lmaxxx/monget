@@ -1,14 +1,17 @@
-const DateService = require("../services/dateService");
-const TransactionService = require("../services/transactionService");
+const DateService = require("./dateService");
+const TransactionService = require("./transactionService");
 const ApiError = require("../exceptions/apiError");
-const ConverterService = require("../services/converterService")
+const ConverterService = require("./converterService")
 
 class StatisticService {
   async getStatistics(queryType, dateCounter, transactionType) {
     switch (queryType) {
-      case "years": return await this.getYearStatistic(dateCounter, transactionType)
-      case "weeks": return await this.getWeekStatistic(dateCounter, transactionType)
-      case "months": return await this.getMonthStatistic(dateCounter, transactionType)
+      case "years":
+        return await this.getYearStatistic(dateCounter, transactionType)
+      case "weeks":
+        return await this.getWeekStatistic(dateCounter, transactionType)
+      case "months":
+        return await this.getMonthStatistic(dateCounter, transactionType)
     }
   }
 
@@ -25,7 +28,7 @@ class StatisticService {
     let transactions = await TransactionService.getTransactions(null, transactionType, query)
     transactions = await this.convertTransactionsAmount(transactions)
 
-    for(let i = 0; i < 12; i++) {
+    for (let i = 0; i < 12; i++) {
       const startOfTheMonth = DateService.getStartOfTheMonthByIndex(startOfTheYear, i)
       const endOfTheMonth = DateService.getEndOfTheMonthByIndex(startOfTheYear, i)
       const monthName = startOfTheMonth.toLocaleString('en-US', {month: 'short'})
@@ -58,14 +61,14 @@ class StatisticService {
     transactions = await this.convertTransactionsAmount(transactions)
     const weeksBorders = DateService.getWeeksBordersInMonth(monthStartDay, monthEndDay)
 
-    for(const {start, end} of weeksBorders) {
+    for (const {start, end} of weeksBorders) {
       const weekTransactions = transactions.filter(transaction => (
         transaction.date.getTime() >= start.getTime() &&
         transaction.date.getTime() <= end.getTime()
       ))
       let dayName = ""
 
-      if(start.getUTCDate() === end.getUTCDate()) {
+      if (start.getUTCDate() === end.getUTCDate()) {
         dayName = start.getUTCDate() + ""
       } else {
         dayName = `${start.getUTCDate()} - ${end.getUTCDate()}`
@@ -114,22 +117,22 @@ class StatisticService {
   getStatisticsQuery(query) {
     const {years, weeks, months} = query
 
-    if(years || years === 0) return {type: "years", dateCounter: years}
-    if(weeks || weeks === 0) return {type: "weeks", dateCounter: weeks}
-    if(months || months === 0) return {type: "months", dateCounter: months}
+    if (years || years === 0) return {type: "years", dateCounter: years}
+    if (weeks || weeks === 0) return {type: "weeks", dateCounter: weeks}
+    if (months || months === 0) return {type: "months", dateCounter: months}
 
     throw new ApiError(400, "Bad params")
   }
 
   async processTransactionsStatisticSection(transactions, transactionType, data) {
-    if(!transactions.length) return data
+    if (!transactions.length) return data
 
     const copyData = {...data}
 
     transactions.forEach(transaction => {
       const amount = transaction.convertedAmount ? transaction.convertedAmount : transaction.amount
 
-      if(transaction.transactionType === "expenses")  {
+      if (transaction.transactionType === "expenses") {
         copyData.expenses += amount
         return
       }
@@ -139,9 +142,9 @@ class StatisticService {
 
     let profit = (copyData.income - copyData.expenses)
 
-    if(profit !== parseInt(profit)) profit = Number(profit).toFixed(2)
+    if (profit !== parseInt(profit)) profit = Number(profit).toFixed(2)
 
-    if(profit >= 0) {
+    if (profit >= 0) {
       copyData.profit = Number(profit)
     } else {
       copyData.loss = Math.abs(Number(profit))
@@ -154,11 +157,11 @@ class StatisticService {
     const result = []
     const accounts = await TransactionService.getAccountsFromTransactions(allTransactions)
 
-    if(!accounts.length) return []
+    if (!accounts.length) return []
 
-    for(const account of accounts) {
+    for (const account of accounts) {
       const transactions = TransactionService.getTransactionsFromAccount(account.id.toString(), allTransactions)
-      if(account.currency === account.ownerId.currency) {
+      if (account.currency === account.ownerId.currency) {
         result.push(...transactions)
         continue
       }

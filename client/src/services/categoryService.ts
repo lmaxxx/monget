@@ -3,7 +3,6 @@ import {setExpensesCategories, setIncomeCategories} from "../store/categorySlice
 import {ICategory} from "../types/sliceTypes/category.type";
 import {TransactionType} from "../types/sliceTypes/transaction.type";
 import {UseFormReturnType} from "@mantine/form";
-import {IAccount} from "../types/sliceTypes/account.type";
 
 class CategoryService {
   setCategories({dispatch, data}: {
@@ -12,7 +11,7 @@ class CategoryService {
   }) {
     const transactionType = data[0].transactionType
 
-    if(transactionType === TransactionType.Expenses) {
+    if (transactionType === TransactionType.Expenses) {
       dispatch(setExpensesCategories(data))
     } else {
       dispatch(setIncomeCategories(data))
@@ -37,7 +36,7 @@ class CategoryService {
   calculateSuitableAmountOfCategories(wrapperWidth: number, categoryWidth: number) {
     const categoryWidthWithGap = categoryWidth + 16
 
-    if(!wrapperWidth) return 3
+    if (!wrapperWidth) return 3
 
     return Math.floor(wrapperWidth / categoryWidthWithGap)
   }
@@ -48,7 +47,7 @@ class CategoryService {
         name: ""
       },
       validate: {
-        name:  (value: string) => value.trim().length ? null : "You need to type a category name"
+        name: (value: string) => value.trim().length ? null : "You need to type a category name"
       }
     }
   }
@@ -60,7 +59,7 @@ class CategoryService {
   getPercentOfCategory(wholeNumber: number, value: number) {
     const percents = Math.round(value * 100 / wholeNumber)
 
-    if(percents === 0) return "<1%"
+    if (percents === 0) return "<1%"
 
     return percents + "%"
   }

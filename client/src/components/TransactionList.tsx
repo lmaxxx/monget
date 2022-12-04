@@ -1,4 +1,4 @@
-import {useGetTransactionsQuery, useLazyGetTransactionsQuery} from "../api/transactionApi";
+import {useLazyGetTransactionsQuery} from "../api/transactionApi";
 import {useAppSelector} from "../hooks/storeHooks";
 import {useLocation} from "react-router-dom";
 import Loader from "./Loader";
@@ -26,16 +26,17 @@ const TransactionList = () => {
   }, []);
 
   useEffect(() => {
-    if(newTransactions?.length) {
+    if (newTransactions?.length) {
       setTransactions(oldTransactions => [...oldTransactions, ...newTransactions])
       return
     }
 
-    if(transactions.length) setLoadMore(false)
+    if (transactions.length) setLoadMore(false)
   }, [newTransactions]);
 
   const fetch = () => {
-    getTransactions({accountId,
+    getTransactions({
+      accountId,
       categoryId: category.id,
       transactionType,
       dateCounter,
@@ -47,11 +48,11 @@ const TransactionList = () => {
     setPage(prevPage => prevPage + 1)
   }
 
-  const showDate = (transaction: ITransaction, index: number) =>  (
+  const showDate = (transaction: ITransaction, index: number) => (
     index === 0 || new Date(transaction.date).getDate() !== new Date(transactions![index - 1].date).getDate()
   )
 
-  if(isLoading) return <Loader width={"100%"} height={"300px"}/>
+  if (isLoading) return <Loader width={"100%"} height={"300px"}/>
 
   return (
     <Stack sx={{overflowY: "auto", maxHeight: "500px", height: "100%"}}>
