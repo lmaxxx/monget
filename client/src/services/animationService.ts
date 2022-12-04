@@ -33,15 +33,12 @@ class AnimationService {
       },
     }
   }
-  navbarSlide(): Variants {
-    return {
-      animate: {
-        x: 0,
-      },
-      initial: {
-        x: "-100vw",
-      },
+  navbarSlide(isMobile: boolean): Variants {
+    if(isMobile) {
+      return {animate: {x: 0}, initial: {x: "-100vw"}}
     }
+
+    return {}
   }
 }
 

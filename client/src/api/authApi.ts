@@ -70,7 +70,6 @@ export const authApi = createApi({
       }),
       async onQueryStarted(id, {dispatch, queryFulfilled}) {
         const {data} = await queryFulfilled
-        console.log(data)
         await AuthService.updateUserData({dispatch, data, isNewUser: false})
       }
     })
