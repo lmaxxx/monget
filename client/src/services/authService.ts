@@ -70,8 +70,6 @@ class AuthService {
     isNewUser: boolean
   }) {
     try {
-      console.log(data.user)
-
       dispatch(setUser(data.user))
       dispatch(setAuth(true))
 

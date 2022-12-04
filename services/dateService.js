@@ -89,6 +89,13 @@ class DateService {
       monthStartDayCopy.setUTCDate(monthStartDayCopy.getUTCDate() + 1)
     }
   }
+
+  addTimezoneOffset(date) {
+    const copyDate = new Date(date)
+    copyDate.setUTCMinutes(copyDate.getUTCMinutes() - copyDate.getTimezoneOffset())
+
+    return copyDate
+  }
 }
 
 module.exports = new DateService()

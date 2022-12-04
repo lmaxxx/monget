@@ -16,7 +16,7 @@ class TransactionService {
     if (query) {
       const {start, end, categoryId} = query
 
-      if (start && end) findQuery.date = {$gt: start, $lt: end}
+      if (start && end) findQuery.date = {$gte: start, $lte: end}
       if (categoryId) findQuery.categoryId = categoryId
     }
 
@@ -42,13 +42,7 @@ class TransactionService {
   }
 
   async createTransaction(userId, data) {
-    data.date = new Date(data.date)
-    const hours = data.date.getUTCHours()
-    const milliseconds = data.date.getUTCMilliseconds()
-
-    if(hours > 0 && milliseconds === 0) {
-      data.date.setUTCHours(hours + (25 - hours))
-    }
+    data.date = DateService.addTimezoneOffset(data.date)
 
     const newTransactionDoc = await Transaction.create({
       ...data,
@@ -69,13 +63,7 @@ class TransactionService {
 
     if (!transactionDoc) throw new ApiError(400, "There is no category with current id")
 
-    data.date = new Date(data.date)
-    const hours = data.date.getUTCHours()
-    const milliseconds = data.date.getUTCMilliseconds()
-
-    if(hours > 0 && milliseconds === 0) {
-      data.date.setUTCHours(hours + (25 - hours))
-    }
+    data.date = DateService.addTimezoneOffset(data.date)
 
     Object.entries(data).forEach(([property, value]) => {
       transactionDoc[property] = value
