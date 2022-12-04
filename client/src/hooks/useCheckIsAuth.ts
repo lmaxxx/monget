@@ -19,8 +19,8 @@ const useCheckIsAuth = () => {
   useEffect(() => {
     if (isAuth && !user?.currency) return navigate("/currency/registration")
 
-    if (isAuth && location.pathname.startsWith("/registration") ||
-      location.pathname.startsWith("/login")) {
+    if (isAuth && (location.pathname.startsWith("/registration") ||
+      location.pathname.startsWith("/login"))) {
 
       return navigate("/")
     }
