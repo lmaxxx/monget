@@ -4,7 +4,14 @@ const ApiError = require("../exceptions/apiError");
 class CategoryController {
   async getCategories(req, res) {
     try {
-      const transactionType = req.url.split("/").at(-1)
+      let transactionType = ""
+
+      if(req.url.endsWith("/expenses")) {
+        transactionType = "expenses"
+      } else {
+        transactionType = "income"
+      }
+
       const {id} = req.user
       const categories = await CategoryService.getCategories(transactionType, id)
 
