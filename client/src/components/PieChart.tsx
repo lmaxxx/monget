@@ -35,7 +35,7 @@ const PieChart: FC<PropsType> = ({data, transactionType}) => {
   return (
     <ResponsivePie
       data={data.length ? data : emptyPieChartData}
-      tooltip={({datum}) =>
+      tooltip={({datum}: {datum: ComputedDatum<PieSection>}) =>
         datum.data.isEmpty ?
           <></> :
           <PieTooltip transactionType={transactionType} data={datum.data}/>
