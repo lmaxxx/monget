@@ -19,7 +19,7 @@ const useStyles = createStyles((theme) => ({
 
 const NavigationBar: FC<PropsType> = ({opened}) => {
   const {classes} = useStyles();
-  const isMobile = useMediaQuery('(max-width: 7a68px)');
+  const isMobile = useMediaQuery('(max-width: 768px)');
   const animationsVariants = AnimationService.navbarSlide(isMobile)
 
   return (
