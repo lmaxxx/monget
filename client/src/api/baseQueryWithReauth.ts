@@ -1,4 +1,6 @@
 import {BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError} from "@reduxjs/toolkit/query";
+import {setAuth, setUser} from "../store/userSlice";
+import {IUser} from "../types/sliceTypes/user.type";
 
 const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
   args,
@@ -16,6 +18,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
   })
 
   let result = await baseQuery(args, api, extraOptions)
+  const {dispatch} = api
 
   if (result.error && result.error.status === 401) {
     const refreshResult = await baseQuery('/api/auth/refresh', api, extraOptions) as any
@@ -25,6 +28,8 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
       result = await baseQuery(args, api, extraOptions)
     } else {
       localStorage.removeItem("token")
+      dispatch(setAuth(false))
+      dispatch(setUser({} as IUser))
     }
   }
 
