@@ -9,7 +9,7 @@ const Charts = () => {
   const activeStatisticTransactionType = useAppSelector(state => state.statisticSlice.activeStatisticTransactionType)
   const statisticDateType = useAppSelector(state => state.statisticSlice.statisticDateType)
   const dateCounter = useAppSelector(state => state.statisticSlice.dateCounter)
-  const [getStatistic] = useLazyGetStatisticQuery()
+  const [getStatistic, {isFetching}] = useLazyGetStatisticQuery()
 
   useEffect(() => {
     getStatistic({
@@ -21,7 +21,7 @@ const Charts = () => {
   return (
     <DefaultPageWrapper>
       <ChartsNavbar/>
-      <BarChart/>
+      <BarChart isFetching={isFetching}/>
     </DefaultPageWrapper>
   )
 }

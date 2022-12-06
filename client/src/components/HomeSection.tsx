@@ -1,4 +1,4 @@
-import {Button, Stack, Title} from '@mantine/core'
+import {Button, LoadingOverlay, Stack, Title} from '@mantine/core'
 import {FC, useEffect} from 'react'
 import {IconPlus} from "@tabler/icons";
 import {Link} from "react-router-dom";
@@ -21,7 +21,7 @@ const HomeSection: FC<PropsType> = ({title}) => {
   const activeTransactionDateRequestType = useAppSelector(state => state.transactionSlice.activeTransactionDateRequestType)
   const chartData = useAppSelector(state => state.transactionSlice[`${transactionType}ChartData`])
   const range = useAppSelector(state => state.transactionSlice.range)
-  const [getChartData] = useLazyGetTransactionsChartDataQuery()
+  const [getChartData, {isFetching}] = useLazyGetTransactionsChartDataQuery()
   useGetCategoriesQuery(transactionType)
 
   useEffect(() => {
@@ -37,7 +37,8 @@ const HomeSection: FC<PropsType> = ({title}) => {
   }, [activeAccountId, transactionType, dateCounter, activeTransactionDateRequestType, range[1]]);
 
   return (
-    <Stack align={"center"}>
+    <Stack align={"center"} sx={{position: "relative"}}>
+      <LoadingOverlay visible={isFetching} overlayBlur={2}/>
       <Title align={"center"}>{title}</Title>
       <Stack sx={{height: "45vh", width: "100%"}}>
         <PieChart transactionType={transactionType} data={chartData}/>

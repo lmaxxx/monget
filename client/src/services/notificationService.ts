@@ -9,6 +9,14 @@ class NotificationService {
       autoClose: 3000
     })
   }
+
+  sendScrrenWarning() {
+    showNotification({
+      message: "It is better to use fullscreen mode",
+      color: "yellow",
+      autoClose: 3000,
+    })
+  }
 }
 
 export default new NotificationService()
