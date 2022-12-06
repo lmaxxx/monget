@@ -4,7 +4,7 @@ import NavigationLinks from "./NavigationLinks";
 import BottomNavigationSection from "./BottomNavigationSection";
 import AnimatedWrapper from "../hoc/AnimatedWrapper";
 import AnimationService from "../services/animationService";
-import {useMediaQuery, useScrollLock} from "@mantine/hooks";
+import {useMediaQuery} from "@mantine/hooks";
 
 interface PropsType {
   opened: boolean
@@ -18,14 +18,9 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const NavigationBar: FC<PropsType> = ({opened}) => {
-  const [scrollLocked, setScrollLocked] = useScrollLock();
   const {classes} = useStyles();
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery('(max-width: 7a68px)');
   const animationsVariants = AnimationService.navbarSlide(isMobile)
-
-  useEffect(() => {
-    opened ? setScrollLocked(true) : setScrollLocked(false)
-  }, [opened]);
 
   return (
     <AnimatedWrapper animate={opened ? "animate" : "initial"} initial={"initial"} variants={animationsVariants}>
