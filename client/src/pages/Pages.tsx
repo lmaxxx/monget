@@ -18,6 +18,7 @@ import CategoryEdit from "./CategoryEdit";
 import TransactionCreate from "./TransactionCreate";
 import TransactionEdit from "./TransactionEdit";
 import CategoryTransactions from "./CategoryTransactions";
+import NotFound from "./NotFound";
 
 const Pages = () => {
   return (
@@ -40,6 +41,7 @@ const Pages = () => {
       <Route path={"/transaction/:id"} element={<TransactionEdit/>}/>
       <Route path={"/transaction/create/:id"} element={<TransactionCreate/>}/>
       <Route path={"/transactions/:id"} element={<CategoryTransactions/>}/>
+      <Route path={"*"} element={<NotFound/>} />
     </Routes>
   )
 }
