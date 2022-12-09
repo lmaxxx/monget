@@ -24,15 +24,16 @@ export const statisticSlice = createSlice({
       state.statisticDateType = action.payload
       state.dateCounter = 1
     },
-    addStatisticDateCounter: (state) => {
+    addStatisticDateCounter: state => {
       state.dateCounter += 1
     },
-    subStatisticDateCounter: (state) => {
+    subStatisticDateCounter: state => {
       state.dateCounter -= 1
     },
     setData: (state, action: PayloadAction<StatisticSection[]>) => {
       state.data = action.payload
-    }
+    },
+    resetStatisticSlice: () => initialState
   }
 })
 
@@ -41,7 +42,8 @@ export const {
   setStatisticDateType,
   addStatisticDateCounter,
   subStatisticDateCounter,
-  setData
+  setData,
+  resetStatisticSlice
 } = statisticSlice.actions
 
 export default statisticSlice.reducer

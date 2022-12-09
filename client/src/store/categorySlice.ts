@@ -21,10 +21,16 @@ export const categorySlice = createSlice({
     },
     setActiveTransactionType: (state, action: PayloadAction<TransactionType>) => {
       state.activeTransactionType = action.payload
-    }
+    },
+    resetCategorySlice: () => initialState
   }
 })
 
-export const {setIncomeCategories, setExpensesCategories, setActiveTransactionType} = categorySlice.actions
+export const {
+  setIncomeCategories,
+  setExpensesCategories,
+  setActiveTransactionType,
+  resetCategorySlice
+} = categorySlice.actions
 
 export default categorySlice.reducer

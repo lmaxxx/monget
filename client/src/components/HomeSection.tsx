@@ -7,7 +7,7 @@ import {useLazyGetTransactionsChartDataQuery} from "../api/transactionApi";
 import {TransactionType} from "../types/sliceTypes/transaction.type";
 import PieChart from "./PieChart";
 import HomeCategoriesList from "./HomeCategoriesList";
-import {useGetCategoriesQuery} from "../api/categoryApi";
+import {useGetCategoriesQuery, useLazyGetCategoriesQuery} from "../api/categoryApi";
 
 interface PropsType {
   title: string
@@ -16,13 +16,15 @@ interface PropsType {
 const HomeSection: FC<PropsType> = ({title}) => {
   const transactionType = title === "Expenses" ? TransactionType.Expenses : TransactionType.Income
   const activeAccountId = useAppSelector(state => state.accountSlice.activeAccount.id)
+  const categories = useAppSelector(state => state.categorySlice[`${transactionType}Categories`])
   const activeAccountCurrency = useAppSelector(state => state.accountSlice.activeAccount.currency)
   const dateCounter = useAppSelector(state => state.transactionSlice.dateCounter)
   const activeTransactionDateRequestType = useAppSelector(state => state.transactionSlice.activeTransactionDateRequestType)
   const chartData = useAppSelector(state => state.transactionSlice[`${transactionType}ChartData`])
   const range = useAppSelector(state => state.transactionSlice.range)
-  const [getChartData, {isFetching}] = useLazyGetTransactionsChartDataQuery()
-  useGetCategoriesQuery(transactionType)
+  const [getChartData, {isLoading: isTransactionsFetching}] = useLazyGetTransactionsChartDataQuery()
+  const [getCategories, {isLoading: isCategoriesLoading}] = useLazyGetCategoriesQuery()
+  const isLoading = isTransactionsFetching || isCategoriesLoading
 
   useEffect(() => {
     if (activeAccountId && transactionType && activeTransactionDateRequestType && range[0] && range[1]) {
@@ -34,11 +36,13 @@ const HomeSection: FC<PropsType> = ({title}) => {
         range
       })
     }
+
+    if(!categories.length) getCategories(transactionType)
   }, [activeAccountId, transactionType, dateCounter, activeTransactionDateRequestType, range[1]]);
 
   return (
     <Stack align={"center"} sx={{position: "relative"}}>
-      <LoadingOverlay visible={isFetching} overlayBlur={2}/>
+      <LoadingOverlay visible={isLoading} overlayBlur={2}/>
       <Title align={"center"}>{title}</Title>
       <Stack sx={{height: "45vh", width: "100%"}}>
         <PieChart transactionType={transactionType} data={chartData}/>

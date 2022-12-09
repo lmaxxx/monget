@@ -2,6 +2,9 @@ import {AnyAction, ThunkDispatch} from "@reduxjs/toolkit";
 import {setAuth, setUser} from "../store/userSlice";
 import {IUser} from "../types/sliceTypes/user.type";
 import {MutableRefObject,} from "react";
+import {resetCategorySlice} from "../store/categorySlice";
+import {resetAccountSlice} from "../store/accountSlice";
+import {resetTransactionSlice} from "../store/transactionSlice";
 
 class AuthService {
   getLoginFormConfig() {
@@ -80,13 +83,21 @@ class AuthService {
     } // catch errors in component
   }
 
-  async deleteUserData(dispatch: ThunkDispatch<any, any, AnyAction>) {
+  deleteUserData(dispatch: ThunkDispatch<any, any, AnyAction>) {
     try {
       localStorage.removeItem("token")
       dispatch(setUser({} as IUser))
       dispatch(setAuth(false))
+      this.resetStore(dispatch)
     } catch (err) {
     } // catch errors in component
+  }
+
+  resetStore(dispatch: ThunkDispatch<any, any, AnyAction>) {
+    dispatch(resetCategorySlice())
+    dispatch(resetAccountSlice())
+    dispatch(resetCategorySlice())
+    dispatch(resetTransactionSlice())
   }
 }
 

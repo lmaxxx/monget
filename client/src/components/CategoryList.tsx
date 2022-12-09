@@ -1,6 +1,6 @@
-import {FC} from 'react'
+import {FC, useEffect} from 'react'
 import {TransactionType} from "../types/sliceTypes/transaction.type";
-import {useGetCategoriesQuery} from "../api/categoryApi";
+import {useLazyGetCategoriesQuery} from "../api/categoryApi";
 import Loader from "./Loader";
 import {useAppSelector} from "../hooks/storeHooks";
 import {Group} from "@mantine/core";
@@ -12,9 +12,14 @@ interface PropsType {
 }
 
 const CategoryList: FC<PropsType> = ({transactionType, iconProps}) => {
-  const {isLoading} = useGetCategoriesQuery(transactionType)
+  const [getCategories ,{isLoading}] = useLazyGetCategoriesQuery()
   const categories = useAppSelector(state => state.categorySlice[`${transactionType}Categories`])
   const hasOnClickEvent = !!iconProps.onClick
+
+  useEffect(() => {
+    getCategories(transactionType)
+  }, []);
+
 
   if (isLoading || !categories.length) return <Loader height={"80vh"}/>
 

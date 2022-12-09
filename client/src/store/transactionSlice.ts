@@ -37,18 +37,19 @@ export const transactionSlice = createSlice({
     setRange: (state, action: PayloadAction<DateRangeType>) => {
       state.range = action.payload
     },
-    addDateCounter: (state) => {
+    addDateCounter: state => {
       state.dateCounter += 1
     },
-    subDateCounter: (state) => {
+    subDateCounter: state => {
       state.dateCounter -= 1
     },
-    setExpensesChartData(state, action: PayloadAction<PieSection[]>) {
+    setExpensesChartData: (state, action: PayloadAction<PieSection[]>) => {
       state.expensesChartData = action.payload
     },
-    setIncomeChartData(state, action: PayloadAction<PieSection[]>) {
+    setIncomeChartData: (state, action: PayloadAction<PieSection[]>) => {
       state.incomeChartData = action.payload
     },
+    resetTransactionSlice: () => initialState
   }
 })
 
@@ -59,7 +60,8 @@ export const {
   addDateCounter,
   subDateCounter,
   setExpensesChartData,
-  setIncomeChartData
+  setIncomeChartData,
+  resetTransactionSlice
 } = transactionSlice.actions
 
 export default transactionSlice.reducer

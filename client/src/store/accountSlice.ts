@@ -16,10 +16,11 @@ export const accountSlice = createSlice({
     },
     setActiveAccount: (state, action: PayloadAction<string>) => {
       state.activeAccount = state.accounts.find(account => account.id === action.payload)!
-    }
+    },
+    resetAccountSlice: () => initialState
   }
 })
 
-export const {setAccounts, setActiveAccount} = accountSlice.actions
+export const {setAccounts, setActiveAccount, resetAccountSlice} = accountSlice.actions
 
 export default accountSlice.reducer

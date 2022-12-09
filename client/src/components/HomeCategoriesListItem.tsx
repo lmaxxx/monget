@@ -36,11 +36,11 @@ const HomeCategoriesListItem: FC<PropsType> = ({transactionType, chartSection}) 
       <CategoryIcon
         backgroundSize={"3rem"}
         iconSize={"32px"}
-        iconName={category.iconName}
-        backgroundColor={category.iconBackgroundColor}
+        iconName={category?.iconName || "IconCash"}
+        backgroundColor={category?.iconBackgroundColor || "#ccc"}
       />
       <Text sx={{...HiddenTextStyles}}>
-        {category.name}
+        {category?.name || "Loading..."}
       </Text>
       <Text color={"gray"} sx={{justifySelf: "end"}}>
         {CategoryService.getPercentOfCategory(chartDataValue, chartSection.value)}

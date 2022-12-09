@@ -53,6 +53,7 @@ export const accountApi = createApi({
 
 export const {
   useGetAccountsQuery,
+  useLazyGetAccountQuery,
   useCreateAccountMutation,
   useLazyGetAccountsQuery,
   useEditAccountMutation,
