@@ -1,7 +1,7 @@
 import {Box, Burger, Button, Header as HeaderComponent, Image, MediaQuery} from '@mantine/core'
-import {IconArrowsMaximize} from "@tabler/icons"
+import {IconArrowsMaximize, IconArrowsMinimize} from "@tabler/icons"
 import LogoWithName from "../assets/logoWithName.png";
-import {FC, useEffect} from "react";
+import {FC} from "react";
 import {useFullscreen} from "@mantine/hooks";
 import NotificationService from "../services/notificationService";
 
@@ -13,7 +13,7 @@ interface PropsType {
 const Header: FC<PropsType> = ({opened, setOpened}) => {
   const {toggle, fullscreen} = useFullscreen();
   const toggleFullScreen = () => {
-    if(fullscreen) NotificationService.sendScrrenWarning()
+    if (fullscreen) NotificationService.sendScrrenWarning()
     toggle()
   }
 
@@ -43,7 +43,7 @@ const Header: FC<PropsType> = ({opened, setOpened}) => {
         >
           <Image width={"10rem"} src={LogoWithName} alt={"logo"}/>
           <Button onClick={toggleFullScreen} p={4} variant={"outline"}>
-            <IconArrowsMaximize/>
+            {fullscreen ? <IconArrowsMinimize/> : <IconArrowsMaximize/>}
           </Button>
         </Box>
       </Box>

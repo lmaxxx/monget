@@ -1,5 +1,5 @@
 import {createStyles, Navbar} from '@mantine/core';
-import {FC, useEffect} from "react";
+import {FC} from "react";
 import NavigationLinks from "./NavigationLinks";
 import BottomNavigationSection from "./BottomNavigationSection";
 import AnimatedWrapper from "../hoc/AnimatedWrapper";
@@ -27,7 +27,6 @@ const NavigationBar: FC<PropsType> = ({opened}) => {
       <Navbar
         p="md"
         hiddenBreakpoint="sm"
-
         sx={!opened && isMobile ? {position: "absolute", left: "-100%"} : {}} width={{sm: 250}}
       >
         <Navbar.Section grow className={classes.links}>
