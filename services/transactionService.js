@@ -13,7 +13,13 @@ class TransactionService {
 
     if (transactionType) findQuery.transactionType = transactionType
     if (accountId) findQuery.accountId = accountId
-    if (query) findQuery = {...findQuery, ...query}
+
+    if (query) {
+      findQuery.date = {"$gte": query.start, "$lte": query.end }
+      findQuery.ownerId = query.ownerId
+
+      if(query?.categoryId) findQuery.categoryId = query.categoryId
+    }
 
     const transactionsDocs = await Transaction.find(findQuery, null, options).sort({createdAt: "desc"})
       .catch(err => {
