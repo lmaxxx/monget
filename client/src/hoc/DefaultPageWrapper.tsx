@@ -1,4 +1,4 @@
-import {FC, memo, ReactNode, useState} from 'react'
+import {FC, ReactNode, useState} from 'react'
 import {AppShell} from '@mantine/core'
 import {useAppSelector} from "../hooks/storeHooks"
 import VerifyEmailScreen from "../components/VerifyEmailScreen"

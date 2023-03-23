@@ -2,6 +2,7 @@ import {Stack} from "@mantine/core";
 import links from '../data/links'
 import {ILink} from "../types/ui.type";
 import NavigationLink from "./NavigationLink";
+import {memo} from "react";
 
 const NavigationLinks = () => {
   return (
@@ -13,4 +14,4 @@ const NavigationLinks = () => {
   )
 }
 
-export default NavigationLinks
+export default memo(NavigationLinks)

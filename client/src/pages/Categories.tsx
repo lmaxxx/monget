@@ -3,7 +3,7 @@ import {useAppDispatch, useAppSelector} from "../hooks/storeHooks";
 import CategoryList from "../components/CategoryList";
 import TransactionTypeSegmentControl from "../components/TransactionTypeSegmentControl";
 import {Button, Group, Switch, Text} from "@mantine/core";
-import {ChangeEvent, useEffect, useState} from "react";
+import {ChangeEvent, memo, useEffect, useState} from "react";
 import CategoryReorder from "../components/CategoryReorder";
 import {useUpdateOrderMutation} from "../api/categoryApi";
 import Loader from "../components/Loader";
@@ -93,4 +93,4 @@ const Categories = () => {
   )
 }
 
-export default Categories
+export default memo(Categories)

@@ -1,7 +1,7 @@
 import {Box, Burger, Button, Header as HeaderComponent, Image, MediaQuery} from '@mantine/core'
 import {IconArrowsMaximize, IconArrowsMinimize} from "@tabler/icons"
 import LogoWithName from "../assets/logoWithName.png";
-import {FC} from "react";
+import {FC, memo} from "react";
 import {useFullscreen} from "@mantine/hooks";
 import NotificationService from "../services/notificationService";
 
@@ -52,4 +52,4 @@ const Header: FC<PropsType> = ({opened, setOpened}) => {
   )
 }
 
-export default Header
+export default memo(Header)

@@ -7,7 +7,7 @@ import {useLazyGetTransactionsChartDataQuery} from "../api/transactionApi";
 import {TransactionType} from "../types/sliceTypes/transaction.type";
 import PieChart from "./PieChart";
 import HomeCategoriesList from "./HomeCategoriesList";
-import {useGetCategoriesQuery, useLazyGetCategoriesQuery} from "../api/categoryApi";
+import {useLazyGetCategoriesQuery} from "../api/categoryApi";
 
 interface PropsType {
   title: string
@@ -37,7 +37,7 @@ const HomeSection: FC<PropsType> = ({title}) => {
       })
     }
 
-    if(!categories.length) getCategories(transactionType)
+    if (!categories.length) getCategories(transactionType)
   }, [activeAccountId, transactionType, dateCounter, activeTransactionDateRequestType, range[1]]);
 
   return (

@@ -12,7 +12,7 @@ interface PropsType {
 }
 
 const CategoryList: FC<PropsType> = ({transactionType, iconProps}) => {
-  const [getCategories ,{isLoading}] = useLazyGetCategoriesQuery()
+  const [getCategories, {isLoading}] = useLazyGetCategoriesQuery()
   const categories = useAppSelector(state => state.categorySlice[`${transactionType}Categories`])
   const hasOnClickEvent = !!iconProps.onClick
 

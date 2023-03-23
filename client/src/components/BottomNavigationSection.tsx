@@ -3,6 +3,7 @@ import {IconLogout} from "@tabler/icons";
 import {useAppSelector} from "../hooks/storeHooks";
 import HiddenTextStyles from "../assets/hiddenTextStyles";
 import {useLogoutMutation} from "../api/authApi";
+import {memo} from "react";
 
 const BottomNavigationSection = () => {
   const userName = useAppSelector(state => state.userSlice.user.name)
@@ -27,4 +28,4 @@ const BottomNavigationSection = () => {
   )
 }
 
-export default BottomNavigationSection
+export default memo(BottomNavigationSection)
